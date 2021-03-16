@@ -4,4 +4,9 @@
     <style name="AppBarTitle">
         <item name="android:textSize">@dimen/font_xl</item>
     </style>
+
+    <style name="TextViewAlbumName">
+        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>
