@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/photos_fragment">
+    <fragment
+        android:id="@+id/photos_fragment"
+        android:name="com.team02.xgallery.ui.photos.PhotosFragment"
+        android:label="@string/photos"
+        tools:layout="@layout/fragment_photos" />
+
+    <fragment
+        android:id="@+id/search_fragment"
+        android:name="com.team02.xgallery.ui.search.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search" />
+
+    <fragment
+        android:id="@+id/library_fragment"
+        android:name="com.team02.xgallery.ui.library.LibraryFragment"
+        android:label="@string/library"
+        tools:layout="@layout/fragment_library" />
+</navigation>

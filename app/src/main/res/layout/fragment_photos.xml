@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.photo.PhotoFragment">
+    tools:context=".ui.photos.PhotosFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/media_grid"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="30dp"/>
+        android:layout_height="match_parent"
+        android:paddingBottom="30dp" />
 </LinearLayout>
