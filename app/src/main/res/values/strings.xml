@@ -3,4 +3,12 @@
     <string name="photos">Photos</string>
     <string name="search">Search</string>
     <string name="library">Library</string>
+    <string name="favorites">Favorites</string>
+    <string name="utilities">Utilities</string>
+    <string name="archive">Archive</string>
+    <string name="trash">Trash</string>
+    <string name="photos_on_device">Photos on device</string>
+    <string name="view_all">View all</string>
+    <string name="album">Album</string>
+    <string name="recent">Most recent photo</string>
 </resources>
