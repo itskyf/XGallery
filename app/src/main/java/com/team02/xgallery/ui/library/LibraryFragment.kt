@@ -20,6 +20,10 @@ class LibraryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLibraryBinding.inflate(inflater, container, false)
+        val images = arrayListOf<Image>(
+
+        )
+        val adapter = ImageAdapter(images)
         return binding.root
     }
 
