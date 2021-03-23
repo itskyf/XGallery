@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.storage.FirebaseStorage
 import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentLibraryBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,18 +22,21 @@ class LibraryFragment : Fragment() {
     ): View {
         _binding = FragmentLibraryBinding.inflate(inflater, container, false)
         val images = arrayListOf<Image>(
-            Image("Photo_1", R.drawable.download),
-            Image("Photo_1", R.drawable.download1),
-            Image("Photo_1", R.drawable.download2),
-            Image("Photo_1", R.drawable.download4),
-            Image("Photo_1", R.drawable.download5),
-            Image("Photo_1", R.drawable.download6),
-            Image("Photo_1", R.drawable.images),
+            Image("Photo_1", R.drawable.ic_launcher_foreground),
+            Image("Photo_2", R.drawable.ic_launcher_foreground),
+            Image("Photo_3", R.drawable.ic_launcher_foreground),
+            Image("Photo_4", R.drawable.ic_launcher_foreground),
+            Image("Photo_5", R.drawable.ic_launcher_foreground),
+            Image("Photo_6", R.drawable.ic_launcher_foreground),
+            Image("Photo_7", R.drawable.ic_launcher_foreground),
+            Image("Photo_8", R.drawable.ic_launcher_foreground),
+            Image("Photo_9", R.drawable.ic_launcher_foreground),
+            Image("Photo_10", R.drawable.ic_launcher_foreground),
         )
         val adapter = ImageAdapter(images)
         val manager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         binding.viewgroup.layoutManager = manager
-        binding.viewAlbum.adapter = adapter
+        binding.viewgroup.adapter = adapter
         return binding.root
     }
 
