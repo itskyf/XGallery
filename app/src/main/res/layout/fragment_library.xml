@@ -132,11 +132,13 @@
         android:layout_height="wrap_content"
         android:background="#ffffff">
 
-        <LinearLayout
-            android:id="@+id/viewgroup"
-            android:layout_width="wrap_content"
+
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_height="wrap_content"
-            android:orientation="horizontal" />
+            android:layout_width="match_parent"
+            android:id="@+id/viewgroup"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </HorizontalScrollView>
     <LinearLayout
         android:layout_width="match_parent"
