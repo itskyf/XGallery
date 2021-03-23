@@ -9,11 +9,4 @@ class Image (var _title: String, var _image: Int) {
         return _title
     }
 
-    fun setImage(_image: Int) {
-        this._image = _image
-    }
-
-    fun setTitle(_title: String) {
-        this._title = _title
-    }
 }

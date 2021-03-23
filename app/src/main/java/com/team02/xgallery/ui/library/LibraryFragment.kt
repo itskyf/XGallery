@@ -33,7 +33,7 @@ class LibraryFragment : Fragment() {
             Image("Photo_9", R.drawable.ic_launcher_foreground),
             Image("Photo_10", R.drawable.ic_launcher_foreground),
         )
-        val adapter = ImageAdapter(images)
+        val adapter = this.activity?.let { ImageAdapter(it, images) }
         val manager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         binding.viewgroup.layoutManager = manager
         binding.viewgroup.adapter = adapter
