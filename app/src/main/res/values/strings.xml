@@ -7,8 +7,8 @@
     <string name="utilities">Utilities</string>
     <string name="archive">Archive</string>
     <string name="trash">Trash</string>
-    <string name="photos_on_device">Photos on device</string>
-    <string name="view_all">View all</string>
+    <string name="on_device">On device</string>
     <string name="album">Album</string>
     <string name="recent">Most recent photo</string>
+    <string name="title">Title</string>
 </resources>
