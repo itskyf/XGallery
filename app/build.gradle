@@ -3,12 +3,12 @@ plugins {
     id "kotlin-android"
     id "kotlin-kapt"
     id "dagger.hilt.android.plugin"
+    id "com.google.gms.google-services"
 }
 
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
-
     defaultConfig {
         applicationId "com.team02.xgallery"
         minSdkVersion 26
@@ -27,7 +27,8 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
         }
     }
     compileOptions {
@@ -42,6 +43,7 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3-native-mt"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.3-native-mt"
 
     implementation platform("com.google.firebase:firebase-bom:26.7.0")
     implementation "com.google.firebase:firebase-auth-ktx"
