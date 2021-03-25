@@ -7,7 +7,7 @@
     <item
         android:id="@id/search_fragment"
         android:icon="@drawable/ic_baseline_search_24"
-        android:title="@string/photos" />
+        android:title="@string/search" />
     <item
         android:id="@id/library_fragment"
         android:icon="@drawable/ic_round_collections_24"
