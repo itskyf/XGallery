@@ -1,4 +1,4 @@
-package com.team02.xgallery.ui.auth.login
+package com.team02.xgallery.ui.auth.forgot
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,19 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.team02.xgallery.R
 import com.team02.xgallery.Utils
-import com.team02.xgallery.databinding.FragmentLoginBinding
+import com.team02.xgallery.databinding.FragmentForgotBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
-    private var _binding: FragmentLoginBinding? = null
+class ForgotFragment : Fragment() {
+    private var _binding: FragmentForgotBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
-    private val viewModel: LoginViewModel by viewModels()
+    private val viewModel: ForgotViewModel by viewModels()
     private var uiStateJob: Job? = null
 
     override fun onCreateView(
@@ -31,7 +30,7 @@ class LoginFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentForgotBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -42,33 +41,32 @@ class LoginFragment : Fragment() {
         uiStateJob = lifecycleScope.launch {
             viewModel.uiState.collect { uiState ->
                 when (uiState) {
-                    LoginState.SUCCESS -> {
-                        navController.navigate(R.id.photos_fragment)
+                    ForgotState.SUCCESS -> {
+                        Snackbar.make(binding.root, "The reset link has been sent to your email.\nCheck it out!", Snackbar.LENGTH_INDEFINITE)
+                                .setAction("OK") {
+                                    navController.popBackStack()
+                                }
+                                .show()
                     }
-                    LoginState.INPUT -> {
+                    ForgotState.INPUT -> {
                         Utils.setViewAndChildrenEnabled(binding.form, true)
                         binding.progressBar.visibility = View.GONE
                     }
-                    LoginState.LOADING -> {
+                    ForgotState.LOADING -> {
                         Utils.setViewAndChildrenEnabled(binding.form, false)
                         binding.progressBar.visibility = View.VISIBLE
                     }
-                    LoginState.NOT_VERIFIED -> {
-                        Snackbar.make(binding.root, "Your email address has not been verified yet.\nPlease verify it first!", Snackbar.LENGTH_SHORT)
+                    ForgotState.MALFORMED_EMAIL -> {
+                        Snackbar.make(binding.root, "Your email address is malformed.\nPlease try again!", Snackbar.LENGTH_SHORT)
                                 .show()
                         viewModel.tryAgain()
                     }
-                    LoginState.NOT_EXISTING_EMAIL -> {
+                    ForgotState.NOT_EXISTING_EMAIL -> {
                         Snackbar.make(binding.root, "Your email address does not exist.\nPlease try again!", Snackbar.LENGTH_SHORT)
                                 .show()
                         viewModel.tryAgain()
                     }
-                    LoginState.WRONG_PASSWORD -> {
-                        Snackbar.make(binding.root, "Your password is not correct.\nPlease try again!", Snackbar.LENGTH_SHORT)
-                                .show()
-                        viewModel.tryAgain()
-                    }
-                    LoginState.ERROR -> {
+                    ForgotState.ERROR -> {
                         Snackbar.make(binding.root, "Unexpected error.\nPlease try again!", Snackbar.LENGTH_SHORT)
                                 .show()
                         viewModel.tryAgain()
@@ -78,21 +76,14 @@ class LoginFragment : Fragment() {
         }
 
         with(binding) {
-            tvForgot.setOnClickListener {
-                navController.navigate(R.id.forgot_frament)
+            btnCancel.setOnClickListener {
+                navController.popBackStack()
             }
-            btnLogin.setOnClickListener {
+            btnSend.setOnClickListener {
                 val email = binding.tiEmail.text.toString()
-                val password = binding.tiPassword.text.toString()
                 lifecycleScope.launch {
-                    viewModel.signIn(email, password)
+                    viewModel.resetPassword(email)
                 }
-            }
-            btnLoginGoogle.setOnClickListener {
-
-            }
-            tvRegister.setOnClickListener {
-                navController.navigate(R.id.register_fragment)
             }
         }
     }

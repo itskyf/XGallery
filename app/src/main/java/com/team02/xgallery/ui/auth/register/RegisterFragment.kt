@@ -42,7 +42,7 @@ class RegisterFragment : Fragment() {
             viewModel.uiState.collect { uiState ->
                 when (uiState) {
                     RegisterState.SUCCESS -> {
-                        Snackbar.make(binding.root, "The verifying link was sent to your email. Check it out!", Snackbar.LENGTH_INDEFINITE)
+                        Snackbar.make(binding.root, "The verification link has been sent to your email.\nCheck it out!", Snackbar.LENGTH_INDEFINITE)
                                 .setAction("OK") {
                                     navController.popBackStack()
                                 }
@@ -57,22 +57,22 @@ class RegisterFragment : Fragment() {
                         binding.progressBar.visibility = View.VISIBLE
                     }
                     RegisterState.MALFORMED_EMAIL -> {
-                        Snackbar.make(binding.root, "Your email is malformed. Please try again!", Snackbar.LENGTH_SHORT)
+                        Snackbar.make(binding.root, "Your email address is malformed.\nPlease try again!", Snackbar.LENGTH_SHORT)
                                 .show()
                         viewModel.tryAgain()
                     }
                     RegisterState.WEAK_PASSWORD -> {
-                        Snackbar.make(binding.root, "Your password must have at least 6 characters. Please try again!", Snackbar.LENGTH_SHORT)
+                        Snackbar.make(binding.root, "Your password must have at least 6 characters.\nPlease try again!", Snackbar.LENGTH_SHORT)
                                 .show()
                         viewModel.tryAgain()
                     }
                     RegisterState.EXISTING_EMAIL -> {
-                        Snackbar.make(binding.root, "That email has been taken already. Please try another one!", Snackbar.LENGTH_SHORT)
+                        Snackbar.make(binding.root, "That email address has been taken already.\nPlease try another one!", Snackbar.LENGTH_SHORT)
                                 .show()
                         viewModel.tryAgain()
                     }
                     RegisterState.ERROR -> {
-                        Snackbar.make(binding.root, "Unexpected error. Please try again!", Snackbar.LENGTH_SHORT)
+                        Snackbar.make(binding.root, "Unexpected error.\nPlease try again!", Snackbar.LENGTH_SHORT)
                                 .show()
                         viewModel.tryAgain()
                     }

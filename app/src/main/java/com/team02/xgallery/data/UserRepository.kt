@@ -37,4 +37,7 @@ class UserRepository {
 
     fun sendEmailVerification() =
             auth.currentUser!!.sendEmailVerification(null)
+
+    fun sendPasswordResetEmail(email: String) =
+            auth.sendPasswordResetEmail(email)
 }
