@@ -4,14 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.team02.xgallery.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -41,14 +37,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        lifecycleScope.launch {
-            viewModel.authState.collectLatest { user ->
-                Timber.d("collect state")
-                when (user) {
-                    null -> navController.navigate(R.id.login_fragment)
-                    else -> navController.navigate(R.id.photos_fragment)
-                }
-            }
+        if (!viewModel.isAvailableToLogIn()) {
+            navController.navigate(R.id.login_fragment)
         }
+
+//        lifecycleScope.launch {
+//            viewModel.authState.collectLatest { user ->
+//                if (user == null || !user.isEmailVerified) {
+//                    navController.navigate(R.id.login_fragment)
+//                }
+//            }
+//        }
     }
 }
