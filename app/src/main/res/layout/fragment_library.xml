@@ -3,103 +3,116 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingHorizontal="16dp">
+        android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/favorite_button"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingVertical="12dp"
-            android:text="@string/favorites"
-            app:icon="@drawable/ic_round_favorite_border_24"
-            app:iconGravity="textStart"
-            app:iconPadding="12dp" />
+            android:orientation="vertical">
 
-        <Space
-            android:layout_width="16dp"
-            android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
-        <Button
-            android:id="@+id/on_device_button"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingVertical="12dp"
-            android:text="@string/on_device"
-            app:icon="@drawable/ic_outline_library_add_check_24"
-            app:iconGravity="textStart"
-            app:iconPadding="12dp" />
-    </LinearLayout>
+                <Button
+                    android:id="@+id/favorite_button"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingVertical="12dp"
+                    android:text="@string/favorites"
+                    android:textAlignment="viewStart"
+                    app:icon="@drawable/ic_round_favorite_border_24"
+                    app:iconGravity="start"
+                    app:iconPadding="16dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingHorizontal="16dp">
+                <Space
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/archive_button"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingVertical="12dp"
-            android:text="@string/archive"
-            app:icon="@drawable/ic_outline_archive_24"
-            app:iconGravity="textStart"
-            app:iconPadding="12dp" />
+                <Button
+                    android:id="@+id/on_device_button"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingVertical="12dp"
+                    android:text="@string/on_device"
+                    android:textAlignment="viewStart"
+                    app:icon="@drawable/ic_baseline_phone_android_24"
+                    app:iconGravity="start"
+                    app:iconPadding="16dp" />
+            </LinearLayout>
 
-        <Space
-            android:layout_width="16dp"
-            android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
-        <Button
-            android:id="@+id/trash_button"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingVertical="12dp"
-            android:text="@string/trash"
-            app:icon="@drawable/ic_round_delete_outline_24"
-            app:iconGravity="textStart"
-            app:iconPadding="12dp" />
-    </LinearLayout>
+                <Button
+                    android:id="@+id/archive_button"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingVertical="12dp"
+                    android:text="@string/archive"
+                    android:textAlignment="viewStart"
+                    app:icon="@drawable/ic_outline_archive_24"
+                    app:iconGravity="start"
+                    app:iconPadding="16dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingHorizontal="16dp">
+                <Space
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content" />
 
-        <TextView
-            style="@style/TextAppearance.MaterialComponents.Headline5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/album"
-            android:textStyle="bold" />
+                <Button
+                    android:id="@+id/trash_button"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingVertical="12dp"
+                    android:text="@string/trash"
+                    android:textAlignment="viewStart"
+                    app:icon="@drawable/ic_round_delete_outline_24"
+                    app:iconGravity="start"
+                    app:iconPadding="16dp" />
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/textButton"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title"
-            app:icon="@drawable/ic_round_swap_vert_24" />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="16dp" />
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/album"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/textButton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title"
+                    app:icon="@drawable/ic_round_swap_vert_24" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/grid_album"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

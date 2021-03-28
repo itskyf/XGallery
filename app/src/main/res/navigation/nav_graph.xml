@@ -3,6 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/photos_fragment">
+
+    <fragment
+        android:id="@+id/login_fragment"
+        android:name="com.team02.xgallery.ui.auth.login.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/register_fragment"
+        android:name="com.team02.xgallery.ui.auth.register.RegisterFragment"
+        android:label="Register"
+        tools:layout="@layout/fragment_register" />
+
     <fragment
         android:id="@+id/photos_fragment"
         android:name="com.team02.xgallery.ui.photos.PhotosFragment"

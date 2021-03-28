@@ -22,23 +22,26 @@ class PhotosFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPhotosBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         binding.mediaGrid.adapter = pagingAdapter
         binding.mediaGrid.layoutManager = GridLayoutManager(activity, 3)
 
         val viewModel: PhotosViewModel by viewModels()
-
         lifecycleScope.launch {
             viewModel.flow.collectLatest { pagingData ->
                 pagingAdapter.submitData(pagingData)
             }
         }
-
-        return binding.root
     }
 
     override fun onDestroyView() {
