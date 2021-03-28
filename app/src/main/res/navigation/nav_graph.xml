@@ -17,6 +17,12 @@
         tools:layout="@layout/fragment_register" />
 
     <fragment
+        android:id="@+id/forgot_frament"
+        android:name="com.team02.xgallery.ui.auth.forgot.ForgotFragment"
+        android:label="Forgot"
+        tools:layout="@layout/fragment_forgot" />
+
+    <fragment
         android:id="@+id/photos_fragment"
         android:name="com.team02.xgallery.ui.photos.PhotosFragment"
         android:label="@string/photos"
