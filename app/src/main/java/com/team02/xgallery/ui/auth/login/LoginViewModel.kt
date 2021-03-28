@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.tasks.await
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,11 +22,17 @@ class LoginViewModel @Inject constructor(
         try {
             _uiState.value = LoginState.LOADING
             userRepository.signInWithEmailAndPassword(email, password).await()
+            if (userRepository.isEmailVerified()) {
+                _uiState.value = LoginState.SUCCESS
+            } else {
+                _uiState.value = LoginState.NOT_VERIFIED
+            }
         } catch (e: FirebaseAuthInvalidUserException) {
             _uiState.value = LoginState.NOT_EXISTING_EMAIL
         } catch (e: FirebaseAuthInvalidCredentialsException) {
             _uiState.value = LoginState.WRONG_PASSWORD
         } catch (e: Exception) {
+            Timber.d(e.localizedMessage)
             _uiState.value = LoginState.ERROR
         }
     }

@@ -1,7 +1,6 @@
 package com.team02.xgallery.ui.auth.register
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,8 +40,14 @@ class RegisterFragment : Fragment() {
 
         uiStateJob = lifecycleScope.launch {
             viewModel.uiState.collect { uiState ->
-                Log.d("State", "${uiState}")
                 when (uiState) {
+                    RegisterState.SUCCESS -> {
+                        Snackbar.make(binding.root, "The verifying link was sent to your email. Check it out!", Snackbar.LENGTH_INDEFINITE)
+                                .setAction("OK") {
+                                    navController.popBackStack()
+                                }
+                                .show()
+                    }
                     RegisterState.INPUT -> {
                         Utils.setViewAndChildrenEnabled(binding.form, true)
                         binding.progressBar.visibility = View.GONE
@@ -62,7 +67,7 @@ class RegisterFragment : Fragment() {
                         viewModel.tryAgain()
                     }
                     RegisterState.EXISTING_EMAIL -> {
-                        Snackbar.make(binding.root, "Your email has been taken. Please try another one!", Snackbar.LENGTH_SHORT)
+                        Snackbar.make(binding.root, "That email has been taken already. Please try another one!", Snackbar.LENGTH_SHORT)
                                 .show()
                         viewModel.tryAgain()
                     }
@@ -77,10 +82,11 @@ class RegisterFragment : Fragment() {
 
         with(binding) {
             btnRegister.setOnClickListener {
+                val displayName = tiDisplayName.text.toString()
                 val email = tiEmail.text.toString()
                 val password = tiPassword.text.toString()
                 lifecycleScope.launch {
-                    viewModel.register(email, password)
+                    viewModel.register(displayName, email, password)
                 }
             }
             tvLogin.setOnClickListener {

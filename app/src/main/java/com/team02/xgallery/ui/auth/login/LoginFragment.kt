@@ -1,7 +1,6 @@
 package com.team02.xgallery.ui.auth.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,8 +41,10 @@ class LoginFragment : Fragment() {
 
         uiStateJob = lifecycleScope.launch {
             viewModel.uiState.collect { uiState ->
-                Log.d("State", "$uiState")
                 when (uiState) {
+                    LoginState.SUCCESS -> {
+                        navController.navigate(R.id.photos_fragment)
+                    }
                     LoginState.INPUT -> {
                         Utils.setViewAndChildrenEnabled(binding.form, true)
                         binding.progressBar.visibility = View.GONE
@@ -51,6 +52,11 @@ class LoginFragment : Fragment() {
                     LoginState.LOADING -> {
                         Utils.setViewAndChildrenEnabled(binding.form, false)
                         binding.progressBar.visibility = View.VISIBLE
+                    }
+                    LoginState.NOT_VERIFIED -> {
+                        Snackbar.make(binding.root, "Your email has not verified yet. Please verify it first!", Snackbar.LENGTH_SHORT)
+                                .show()
+                        viewModel.tryAgain()
                     }
                     LoginState.NOT_EXISTING_EMAIL -> {
                         Snackbar.make(binding.root, "Your email does not exist. Please try again!", Snackbar.LENGTH_SHORT)
