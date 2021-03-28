@@ -3,7 +3,7 @@ package com.team02.xgallery.data.entity
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
 
-data class MyMedia(
+data class Media(
     @DocumentId
     val id: String? = null,
     val uri: String? = null,

@@ -1,16 +1,15 @@
 package com.team02.xgallery.ui.library
 
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.team02.xgallery.R
-import com.team02.xgallery.data.entity.MyMedia
+import com.team02.xgallery.data.entity.Media
 import com.team02.xgallery.databinding.ListLibraryMediaBinding
 import java.util.*
 
-class ImageAdapter(private val _libraries: ArrayList<MyMedia>) :
+class ImageAdapter(private val _libraries: ArrayList<Media>) :
     RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ListLibraryMediaBinding) : RecyclerView.ViewHolder(binding.root) {
     }
