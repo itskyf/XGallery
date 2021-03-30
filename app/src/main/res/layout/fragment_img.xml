@@ -18,22 +18,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/constraintLayout">
-        <Button
-            android:id="@+id/backBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/ic_back_24"
-            android:minWidth="24dp"
-            android:layout_marginLeft="20dp"
-            app:layout_constraintStart_toStartOf = "parent"
-            app:layout_constraintTop_toTopOf ="parent"
-            />
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf ="parent"
             android:background="@drawable/top_layout_background">
+            <Button
+                android:id="@+id/backBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_back_24"
+                android:minWidth="24dp"
+                android:layout_marginLeft="20dp"
+                app:layout_constraintStart_toStartOf = "parent"
+                app:layout_constraintTop_toTopOf ="parent"
+                />
+
             <Button
                 android:id="@+id/starBtn"
                 android:layout_width="wrap_content"
@@ -53,7 +54,7 @@
                 android:minWidth="24dp"
                 android:layout_marginRight="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf ="parent"/>
+                app:layout_constraintTop_toTopOf ="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
