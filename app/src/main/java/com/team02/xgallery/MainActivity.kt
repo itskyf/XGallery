@@ -1,11 +1,14 @@
 package com.team02.xgallery
 
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.snackbar.Snackbar
 import com.team02.xgallery.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,8 +25,9 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-
         binding.bottomNav.setupWithNavController(navController)
+
+        // ----- Show/Hide top app bar & bottom nav -----
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.photos_fragment,
@@ -39,18 +43,41 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // ----- Check Login State -----
         if (!viewModel.isAvailableToLogIn()) {
             navController.navigate(R.id.login_fragment)
         }
 
+        // ----- External Storage Permission -----
+        val requestPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { granted: Boolean ->
+            if (granted) {
+                // TODO(): Pick images
+            } else {
+                Snackbar.make(
+                    binding.root,
+                    "Please accept the permission in Setting.",
+                    Snackbar.LENGTH_SHORT
+                )
+                    .setAction("OK") {
+                        // TODO(): Navigate to the Setting Fragment
+                        // navController.navigate(R.id.setting_fragment)
+                    }
+                    .show()
+            }
+        }
+
+        // ----- On Click -----
         binding.topAppBar.setOnMenuItemClickListener() { item ->
             when (item.itemId) {
                 R.id.ic_add_photo -> {
-
+                    requestPermissionLauncher.launch(READ_EXTERNAL_STORAGE)
                     true
                 }
                 R.id.ic_account -> {
-
+                    // TODO(): Navigate to the Account Fragment
+                    // navController.navigate(R.id.account_fragment)
                     true
                 }
                 else -> false
