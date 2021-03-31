@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navHostFragment =
-                supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
         binding.bottomNav.setupWithNavController(navController)
@@ -29,9 +29,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.photos_fragment,
                 R.id.search_fragment,
                 R.id.library_fragment -> {
+                    binding.topAppBar.visibility = View.VISIBLE
                     binding.bottomNav.visibility = View.VISIBLE
                 }
                 else -> {
+                    binding.topAppBar.visibility = View.GONE
                     binding.bottomNav.visibility = View.GONE
                 }
             }
@@ -41,12 +43,18 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.login_fragment)
         }
 
-//        lifecycleScope.launch {
-//            viewModel.authState.collectLatest { user ->
-//                if (user == null || !user.isEmailVerified) {
-//                    navController.navigate(R.id.login_fragment)
-//                }
-//            }
-//        }
+        binding.topAppBar.setOnMenuItemClickListener() { item ->
+            when (item.itemId) {
+                R.id.ic_add_photo -> {
+
+                    true
+                }
+                R.id.ic_account -> {
+
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }

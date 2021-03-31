@@ -7,10 +7,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-        private val userRepository: UserRepository
+    private val userRepository: UserRepository
 ) : ViewModel() {
-    // val authState = userRepository.authStateChanged
-
     fun isAvailableToLogIn(): Boolean {
         return userRepository.isSignedIn() && userRepository.isEmailVerified()
     }
