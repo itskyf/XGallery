@@ -33,4 +33,11 @@
         android:name="com.team02.xgallery.ui.library.LibraryFragment"
         android:label="@string/library"
         tools:layout="@layout/fragment_library" />
+
+    <fragment
+        android:id="@+id/cloud_photo_fragment"
+        android:name="com.team02.xgallery.ui.image.CloudPhotoFragment"
+        android:label="image"
+        tools:layout="@layout/fragment_cloud_photo" />
+
 </navigation>
