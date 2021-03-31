@@ -2,13 +2,17 @@ package com.team02.xgallery.ui.image
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.firebase.storage.FirebaseStorage
 import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentCloudPhotoBinding
-import com.google.firebase.storage.FirebaseStorage
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -43,11 +47,15 @@ class CloudPhotoFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
             }
         }
         binding.moreBtn.setOnClickListener{
-            val popup = PopupMenu(activity, view)
-            popup.gravity = Gravity.TOP
-            popup.inflate(R.menu.menu_img_more)
-            popup.setOnMenuItemClickListener { item -> menuItemClicked(item) }
-            popup.show()
+            val bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheet.root)
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onStateChanged(bottomSheet: View, newState: Int) {}
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                }
+            })
         }
         binding.starBtn.setOnClickListener{
             isFavorite = if(!isFavorite){

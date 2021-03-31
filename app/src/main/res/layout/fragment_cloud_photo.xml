@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -23,7 +23,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf ="parent"
             android:background="@drawable/top_layout_background"
-            android:id="@+id/topLayout">
+            android:id="@+id/topLayout"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp">
             <ImageButton
                 android:id="@+id/backBtn"
                 android:layout_width="50dp"
@@ -60,12 +62,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:background="@drawable/bottom_layout_background"
-            android:id="@+id/bottomLayout">
+            android:id="@+id/bottomLayout"
+            android:paddingVertical="5dp">
 
             <ImageButton
                 android:id="@+id/shareBtn"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 android:layout_marginStart="25dp"
@@ -74,37 +77,34 @@
                 app:layout_constraintRight_toLeftOf="@id/editBtn"
                 android:src="@drawable/ic_share_24"
                 android:background="@drawable/circle_button"
-                android:padding="30dp"
                 />
 
             <ImageButton
                 android:id="@+id/editBtn"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintLeft_toRightOf="@id/shareBtn"
                 app:layout_constraintRight_toLeftOf="@id/deleteBtn"
                 android:src="@drawable/ic_equalizer_24"
-                android:background="@drawable/circle_button"
-                android:padding="30dp"/>
+                android:background="@drawable/circle_button" />
 
             <ImageButton
                 android:id="@+id/deleteBtn"
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_height="80dp"
+                android:layout_height="70dp"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintLeft_toRightOf="@id/editBtn"
                 app:layout_constraintRight_toLeftOf="@id/exitBtn"
                 android:src="@drawable/ic_delete_24"
-                android:padding="30dp"
                 android:background="@drawable/circle_button"/>
 
             <ImageButton
                 android:id="@+id/exitBtn"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginEnd="10dp"
                 app:layout_constraintHorizontal_weight="1"
@@ -112,9 +112,11 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:src="@drawable/ic_delete_24"
                 android:background="@drawable/circle_button"
-                android:padding="30dp"/>
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout = "@layout/photo_detail"
+        android:id="@+id/bottomSheet"/>
 
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
