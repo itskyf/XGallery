@@ -1,6 +1,7 @@
 package com.team02.xgallery
 
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,6 +17,17 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
+
+    // ----- Add photos -----
+    private val newMediaURIs: ArrayList<Uri> = ArrayList()
+    val getContent =
+        registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { mediaURIs: List<Uri> ->
+            // Handle the returned Uris
+            newMediaURIs.clear()
+            for (uri in mediaURIs) {
+                newMediaURIs.add(uri)
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,11 +65,11 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.RequestPermission()
         ) { granted: Boolean ->
             if (granted) {
-                // TODO(): Pick images
+                getContent.launch("image/*")
             } else {
                 Snackbar.make(
                     binding.root,
-                    "Please accept the permission in Setting.",
+                    "Please accept to upload photos.",
                     Snackbar.LENGTH_SHORT
                 )
                     .setAction("OK") {
