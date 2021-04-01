@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.storage.FirebaseStorage
 import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentCloudPhotoBinding
@@ -22,7 +21,6 @@ class CloudPhotoFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
     private val binding get() = _binding!!
     private var showButton = true
     private var isFavorite = false
-    private var db = FirebaseStorage.getInstance().getReference("admin")
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -47,7 +45,9 @@ class CloudPhotoFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
             }
         }
         binding.moreBtn.setOnClickListener{
-            val bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheet.root)
+            val bottomSheetFragment = Test()
+            bottomSheetFragment.show(requireActivity().supportFragmentManager, bottomSheetFragment.getTag())
+            /*val bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheet.root)
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -55,7 +55,7 @@ class CloudPhotoFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
                 override fun onStateChanged(bottomSheet: View, newState: Int) {}
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 }
-            })
+            })*/
         }
         binding.starBtn.setOnClickListener{
             isFavorite = if(!isFavorite){
