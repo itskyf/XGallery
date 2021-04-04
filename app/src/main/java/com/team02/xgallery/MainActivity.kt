@@ -3,12 +3,15 @@ package com.team02.xgallery
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import com.team02.xgallery.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,16 +44,23 @@ class MainActivity : AppCompatActivity() {
 
         // ----- Show/Hide top app bar & bottom nav -----
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            Log.d("KCH", "$destination")
             when (destination.id) {
                 R.id.photos_fragment,
                 R.id.search_fragment,
                 R.id.library_fragment -> {
                     binding.topAppBar.visibility = View.VISIBLE
                     binding.bottomNav.visibility = View.VISIBLE
+                    val param: CoordinatorLayout.LayoutParams =
+                        binding.navHostFragment.layoutParams as CoordinatorLayout.LayoutParams
+                    param.behavior = AppBarLayout.ScrollingViewBehavior()
                 }
                 else -> {
                     binding.topAppBar.visibility = View.GONE
                     binding.bottomNav.visibility = View.GONE
+                    val param: CoordinatorLayout.LayoutParams =
+                        binding.navHostFragment.layoutParams as CoordinatorLayout.LayoutParams
+                    param.behavior = null
                 }
             }
         }
