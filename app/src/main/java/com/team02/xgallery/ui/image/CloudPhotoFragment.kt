@@ -42,7 +42,7 @@ class CloudPhotoFragment : Fragment() {
         }
         binding.moreBtn.setOnClickListener{
             val bottomSheetFragment = CustomModalBottomSheet()
-            bottomSheetFragment.showNow(requireActivity().supportFragmentManager, bottomSheetFragment.getTag())
+            bottomSheetFragment.show(requireActivity().supportFragmentManager, bottomSheetFragment.tag)
 
         }
         binding.starBtn.setOnClickListener{
