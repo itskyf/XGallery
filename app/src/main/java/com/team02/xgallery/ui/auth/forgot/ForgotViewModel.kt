@@ -3,7 +3,7 @@ package com.team02.xgallery.ui.auth.forgot
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
-import com.team02.xgallery.data.UserRepository
+import com.team02.xgallery.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,9 +12,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ForgotViewModel @Inject constructor(
-        private val userRepository: UserRepository
+    private val userRepository: UserRepository
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<ForgotState>(ForgotState.INPUT)
+    private val _uiState = MutableStateFlow(ForgotState.INPUT)
     val uiState: StateFlow<ForgotState> = _uiState
 
     suspend fun resetPassword(email: String) {

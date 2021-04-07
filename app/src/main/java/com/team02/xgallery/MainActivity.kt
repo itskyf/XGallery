@@ -3,18 +3,20 @@ package com.team02.xgallery
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import com.team02.xgallery.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -23,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     // ----- Add photos -----
     private val newMediaURIs: ArrayList<Uri> = ArrayList()
-    val getContent =
+    private val getContent =
         registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { mediaURIs: List<Uri> ->
             // Handle the returned Uris
             newMediaURIs.clear()
@@ -33,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_XGallery)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -44,11 +47,10 @@ class MainActivity : AppCompatActivity() {
 
         // ----- Show/Hide top app bar & bottom nav -----
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            Log.d("KCH", "$destination")
             when (destination.id) {
-                R.id.photos_fragment,
+                R.id.photosFragment,
                 R.id.search_fragment,
-                R.id.library_fragment -> {
+                R.id.libraryFragment -> {
                     binding.topAppBar.visibility = View.VISIBLE
                     binding.bottomNav.visibility = View.VISIBLE
                     val param: CoordinatorLayout.LayoutParams =
@@ -66,8 +68,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         // ----- Check Login State -----
-        if (!viewModel.isAvailableToLogIn()) {
-            navController.navigate(R.id.login_fragment)
+        lifecycleScope.launch {
+            viewModel.authStateFlow.collectLatest {
+                if (!viewModel.isAvailableToLogIn) {
+                    navController.navigate(R.id.loginFragment)
+                }
+            }
         }
 
         // ----- External Storage Permission -----
@@ -81,17 +87,15 @@ class MainActivity : AppCompatActivity() {
                     binding.root,
                     "Please accept to upload photos.",
                     Snackbar.LENGTH_SHORT
-                )
-                    .setAction("OK") {
-                        // TODO(): Navigate to the Setting Fragment
-                        // navController.navigate(R.id.setting_fragment)
-                    }
-                    .show()
+                ).setAction("OK") {
+                    // TODO(): Navigate to the Setting Fragment
+                    // navController.navigate(R.id.setting_fragment)
+                }.show()
             }
         }
 
         // ----- On Click -----
-        binding.topAppBar.setOnMenuItemClickListener() { item ->
+        binding.topAppBar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.ic_add_photo -> {
                     requestPermissionLauncher.launch(READ_EXTERNAL_STORAGE)

@@ -2,30 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/photos_fragment">
+    app:startDestination="@id/photosFragment">
 
     <fragment
-        android:id="@+id/login_fragment"
-        android:name="com.team02.xgallery.ui.auth.login.LoginFragment"
-        android:label="Login"
-        tools:layout="@layout/fragment_login" />
-
-    <fragment
-        android:id="@+id/register_fragment"
-        android:name="com.team02.xgallery.ui.auth.register.RegisterFragment"
-        android:label="Register"
-        tools:layout="@layout/fragment_register" />
-
-    <fragment
-        android:id="@+id/forgot_frament"
-        android:name="com.team02.xgallery.ui.auth.forgot.ForgotFragment"
-        android:label="Forgot"
-        tools:layout="@layout/fragment_forgot" />
-
-    <fragment
-        android:id="@+id/photos_fragment"
+        android:id="@+id/photosFragment"
         android:name="com.team02.xgallery.ui.photos.PhotosFragment"
-        android:label="@string/photos"
         tools:layout="@layout/fragment_photos" />
 
     <fragment
@@ -35,15 +16,60 @@
         tools:layout="@layout/fragment_search" />
 
     <fragment
-        android:id="@+id/library_fragment"
+        android:id="@+id/libraryFragment"
         android:name="com.team02.xgallery.ui.library.LibraryFragment"
         android:label="@string/library"
-        tools:layout="@layout/fragment_library" />
+        tools:layout="@layout/fragment_library">
+        <action
+            android:id="@+id/actionLibraryFragmentToFolderFragment"
+            app:destination="@id/folderFragment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/cloud_photo_fragment"
-        android:name="com.team02.xgallery.ui.image.CloudPhotoFragment"
-        android:label="image"
-        tools:layout="@layout/fragment_cloud_photo" />
+        android:id="@+id/folderFragment"
+        android:name="com.team02.xgallery.ui.folder.FolderFragment"
+        android:label="FolderFragment">
+        <action
+            android:id="@+id/openAlbumView"
+            app:destination="@id/albumFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/albumFragment"
+        android:name="com.team02.xgallery.ui.album.AlbumFragment"
+        android:label="fragment_album"
+        tools:layout="@layout/fragment_album">
+        <argument
+            android:name="albumId"
+            app:argType="string" />
+        <argument
+            android:name="albumName"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.team02.xgallery.ui.auth.login.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/actionLoginFragmentToForgotFrament"
+            app:destination="@id/forgotFrament" />
+        <action
+            android:id="@+id/actionLoginFragmentToRegisterFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.team02.xgallery.ui.auth.register.RegisterFragment"
+        android:label="Register"
+        tools:layout="@layout/fragment_register" />
+
+    <fragment
+        android:id="@+id/forgotFrament"
+        android:name="com.team02.xgallery.ui.auth.forgot.ForgotFragment"
+        android:label="Forgot"
+        tools:layout="@layout/fragment_forgot" />
 
 </navigation>

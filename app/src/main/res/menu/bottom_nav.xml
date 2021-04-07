@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@id/photos_fragment"
+        android:id="@id/photosFragment"
         android:icon="@drawable/ic_round_photo_24"
         android:title="@string/photos" />
     <item
@@ -9,7 +9,7 @@
         android:icon="@drawable/ic_baseline_search_24"
         android:title="@string/search" />
     <item
-        android:id="@id/library_fragment"
+        android:id="@id/libraryFragment"
         android:icon="@drawable/ic_round_collections_24"
         android:title="@string/library" />
 </menu>

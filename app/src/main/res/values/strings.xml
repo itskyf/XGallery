@@ -5,11 +5,16 @@
     <string name="search">Search</string>
     <string name="library">Library</string>
     <string name="favorites">Favorites</string>
-    <string name="utilities">Utilities</string>
     <string name="archive">Archive</string>
     <string name="trash">Trash</string>
     <string name="on_device">On Device</string>
     <string name="album">Album</string>
-    <string name="recent">Most recent photo</string>
     <string name="title">Title</string>
+    <string name="nothing_here">A friend to all is a friend to none</string>
+    <string name="account">Account</string>
+    <string name="upload_photos">Upload photos</string>
+    <string name="password">Password</string>
+    <string name="share">Share</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 </resources>

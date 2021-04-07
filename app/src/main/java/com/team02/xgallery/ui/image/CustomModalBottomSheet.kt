@@ -9,9 +9,7 @@ import com.team02.xgallery.R
 
 class CustomModalBottomSheet : BottomSheetDialogFragment() {
     companion object {
-
         const val TAG = "CustomBottomSheetDialogFragment"
-
     }
 
     override fun onCreateView(

@@ -5,7 +5,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.UserProfileChangeRequest
-import com.team02.xgallery.data.UserRepository
+import com.team02.xgallery.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,9 +15,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-        private val userRepository: UserRepository
+    private val userRepository: UserRepository
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<RegisterState>(RegisterState.INPUT)
+    private val _uiState = MutableStateFlow(RegisterState.INPUT)
     val uiState: StateFlow<RegisterState> = _uiState
 
     suspend fun register(displayName: String, email: String, password: String) {
@@ -25,7 +25,7 @@ class RegisterViewModel @Inject constructor(
             _uiState.value = RegisterState.LOADING
             userRepository.createUserWithEmailAndPassword(email, password).await()
             val profileUpdates = UserProfileChangeRequest.Builder()
-                    .setDisplayName(displayName).build()
+                .setDisplayName(displayName).build()
             userRepository.updateProfile(profileUpdates).await()
             userRepository.sendEmailVerification().await()
             _uiState.value = RegisterState.SUCCESS

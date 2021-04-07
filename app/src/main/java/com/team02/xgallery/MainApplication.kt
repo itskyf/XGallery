@@ -18,7 +18,7 @@ class MainApplication : Application(), ImageLoaderFactory {
 
     override fun newImageLoader(): ImageLoader {
         return ImageLoader.Builder(applicationContext)
-            .availableMemoryPercentage(.3)
+            .availableMemoryPercentage(.4)
             .crossfade(true)
             .build()
     }
