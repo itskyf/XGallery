@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -22,6 +23,7 @@ class AlbumFragment : Fragment() {
     private val binding get() = _binding!!
     private val args: AlbumFragmentArgs by navArgs()
     private val viewModel: AlbumViewModel by viewModels()
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,12 +31,14 @@ class AlbumFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAlbumBinding.inflate(inflater, container, false)
+        navController = findNavController()
+
         binding.albumTopBar.title = args.albumName
         binding.albumTopBar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
         val pagingAdapter = MediaAdapter {
-            // TODO navigation
+            navController.navigate(AlbumFragmentDirections.actionAlbumFragmentToPhotoFragment(it.id as Long))
         }
         binding.albumMediaGrid.adapter = pagingAdapter
         binding.albumMediaGrid.layoutManager =

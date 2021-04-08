@@ -51,6 +51,20 @@
         <argument
             android:name="albumName"
             app:argType="string" />
+
+        <action
+            android:id="@+id/actionAlbumFragmentToPhotoFragment"
+            app:destination="@id/photo_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/photo_fragment"
+        android:name="com.team02.xgallery.ui.image.PhotoFragment"
+        android:label="image"
+        tools:layout="@layout/fragment_photo">
+        <argument
+            android:name="id"
+            app:argType="long" />
     </fragment>
 
     <fragment
@@ -77,11 +91,4 @@
         android:name="com.team02.xgallery.ui.auth.forgot.ForgotFragment"
         android:label="Forgot"
         tools:layout="@layout/fragment_forgot" />
-
-    <fragment
-        android:id="@+id/cloud_photo_fragment"
-        android:name="com.team02.xgallery.ui.image.CloudPhotoFragment"
-        android:label="image"
-        tools:layout="@layout/fragment_cloud_photo" />
-
 </navigation>
