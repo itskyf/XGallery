@@ -24,8 +24,6 @@
                 android:layout_height="?attr/actionBarSize"
                 android:backgroundTint="@color/white"
                 android:gravity="center"
-                android:paddingStart="0dp"
-                android:paddingEnd="@dimen/default_padding"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
                 app:menu="@menu/top_app_bar"
                 app:title="@string/app_name"

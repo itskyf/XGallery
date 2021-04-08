@@ -8,6 +8,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.team02.xgallery.Utils
@@ -21,6 +22,7 @@ import kotlinx.coroutines.launch
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+    private lateinit var navController: NavController
     private val viewModel: LoginViewModel by viewModels()
     private var uiStateJob: Job? = null
 
@@ -30,12 +32,12 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        navController = findNavController()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val navController = findNavController()
 
         uiStateJob = lifecycleScope.launch {
             viewModel.uiState.collect { uiState ->

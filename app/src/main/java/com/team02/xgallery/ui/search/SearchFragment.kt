@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,9 +17,9 @@ class SearchFragment : Fragment() {
     private lateinit var navController: NavController
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
@@ -28,9 +27,7 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         navController = findNavController()
-        navController.navigate(R.id.cloud_photo_fragment)
     }
 
     override fun onDestroyView() {

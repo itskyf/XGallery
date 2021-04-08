@@ -36,7 +36,6 @@ class LoginViewModel @Inject constructor(
                 _uiState.value = LoginState.ERROR
             }
         }
-
     }
 
     fun tryAgain() {

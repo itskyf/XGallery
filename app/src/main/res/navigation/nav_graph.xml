@@ -26,6 +26,12 @@
     </fragment>
 
     <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.team02.xgallery.ui.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
         android:id="@+id/folderFragment"
         android:name="com.team02.xgallery.ui.folder.FolderFragment"
         android:label="FolderFragment">
@@ -70,7 +76,7 @@
         android:id="@+id/forgotFrament"
         android:name="com.team02.xgallery.ui.auth.forgot.ForgotFragment"
         android:label="Forgot"
-        tools:layout="@layout/fragment_forgot"/>
+        tools:layout="@layout/fragment_forgot" />
 
     <fragment
         android:id="@+id/cloud_photo_fragment"

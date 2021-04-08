@@ -102,8 +102,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.ic_account -> {
-                    // TODO(): Navigate to the Account Fragment
-                    // navController.navigate(R.id.account_fragment)
+                    navController.navigate(R.id.profileFragment)
                     true
                 }
                 else -> false

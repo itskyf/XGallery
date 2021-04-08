@@ -1,5 +1,6 @@
 package com.team02.xgallery.data.repository
 
+import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
@@ -40,6 +41,22 @@ class UserRepository {
 
     fun sendPasswordResetEmail(email: String) =
         auth.sendPasswordResetEmail(email)
+
+    fun getDisplayName(): String {
+        return auth.currentUser.displayName
+    }
+
+    fun getEmail(): String {
+        return auth.currentUser.email
+    }
+
+    fun getAvatar(): Uri {
+        return auth.currentUser.photoUrl
+    }
+
+    fun signOut() {
+        auth.signOut()
+    }
 }
 
 

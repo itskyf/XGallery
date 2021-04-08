@@ -57,18 +57,6 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="Create an account"
-                android:textColor="@color/blue_500"
-                android:textSize="20sp" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="8dp" />
-
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
