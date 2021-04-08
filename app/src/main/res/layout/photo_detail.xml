@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/popup_window"
     android:layout_width="match_parent"
@@ -21,138 +22,122 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent">
-
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:paddingBottom="20dp">
         <LinearLayout
-            android:id="@+id/addAlbumLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/archiveLayout">
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/archiveLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        android:layout_marginStart="5dp"
+        app:layout_constraintHorizontal_weight="1"
+        android:id="@+id/addAlbumLayout">
             <ImageButton
+                android:background="@android:color/transparent"
                 android:id="@+id/addAlbumBtn"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:background="@android:color/transparent"
                 android:src="@drawable/ic_add_to_album" />
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Add to" />
-
+                android:text="Add to"
+                android:gravity="center"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="album" />
-        </LinearLayout>
-
+                android:text="album"
+                android:gravity="center"/>
+    </LinearLayout>
         <LinearLayout
-            android:id="@+id/archiveLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            app:layout_constraintRight_toLeftOf="@id/deleteLayout"
+            app:layout_constraintLeft_toRightOf="@id/addAlbumLayout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toRightOf="@id/addAlbumLayout"
-            app:layout_constraintRight_toLeftOf="@id/deleteLayout">
-
+            android:id="@+id/archiveLayout">
             <ImageButton
+                android:background="@android:color/transparent"
                 android:id="@+id/moveToArchiveBtn"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:background="@android:color/transparent"
                 android:src="@drawable/ic_move_to_archive" />
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Move to" />
-
+                android:text="Move to"
+                android:gravity="center"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Archive" />
+                android:text="Archive"
+                android:gravity="center"/>
         </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/deleteLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            app:layout_constraintRight_toLeftOf="@id/useAsLayout"
+            app:layout_constraintLeft_toRightOf="@id/archiveLayout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toRightOf="@id/archiveLayout"
-            app:layout_constraintRight_toLeftOf="@id/useAsLayout">
-
+            android:id="@+id/deleteLayout">
             <ImageButton
+                android:background="@android:color/transparent"
                 android:id="@+id/deleteFromDeviceBtn"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:background="@android:color/transparent"
                 android:src="@drawable/ic_black_delete_24" />
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Delete from" />
-
+                android:text="Delete from"
+                android:gravity="center"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="device" />
+                android:text="device"
+                android:gravity="center"/>
         </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/useAsLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
             android:orientation="vertical"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/deleteLayout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
+            android:layout_marginEnd="5dp"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toRightOf="@id/deleteLayout"
-            app:layout_constraintRight_toRightOf="parent">
-
+            android:id="@+id/useAsLayout">
             <ImageButton
                 android:id="@+id/useAsBtn"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_round_launch_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintLeft_toRightOf="@id/deleteFromDeviceBtn"
-                app:layout_constraintRight_toRightOf="parent" />
-
+                app:layout_constraintLeft_toRightOf="@id/deleteBtn"
+                app:layout_constraintRight_toRightOf="parent"
+                android:src="@drawable/ic_use_as"
+                android:background="@android:color/transparent"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Use as" />
-
+                android:text="Use as"
+                android:gravity="center"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="" />
+                android:text=""
+                android:gravity="center"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -166,58 +151,52 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
-            android:gravity="center_vertical"
             android:text="Thu, Apr 01, 2021  \u00b7  11:03 PM"
-            android:textColor="@color/black"
+            android:textStyle="bold"
             android:textSize="20sp"
+            android:textColor="@color/black"
 
-            android:textStyle="bold" />
-
+            android:gravity="center_vertical"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Add description..."
             android:focusable="false"
-            android:hint="Add description..." />
-
+            />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="DETAILS"
             android:layout_marginVertical="20dp"
-            android:text="DETAILS" />
-
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:src="@drawable/ic_photo" />
-
+                android:src="@drawable/ic_photo"
+                android:padding="20dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
-                    android:text="IMG.PNG"
-                    android:textColor="@color/black"
+                    android:textStyle="bold"
                     android:textSize="15sp"
-                    android:textStyle="bold" />
-
+                    android:textColor="@color/black"
+                    android:text="IMG.PNG"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="2.3 MP 1125 x 2001 204 KB" />
+                    android:text="2.3 MP 1125 x 2001 204 KB"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

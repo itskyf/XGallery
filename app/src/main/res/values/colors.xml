@@ -21,4 +21,6 @@
     <color name="dim_orange">#FFFFF0E4</color>
     <color name="dim_red">#FFF9E1DE</color>
     <color name="avatar">#FFD3DBE5</color>
+    <color name="colorPrimaryDark">#4A4A4A</color>
+
 </resources>
