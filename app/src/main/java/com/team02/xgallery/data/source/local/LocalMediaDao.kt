@@ -12,7 +12,7 @@ interface LocalMediaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(users: List<LocalMedia>)
 
-    @Query("SELECT * FROM LocalMedia WHERE albumId = :albumId")
+    @Query("SELECT * FROM LocalMedia WHERE albumId = :albumId ORDER BY id DESC")
     fun pagingSource(albumId: String): PagingSource<Int, LocalMedia>
 
     @Query("DELETE FROM LocalMedia WHERE albumId = :albumId")
