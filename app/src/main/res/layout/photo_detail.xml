@@ -92,19 +92,19 @@
             android:id="@+id/deleteLayout">
             <ImageButton
                 android:background="@android:color/transparent"
-                android:id="@+id/deleteFromDeviceBtn"
+                android:id="@+id/downloadFromCloudBtn"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@drawable/ic_black_delete_24" />
+                android:src="@drawable/ic_cloud_download" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Delete from"
+                android:text="Download"
                 android:gravity="center"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="device"
+                android:text="from Cloud"
                 android:gravity="center"/>
         </LinearLayout>
         <LinearLayout
