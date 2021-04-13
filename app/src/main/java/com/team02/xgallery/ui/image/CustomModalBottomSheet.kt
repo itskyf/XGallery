@@ -36,7 +36,7 @@ class CustomModalBottomSheet(withAppendedId: Uri) : BottomSheetDialogFragment(),
         view.findViewById<ImageButton>(R.id.useAsBtn).setOnClickListener(this)
         view.findViewById<ImageButton>(R.id.addAlbumBtn).setOnClickListener(this)
         view.findViewById<ImageButton>(R.id.moveToArchiveBtn).setOnClickListener(this)
-        view.findViewById<ImageButton>(R.id.deleteFromDeviceBtn).setOnClickListener(this)
+        view.findViewById<ImageButton>(R.id.downloadFromCloudBtn).setOnClickListener(this)
         view.findViewById<EditText>(R.id.imgDes).setOnClickListener(this)
     }
 
