@@ -162,10 +162,10 @@
 
             android:gravity="center_vertical"/>
         <EditText
+            android:id="@+id/imgDes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Add description..."
-            android:focusable="false"
             />
         <TextView
             android:layout_width="match_parent"

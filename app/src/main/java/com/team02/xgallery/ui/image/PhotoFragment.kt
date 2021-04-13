@@ -58,11 +58,12 @@ class PhotoFragment : Fragment() {
                 }
             }
             moreBtn.setOnClickListener {
-                val bottomSheetFragment = CustomModalBottomSheet()
-                bottomSheetFragment.showNow(
+                val bottomSheetFragment = CustomModalBottomSheet(ContentUris.withAppendedId(Utils.collection, args.id))
+                bottomSheetFragment.show(
                     requireActivity().supportFragmentManager,
-                    bottomSheetFragment.getTag()
+                    bottomSheetFragment.tag
                 )
+
             }
             starBtn.setOnClickListener {
                 isFavorite = if (!isFavorite) {
@@ -72,6 +73,8 @@ class PhotoFragment : Fragment() {
                     binding.starBtn.setImageResource(R.drawable.ic_full_star_24)
                     false
                 }
+            }
+            shareBtn.setOnClickListener{
             }
             backBtn.setOnClickListener {
                 navController.popBackStack()
