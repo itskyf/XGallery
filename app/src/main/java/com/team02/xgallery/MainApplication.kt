@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.pm.ApplicationInfo
 import coil.ImageLoader
 import coil.ImageLoaderFactory
+import com.team02.xgallery.utils.StorageReferenceFetcher
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -18,8 +19,13 @@ class MainApplication : Application(), ImageLoaderFactory {
 
     override fun newImageLoader(): ImageLoader {
         return ImageLoader.Builder(applicationContext)
-            .availableMemoryPercentage(.4)
+            .availableMemoryPercentage(.35)
             .crossfade(true)
+            .apply {
+                componentRegistry {
+                    add(StorageReferenceFetcher())
+                }
+            }
             .build()
     }
 }
