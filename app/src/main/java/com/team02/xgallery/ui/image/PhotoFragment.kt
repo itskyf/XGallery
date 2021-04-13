@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.team02.xgallery.R
-import com.team02.xgallery.Utils
 import com.team02.xgallery.databinding.FragmentPhotoBinding
+import com.team02.xgallery.utils.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -41,12 +41,11 @@ class PhotoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val args: PhotoFragmentArgs by navArgs()
-        with(binding) {
-            imgView.load(ContentUris.withAppendedId(Utils.collection, args.id))
-        }
 
         with(binding) {
+            imgView.load(ContentUris.withAppendedId(AppConstants.COLLECTION, args.id))
             constraintLayout.setOnClickListener {
+                // TODO ???? cai gi day
                 if (showButton) {
                     binding.topLayout.visibility = View.GONE
                     binding.bottomLayout.visibility = View.GONE

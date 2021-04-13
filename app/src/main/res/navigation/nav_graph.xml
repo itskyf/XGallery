@@ -21,8 +21,8 @@
         android:label="@string/library"
         tools:layout="@layout/fragment_library">
         <action
-            android:id="@+id/actionLibraryFragmentToFolderFragment"
-            app:destination="@id/folderFragment" />
+            android:id="@+id/actionLibraryFragmentToOnDeviceFragment"
+            app:destination="@id/onDeviceFragment" />
     </fragment>
 
     <fragment
@@ -32,28 +32,27 @@
         tools:layout="@layout/fragment_profile" />
 
     <fragment
-        android:id="@+id/folderFragment"
-        android:name="com.team02.xgallery.ui.folder.FolderFragment"
-        android:label="FolderFragment">
+        android:id="@+id/onDeviceFragment"
+        android:name="com.team02.xgallery.ui.ondevice.OnDeviceFragment"
+        android:label="OnDeviceFragment">
         <action
-            android:id="@+id/openAlbumView"
-            app:destination="@id/albumFragment" />
+            android:id="@+id/openFolderView"
+            app:destination="@id/folderFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/albumFragment"
-        android:name="com.team02.xgallery.ui.album.AlbumFragment"
+        android:id="@+id/folderFragment"
+        android:name="com.team02.xgallery.ui.folder.FolderFragment"
         android:label="fragment_album"
-        tools:layout="@layout/fragment_album">
+        tools:layout="@layout/fragment_folder">
         <argument
             android:name="albumId"
-            app:argType="string" />
+            app:argType="integer" />
         <argument
             android:name="albumName"
             app:argType="string" />
-
         <action
-            android:id="@+id/actionAlbumFragmentToPhotoFragment"
+            android:id="@+id/openMediaView"
             app:destination="@id/photo_fragment" />
     </fragment>
 

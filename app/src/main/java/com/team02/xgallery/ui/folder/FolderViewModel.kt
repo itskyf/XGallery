@@ -1,15 +1,19 @@
 package com.team02.xgallery.ui.folder
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.team02.xgallery.data.repository.FolderRepository
+import com.team02.xgallery.data.repository.LocalMediaRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class FolderViewModel @Inject constructor(
-    folderRepository: FolderRepository
+    mediaRepository: LocalMediaRepository,
+    state: SavedStateHandle
 ) : ViewModel() {
-    val folderPagingFlow = folderRepository.pagingFlow.cachedIn(viewModelScope)
+    val mediaPagingFlow = mediaRepository
+        .getPagingFlow(state.get<Int>("albumId")!!)
+        .cachedIn(viewModelScope)
 }

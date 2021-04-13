@@ -11,13 +11,11 @@ class ProfileViewModel @Inject constructor(
 ) : ViewModel() {
     private val authState = userRepository.authStateFlow
 
-    fun getDisplayName(): String {
-        return userRepository.getDisplayName()
-    }
+    val userName
+        get() = userRepository.displayName
 
-    fun getEmail(): String {
-        return userRepository.getEmail()
-    }
+    val userEmail
+        get() = userRepository.email
 
     fun signOut() {
         userRepository.signOut()

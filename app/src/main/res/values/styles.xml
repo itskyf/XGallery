@@ -8,4 +8,8 @@
     <style name="ShapeAppearanceOverlay.CornerSize50Percent">
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="AppTheme.Launcher" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
 </resources>

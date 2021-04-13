@@ -12,23 +12,22 @@
         app:liftOnScroll="true">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/folderTopBar"
-            style="@style/Widget.MaterialComponents.Toolbar.Surface"
+            android:id="@+id/albumTopBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
             app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:navigationIcon="@drawable/ic_round_arrow_back_ios_24"
-            app:title="Photos on device" />
-
+            app:navigationIcon="@drawable/ic_round_arrow_back_ios_24" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/folder_grid"
+        android:id="@+id/albumMediaGrid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:listitem="@layout/list_item_album"
+        tools:listitem="@layout/list_item_media"
         tools:orientation="vertical"
-        tools:spanCount="2" />
+        tools:spanCount="3" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

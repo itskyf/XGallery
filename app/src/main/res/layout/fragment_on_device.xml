@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.album.AlbumFragment">
+    tools:context=".ui.ondevice.OnDeviceFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -12,22 +12,23 @@
         app:liftOnScroll="true">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/albumTopBar"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:id="@+id/folderTopBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Surface"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
             app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:navigationIcon="@drawable/ic_round_arrow_back_ios_24" />
+            app:navigationIcon="@drawable/ic_round_arrow_back_ios_24"
+            app:title="Photos on device" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/albumMediaGrid"
+        android:id="@+id/folder_grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:listitem="@layout/list_item_media"
+        tools:listitem="@layout/list_item_album"
         tools:orientation="vertical"
-        tools:spanCount="3" />
+        tools:spanCount="2" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

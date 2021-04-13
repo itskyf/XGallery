@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class LocalMedia(
-    @PrimaryKey override val id: Long,
-    override val name: String,
-    override val dateTaken: Long,
-    override val albumId: String
-) : Media
+    @PrimaryKey val id: Long,
+    val name: String,
+    val dateTaken: Long,
+    val albumId: Int
+)

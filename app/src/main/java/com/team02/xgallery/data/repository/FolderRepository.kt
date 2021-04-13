@@ -1,24 +1,20 @@
 package com.team02.xgallery.data.repository
 
+import android.content.Context
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import com.team02.xgallery.Utils
-import com.team02.xgallery.data.entity.Album
 import com.team02.xgallery.data.source.local.FolderPagingSource
-import com.team02.xgallery.data.source.local.FolderSource
+import com.team02.xgallery.utils.AppConstants
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.filterIsInstance
 
 class FolderRepository(
-    private val folderSource: FolderSource,
+    private val context: Context,
     private val dispatcher: CoroutineDispatcher
 ) {
     val pagingFlow = Pager(
-        config = PagingConfig(pageSize = Utils.ALBUM_PAGE_SIZE),
+        config = PagingConfig(pageSize = AppConstants.ALBUM_PAGE_SIZE),
         pagingSourceFactory = {
-            FolderPagingSource(folderSource, dispatcher)
+            FolderPagingSource(context, dispatcher)
         }
-    ).flow.filterIsInstance<PagingData<Album>>()
-    // TODO filter where
+    ).flow
 }

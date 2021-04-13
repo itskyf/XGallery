@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
-import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentFolderBinding
-import com.team02.xgallery.ui.adapter.AlbumAdapter
-import com.team02.xgallery.ui.adapter.AlbumItemDecoration
+import com.team02.xgallery.ui.adapter.LocalMediaAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -21,7 +21,9 @@ import kotlinx.coroutines.launch
 class FolderFragment : Fragment() {
     private var _binding: FragmentFolderBinding? = null
     private val binding get() = _binding!!
+    private val args: FolderFragmentArgs by navArgs()
     private val viewModel: FolderViewModel by viewModels()
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,23 +31,22 @@ class FolderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFolderBinding.inflate(inflater, container, false)
+        navController = findNavController()
 
-        val pagingAdapter = AlbumAdapter {
-            findNavController().navigate(
-                FolderFragmentDirections.openAlbumView(it.id, it.name)
-            )
-        }
-        binding.folderGrid.adapter = pagingAdapter
-        binding.folderGrid.layoutManager =
-            GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
-        binding.folderGrid.addItemDecoration(
-            AlbumItemDecoration(resources.getDimension(R.dimen.default_padding))
-        )
-        binding.folderTopBar.setNavigationOnClickListener {
+        binding.albumTopBar.title = args.albumName
+        binding.albumTopBar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+        val pagingAdapter = LocalMediaAdapter {
+            navController.navigate(
+                FolderFragmentDirections.openMediaView(it.id)
+            )
+        }
+        binding.albumMediaGrid.adapter = pagingAdapter
+        binding.albumMediaGrid.layoutManager =
+            GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
         lifecycleScope.launch {
-            viewModel.folderPagingFlow.collectLatest { pagingData ->
+            viewModel.mediaPagingFlow.collectLatest { pagingData ->
                 pagingAdapter.submitData(pagingData)
             }
         }
@@ -56,5 +57,4 @@ class FolderFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

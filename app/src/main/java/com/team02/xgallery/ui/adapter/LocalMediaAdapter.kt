@@ -7,12 +7,12 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.team02.xgallery.Utils
-import com.team02.xgallery.data.entity.Media
+import com.team02.xgallery.data.entity.LocalMedia
 import com.team02.xgallery.databinding.ListItemMediaBinding
+import com.team02.xgallery.utils.AppConstants
 
-class MediaAdapter(private val onClick: (Media) -> Unit) :
-    PagingDataAdapter<Media, MediaAdapter.MediaViewHolder>(diffCallback) {
+class LocalMediaAdapter(private val onClick: (LocalMedia) -> Unit) :
+    PagingDataAdapter<LocalMedia, LocalMediaAdapter.MediaViewHolder>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MediaViewHolder {
         return MediaViewHolder(
             ListItemMediaBinding.inflate(
@@ -29,12 +29,12 @@ class MediaAdapter(private val onClick: (Media) -> Unit) :
     }
 
     companion object {
-        val diffCallback = object : DiffUtil.ItemCallback<Media>() {
-            override fun areItemsTheSame(oldItem: Media, newItem: Media): Boolean {
+        val diffCallback = object : DiffUtil.ItemCallback<LocalMedia>() {
+            override fun areItemsTheSame(oldItem: LocalMedia, newItem: LocalMedia): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: Media, newItem: Media): Boolean {
+            override fun areContentsTheSame(oldItem: LocalMedia, newItem: LocalMedia): Boolean {
                 // TODO this may suck
                 return oldItem == newItem
             }
@@ -44,12 +44,12 @@ class MediaAdapter(private val onClick: (Media) -> Unit) :
     class MediaViewHolder(
         val binding: ListItemMediaBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(media: Media, onClick: (Media) -> Unit) {
+        fun bind(media: LocalMedia, onClick: (LocalMedia) -> Unit) {
             binding.root.setOnClickListener {
                 onClick(media)
             }
             binding.imageView.load(
-                ContentUris.withAppendedId(Utils.collection, media.id as Long)
+                ContentUris.withAppendedId(AppConstants.COLLECTION, media.id)
             )
         }
     }

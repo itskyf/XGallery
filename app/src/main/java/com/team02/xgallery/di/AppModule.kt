@@ -28,5 +28,4 @@ object AppModule {
     @Singleton
     fun provideAppDatabase(@ApplicationContext context: Context) =
         Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
-    // TODO clear when start app
 }

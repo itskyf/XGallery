@@ -36,7 +36,7 @@ class LibraryFragment : Fragment() {
         ) { granted: Boolean ->
             if (granted) {
                 findNavController().navigate(
-                    LibraryFragmentDirections.actionLibraryFragmentToFolderFragment()
+                    LibraryFragmentDirections.actionLibraryFragmentToOnDeviceFragment()
                 )
             } else {
                 Snackbar.make(
@@ -44,7 +44,7 @@ class LibraryFragment : Fragment() {
                     "Please accept to upload photos.",
                     Snackbar.LENGTH_SHORT
                 ).setAction("OK") {
-                    // TODO(): Navigate to the Setting Fragment
+                    // TODO Navigate to the Setting Fragment (ua vay con cai o MainActivity?)
                     // navController.navigate(R.id.setting_fragment)
                 }.show()
             }

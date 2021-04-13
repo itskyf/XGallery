@@ -11,8 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.team02.xgallery.Utils
 import com.team02.xgallery.databinding.FragmentLoginBinding
+import com.team02.xgallery.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
@@ -109,7 +109,7 @@ class LoginFragment : Fragment() {
             )
         }
         binding.btnLoginGoogle.setOnClickListener {
-            // TODO
+            // TODO login with Google
         }
         binding.tvRegister.setOnClickListener {
             navController.navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())

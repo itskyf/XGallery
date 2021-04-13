@@ -1,15 +1,15 @@
 package com.team02.xgallery.di
 
+import android.content.Context
 import com.team02.xgallery.data.repository.FolderRepository
 import com.team02.xgallery.data.repository.LocalMediaRepository
 import com.team02.xgallery.data.repository.UserRepository
 import com.team02.xgallery.data.source.local.AppDatabase
-import com.team02.xgallery.data.source.local.FolderSource
-import com.team02.xgallery.data.source.local.LocalMediaSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.Dispatchers
 
@@ -22,11 +22,11 @@ object RepositoryModule {
 
     @Provides
     @ViewModelScoped
-    fun provideFolderRepository(folderSource: FolderSource) =
-        FolderRepository(folderSource, Dispatchers.IO)
+    fun provideFolderRepository(@ApplicationContext context: Context) =
+        FolderRepository(context, Dispatchers.IO)
 
     @Provides
     @ViewModelScoped
-    fun provideLocalMediaRepository(roomDb: AppDatabase, mediaSource: LocalMediaSource) =
-        LocalMediaRepository(roomDb, mediaSource, Dispatchers.IO)
+    fun provideLocalMediaRepository(@ApplicationContext context: Context, roomDb: AppDatabase) =
+        LocalMediaRepository(context, roomDb, Dispatchers.IO)
 }

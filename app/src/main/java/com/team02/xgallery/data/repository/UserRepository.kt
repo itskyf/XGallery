@@ -1,6 +1,5 @@
 package com.team02.xgallery.data.repository
 
-import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
@@ -17,7 +16,6 @@ class UserRepository {
     val authStateFlow = callbackFlow {
         val listener = FirebaseAuth.AuthStateListener {
             runCatching { !isClosedForSend && offer(it.currentUser) }.getOrDefault(false)
-            // TODO
         }
         auth.addAuthStateListener(listener)
         awaitClose { auth.removeAuthStateListener(listener) }
@@ -42,21 +40,15 @@ class UserRepository {
     fun sendPasswordResetEmail(email: String) =
         auth.sendPasswordResetEmail(email)
 
-    fun getDisplayName(): String {
-        return auth.currentUser.displayName
-    }
+    val displayName
+        get() = auth.currentUser?.displayName
 
-    fun getEmail(): String {
-        return auth.currentUser.email
-    }
+    val email
+        get() = auth.currentUser?.email
 
-    fun getAvatar(): Uri {
-        return auth.currentUser.photoUrl
-    }
 
-    fun signOut() {
-        auth.signOut()
-    }
+    fun signOut() = auth.signOut()
+
 }
 
 
