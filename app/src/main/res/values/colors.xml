@@ -13,6 +13,7 @@
     <color name="blue_100">#FFBBDEFB</color>
     <color name="gray_200">#FFEEEEEE</color>
     <color name="gray_500">#FF9E9E9E</color>
+    <color name="gray_700">#FF616161</color>
     <color name="gray_50">#FFFAFAFA</color>
     <color name="dim_gray">#FFC0C0C0</color>
     <color name="dim_purple">#FFECEAFF</color>
