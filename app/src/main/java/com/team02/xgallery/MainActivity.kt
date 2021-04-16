@@ -21,6 +21,7 @@ import com.team02.xgallery.databinding.ActivityMainBinding
 import com.team02.xgallery.utils.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -40,8 +41,7 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         binding.bottomNav.setupWithNavController(navController)
         // ----- Show/Hide top app bar & bottom nav -----
-        val param: CoordinatorLayout.LayoutParams =
-            binding.navHostFragment.layoutParams as CoordinatorLayout.LayoutParams
+        val mainParams = binding.navHostFragment.layoutParams as CoordinatorLayout.LayoutParams
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.homeFragment,
@@ -49,12 +49,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.collectionsFragment -> {
                     binding.topAppBar.visibility = View.VISIBLE
                     binding.bottomNav.visibility = View.VISIBLE
-                    param.behavior = AppBarLayout.ScrollingViewBehavior()
+                    mainParams.behavior = AppBarLayout.ScrollingViewBehavior()
                 }
                 else -> {
                     binding.topAppBar.visibility = View.GONE
                     binding.bottomNav.visibility = View.GONE
-                    param.behavior = null
+                    mainParams.behavior = null
                 }
             }
         }
@@ -118,6 +118,7 @@ class MainActivity : AppCompatActivity() {
 
         // TopAppBar
         binding.topAppBar.setOnMenuItemClickListener { item ->
+            Timber.d("$item")
             when (item.itemId) {
                 R.id.topBarUpload -> {
                     requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -128,10 +129,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Note: Use this instead of setOnMenuItemClickListener
-        topMenu.findItem(R.id.topBarAvatar).actionView.findViewById<ShapeableImageView>(
-            R.id.avatar
-        ).setOnClickListener {
-            navController.navigate(R.id.openProfileFragment)
-        }
+        topMenu.findItem(R.id.topBarAvatar).actionView
+            .findViewById<ShapeableImageView>(R.id.avatar).setOnClickListener {
+                navController.navigate(R.id.openProfileFragment)
+            }
     }
 }
