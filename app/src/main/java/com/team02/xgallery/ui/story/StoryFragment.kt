@@ -3,14 +3,17 @@ package com.team02.xgallery.ui.story
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentStoryBinding
 import dagger.hilt.android.AndroidEntryPoint
 import pt.tornelas.segmentedprogressbar.SegmentedProgressBarListener
@@ -20,7 +23,7 @@ class StoryFragment : Fragment() {
     private var _binding: FragmentStoryBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
-    private var listImage = listOf<Uri>()
+    private var listImage = listOf(R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d, R.drawable.e)
     private var pos = 0
 
     override fun onCreateView(
@@ -39,19 +42,16 @@ class StoryFragment : Fragment() {
         binding.spb.start()
         binding.storyImg.load(listImage[pos])
         binding.leftBtn.setOnClickListener{
-            if(pos==0)
+            if(pos == 0)
             {
                 binding.spb.restartSegment()
             }else {
                 binding.spb.previous()
-                pos--
-                binding.storyImg.load(listImage[pos])
+
             }
         }
         binding.rightBtn.setOnClickListener{
             binding.spb.next()
-            pos++
-            binding.storyImg.load(listImage[pos])
         }
         binding.storyLayout.setOnTouchListener(View.OnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
@@ -65,8 +65,8 @@ class StoryFragment : Fragment() {
         })
         binding.spb.listener = object : SegmentedProgressBarListener {
             override fun onPage(oldPageIndex: Int, newPageIndex: Int) {
-                pos++
-                binding.storyImg.load(listImage[pos])
+                binding.storyImg.load(listImage[newPageIndex])
+                pos = newPageIndex
             }
             override fun onFinished() {
             }
