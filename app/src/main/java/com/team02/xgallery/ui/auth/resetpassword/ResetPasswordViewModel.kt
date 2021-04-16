@@ -1,4 +1,4 @@
-package com.team02.xgallery.ui.auth.forgot
+package com.team02.xgallery.ui.auth.resetpassword
 
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -11,27 +11,27 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
-class ForgotViewModel @Inject constructor(
+class ResetPasswordViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(ForgotState.INPUT)
-    val uiState: StateFlow<ForgotState> = _uiState
+    private val _uiState = MutableStateFlow(ResetPasswordState.INPUT)
+    val uiState: StateFlow<ResetPasswordState> = _uiState
 
     suspend fun resetPassword(email: String) {
         try {
-            _uiState.value = ForgotState.LOADING
+            _uiState.value = ResetPasswordState.LOADING
             userRepository.sendPasswordResetEmail(email).await()
-            _uiState.value = ForgotState.SUCCESS
+            _uiState.value = ResetPasswordState.SUCCESS
         } catch (e: FirebaseAuthInvalidCredentialsException) {
-            _uiState.value = ForgotState.MALFORMED_EMAIL
+            _uiState.value = ResetPasswordState.MALFORMED_EMAIL
         } catch (e: FirebaseAuthInvalidUserException) {
-            _uiState.value = ForgotState.NOT_EXISTING_EMAIL
+            _uiState.value = ResetPasswordState.NOT_EXISTING_EMAIL
         } catch (e: Exception) {
-            _uiState.value = ForgotState.ERROR
+            _uiState.value = ResetPasswordState.ERROR
         }
     }
 
     fun tryAgain() {
-        _uiState.value = ForgotState.INPUT
+        _uiState.value = ResetPasswordState.INPUT
     }
 }

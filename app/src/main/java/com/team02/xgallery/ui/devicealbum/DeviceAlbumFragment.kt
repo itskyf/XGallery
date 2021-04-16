@@ -1,4 +1,4 @@
-package com.team02.xgallery.ui.folder
+package com.team02.xgallery.ui.devicealbum
 
 import android.os.Bundle
 import android.view.*
@@ -12,7 +12,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.team02.xgallery.MainActivity
 import com.team02.xgallery.R
-import com.team02.xgallery.databinding.FragmentFolderBinding
+import com.team02.xgallery.databinding.FragmentDeviceAlbumBinding
 import com.team02.xgallery.ui.adapter.LocalMediaAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -20,10 +20,10 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class FolderFragment : Fragment() {
-    private var _binding: FragmentFolderBinding? = null
+class DeviceAlbumFragment : Fragment() {
+    private var _binding: FragmentDeviceAlbumBinding? = null
     private val binding get() = _binding!!
-    private val args: FolderFragmentArgs by navArgs()
+    private val args: DeviceAlbumFragmentArgs by navArgs()
     private val viewModel: FolderViewModel by viewModels()
     private lateinit var navController: NavController
     private var selectionMode: ActionMode? = null
@@ -35,7 +35,7 @@ class FolderFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFolderBinding.inflate(inflater, container, false)
+        _binding = FragmentDeviceAlbumBinding.inflate(inflater, container, false)
         navController = findNavController()
 
         binding.albumTopBar.title = args.albumName
@@ -45,7 +45,7 @@ class FolderFragment : Fragment() {
 
         val pagingAdapter = LocalMediaAdapter({
             navController.navigate(
-                FolderFragmentDirections.openMediaView(it.id)
+                DeviceAlbumFragmentDirections.openDevicePhotoView(it.id)
             )
         }, viewModel.selectionManager)
 
@@ -96,7 +96,7 @@ class FolderFragment : Fragment() {
 
     private val callback: ActionMode.Callback = object : ActionMode.Callback {
         override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-            mode?.menuInflater?.inflate(R.menu.folder_contextual_top_app_bar, menu)
+            mode?.menuInflater?.inflate(R.menu.device_album_contextual_top_app_bar, menu)
             return true
         }
 

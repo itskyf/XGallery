@@ -48,9 +48,9 @@ class MainActivity : AppCompatActivity() {
         // ----- Show/Hide top app bar & bottom nav -----
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.photosFragment,
-                R.id.search_fragment,
-                R.id.libraryFragment -> {
+                R.id.homeFragment,
+                R.id.searchFragment,
+                R.id.collectionsFragment -> {
                     binding.topAppBar.visibility = View.VISIBLE
                     binding.bottomNav.visibility = View.VISIBLE
                     val param: CoordinatorLayout.LayoutParams =

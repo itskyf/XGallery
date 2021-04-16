@@ -1,4 +1,4 @@
-package com.team02.xgallery.ui.auth.forgot
+package com.team02.xgallery.ui.auth.resetpassword
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.team02.xgallery.databinding.FragmentForgotBinding
+import com.team02.xgallery.databinding.FragmentResetPasswordBinding
 import com.team02.xgallery.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -17,10 +17,10 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ForgotFragment : Fragment() {
-    private var _binding: FragmentForgotBinding? = null
+class ResetPasswordFragment : Fragment() {
+    private var _binding: FragmentResetPasswordBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ForgotViewModel by viewModels()
+    private val viewModel: ResetPasswordViewModel by viewModels()
     private var uiStateJob: Job? = null
 
     override fun onCreateView(
@@ -28,7 +28,7 @@ class ForgotFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentForgotBinding.inflate(inflater, container, false)
+        _binding = FragmentResetPasswordBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -39,7 +39,7 @@ class ForgotFragment : Fragment() {
         uiStateJob = lifecycleScope.launch {
             viewModel.uiState.collect { uiState ->
                 when (uiState) {
-                    ForgotState.SUCCESS -> {
+                    ResetPasswordState.SUCCESS -> {
                         Snackbar.make(
                             binding.root,
                             "The reset link has been sent to your email.\nCheck it out!",
@@ -50,15 +50,15 @@ class ForgotFragment : Fragment() {
                             }
                             .show()
                     }
-                    ForgotState.INPUT -> {
+                    ResetPasswordState.INPUT -> {
                         Utils.setViewAndChildrenEnabled(binding.form, true)
                         binding.progressBar.visibility = View.GONE
                     }
-                    ForgotState.LOADING -> {
+                    ResetPasswordState.LOADING -> {
                         Utils.setViewAndChildrenEnabled(binding.form, false)
                         binding.progressBar.visibility = View.VISIBLE
                     }
-                    ForgotState.MALFORMED_EMAIL -> {
+                    ResetPasswordState.MALFORMED_EMAIL -> {
                         Snackbar.make(
                             binding.root,
                             "Your email address is malformed.\nPlease try again!",
@@ -67,7 +67,7 @@ class ForgotFragment : Fragment() {
                             .show()
                         viewModel.tryAgain()
                     }
-                    ForgotState.NOT_EXISTING_EMAIL -> {
+                    ResetPasswordState.NOT_EXISTING_EMAIL -> {
                         Snackbar.make(
                             binding.root,
                             "Your email address does not exist.\nPlease try again!",
@@ -76,7 +76,7 @@ class ForgotFragment : Fragment() {
                             .show()
                         viewModel.tryAgain()
                     }
-                    ForgotState.ERROR -> {
+                    ResetPasswordState.ERROR -> {
                         Snackbar.make(
                             binding.root,
                             "Unexpected error.\nPlease try again!",

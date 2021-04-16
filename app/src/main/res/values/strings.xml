@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">XGallery</string>
     <string name="slogan">Capture your moments</string>
-    <string name="photos">Photos</string>
+    <string name="home">Home</string>
     <string name="search">Search</string>
-    <string name="library">Library</string>
+    <string name="collections">Collections</string>
     <string name="favorites">Favorites</string>
     <string name="archive">Archive</string>
     <string name="trash">Trash</string>
@@ -11,7 +11,7 @@
     <string name="album">Album</string>
     <string name="title">Title</string>
     <string name="nothing_here">A friend to all is a friend to none</string>
-    <string name="account">Account</string>
+    <string name="profile">Profile</string>
     <string name="upload_photos">Upload photos</string>
     <string name="password">Password</string>
     <string name="share">Share</string>

@@ -12,6 +12,7 @@
     <color name="blue_500">#FF2196F3</color>
     <color name="blue_100">#FFBBDEFB</color>
     <color name="gray_200">#FFEEEEEE</color>
+    <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_500">#FF9E9E9E</color>
     <color name="gray_700">#FF616161</color>
     <color name="gray_50">#FFFAFAFA</color>
@@ -23,5 +24,4 @@
     <color name="dim_red">#FFF9E1DE</color>
     <color name="avatar">#FFD3DBE5</color>
     <color name="colorPrimaryDark">#4A4A4A</color>
-
 </resources>

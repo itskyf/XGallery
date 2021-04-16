@@ -1,4 +1,4 @@
-package com.team02.xgallery.ui.image
+package com.team02.xgallery.ui.cloudphoto
 
 import android.annotation.SuppressLint
 import android.content.ContentUris
@@ -12,14 +12,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.team02.xgallery.R
-import com.team02.xgallery.databinding.FragmentPhotoBinding
+import com.team02.xgallery.databinding.FragmentCloudPhotoBinding
 import com.team02.xgallery.utils.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
-class PhotoFragment : Fragment() {
-    private var _binding: FragmentPhotoBinding? = null
+class CloudPhotoFragment : Fragment() {
+    private var _binding: FragmentCloudPhotoBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
 
@@ -32,7 +31,7 @@ class PhotoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPhotoBinding.inflate(inflater, container, false)
+        _binding = FragmentCloudPhotoBinding.inflate(inflater, container, false)
         navController = findNavController()
         return binding.root
     }
@@ -40,7 +39,7 @@ class PhotoFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val args: PhotoFragmentArgs by navArgs()
+        val args: CloudPhotoFragmentArgs by navArgs()
 
         with(binding) {
             imgView.load(ContentUris.withAppendedId(AppConstants.COLLECTION, args.id))
@@ -57,23 +56,29 @@ class PhotoFragment : Fragment() {
                 }
             }
             moreBtn.setOnClickListener {
-                val bottomSheetFragment = CustomModalBottomSheet(ContentUris.withAppendedId(Utils.collection, args.id))
+                val bottomSheetFragment =
+                    CloudPhotoMoreBottomSheet(
+                        ContentUris.withAppendedId(
+                            AppConstants.COLLECTION,
+                            args.id
+                        )
+                    )
                 bottomSheetFragment.show(
                     requireActivity().supportFragmentManager,
                     bottomSheetFragment.tag
                 )
 
             }
-            starBtn.setOnClickListener {
+            favoriteBtn.setOnClickListener {
                 isFavorite = if (!isFavorite) {
-                    binding.starBtn.setImageResource(R.drawable.ic_star_24)
+                    binding.favoriteBtn.setImageResource(R.drawable.ic_star_24)
                     true
                 } else {
-                    binding.starBtn.setImageResource(R.drawable.ic_full_star_24)
+                    binding.favoriteBtn.setImageResource(R.drawable.ic_full_star_24)
                     false
                 }
             }
-            shareBtn.setOnClickListener{
+            shareBtn.setOnClickListener {
             }
             backBtn.setOnClickListener {
                 navController.popBackStack()
@@ -86,11 +91,3 @@ class PhotoFragment : Fragment() {
         _binding = null
     }
 }
-
-
-
-
-
-
-
-

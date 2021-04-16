@@ -1,4 +1,4 @@
-package com.team02.xgallery.ui.library
+package com.team02.xgallery.ui.collections
 
 import android.Manifest
 import android.os.Bundle
@@ -12,12 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.team02.xgallery.R
-import com.team02.xgallery.databinding.FragmentLibraryBinding
+import com.team02.xgallery.databinding.FragmentCollectionsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LibraryFragment : Fragment() {
-    private var _binding: FragmentLibraryBinding? = null
+class CollectionsFragment : Fragment() {
+    private var _binding: FragmentCollectionsBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -25,7 +25,7 @@ class LibraryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLibraryBinding.inflate(inflater, container, false)
+        _binding = FragmentCollectionsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -36,7 +36,7 @@ class LibraryFragment : Fragment() {
         ) { granted: Boolean ->
             if (granted) {
                 findNavController().navigate(
-                    LibraryFragmentDirections.actionLibraryFragmentToOnDeviceFragment()
+                    CollectionsFragmentDirections.actionLibraryFragmentToOnDeviceFragment()
                 )
             } else {
                 Snackbar.make(

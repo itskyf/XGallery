@@ -1,4 +1,4 @@
-package com.team02.xgallery.ui.folder
+package com.team02.xgallery.ui.devicealbum
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

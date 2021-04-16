@@ -1,4 +1,4 @@
-package com.team02.xgallery.ui.photos
+package com.team02.xgallery.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,22 +9,22 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.team02.xgallery.R
-import com.team02.xgallery.databinding.FragmentPhotosBinding
+import com.team02.xgallery.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PhotosFragment : Fragment() {
-    private var _binding: FragmentPhotosBinding? = null
+class HomeFragment : Fragment() {
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
-    private val viewModel: PhotosViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPhotosBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         navController = findNavController()
         return binding.root
     }

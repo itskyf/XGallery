@@ -2,24 +2,25 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/photosFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/photosFragment"
-        android:name="com.team02.xgallery.ui.photos.PhotosFragment"
-        tools:layout="@layout/fragment_photos" />
+        android:id="@+id/homeFragment"
+        android:name="com.team02.xgallery.ui.home.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/search_fragment"
+        android:id="@+id/searchFragment"
         android:name="com.team02.xgallery.ui.search.SearchFragment"
         android:label="@string/search"
         tools:layout="@layout/fragment_search" />
 
     <fragment
-        android:id="@+id/libraryFragment"
-        android:name="com.team02.xgallery.ui.library.LibraryFragment"
-        android:label="@string/library"
-        tools:layout="@layout/fragment_library">
+        android:id="@+id/collectionsFragment"
+        android:name="com.team02.xgallery.ui.collections.CollectionsFragment"
+        android:label="@string/collections"
+        tools:layout="@layout/fragment_collections">
         <action
             android:id="@+id/actionLibraryFragmentToOnDeviceFragment"
             app:destination="@id/onDeviceFragment" />
@@ -28,23 +29,23 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.team02.xgallery.ui.profile.ProfileFragment"
-        android:label="Profile"
+        android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/onDeviceFragment"
         android:name="com.team02.xgallery.ui.ondevice.OnDeviceFragment"
-        android:label="OnDeviceFragment">
+        android:label="OnDevice">
         <action
-            android:id="@+id/openFolderView"
-            app:destination="@id/folderFragment" />
+            android:id="@+id/openDeviceAlbumView"
+            app:destination="@id/deviceAlbumFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/folderFragment"
-        android:name="com.team02.xgallery.ui.folder.FolderFragment"
-        android:label="fragment_album"
-        tools:layout="@layout/fragment_folder">
+        android:id="@+id/deviceAlbumFragment"
+        android:name="com.team02.xgallery.ui.devicealbum.DeviceAlbumFragment"
+        android:label="DeviceAlbum"
+        tools:layout="@layout/fragment_device_album">
         <argument
             android:name="albumId"
             app:argType="integer" />
@@ -52,15 +53,25 @@
             android:name="albumName"
             app:argType="string" />
         <action
-            android:id="@+id/openMediaView"
-            app:destination="@id/photo_fragment" />
+            android:id="@+id/openDevicePhotoView"
+            app:destination="@id/devicePhotoFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/photo_fragment"
-        android:name="com.team02.xgallery.ui.image.PhotoFragment"
-        android:label="image"
-        tools:layout="@layout/fragment_photo">
+        android:id="@+id/devicePhotoFragment"
+        android:name="com.team02.xgallery.ui.devicephoto.DevicePhotoFragment"
+        android:label="DevicePhoto"
+        tools:layout="@layout/fragment_device_photo">
+        <argument
+            android:name="id"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cloudPhotoFragment"
+        android:name="com.team02.xgallery.ui.cloudphoto.CloudPhotoFragment"
+        android:label="CloudPhoto"
+        tools:layout="@layout/fragment_cloud_photo">
         <argument
             android:name="id"
             app:argType="long" />
@@ -73,7 +84,7 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/actionLoginFragmentToForgotFrament"
-            app:destination="@id/forgotFrament" />
+            app:destination="@id/resetPasswordFrament" />
         <action
             android:id="@+id/actionLoginFragmentToRegisterFragment"
             app:destination="@id/registerFragment" />
@@ -86,8 +97,8 @@
         tools:layout="@layout/fragment_register" />
 
     <fragment
-        android:id="@+id/forgotFrament"
-        android:name="com.team02.xgallery.ui.auth.forgot.ForgotFragment"
-        android:label="Forgot"
-        tools:layout="@layout/fragment_forgot" />
+        android:id="@+id/resetPasswordFrament"
+        android:name="com.team02.xgallery.ui.auth.resetpassword.ResetPasswordFragment"
+        android:label="ResetPassword"
+        tools:layout="@layout/fragment_reset_password" />
 </navigation>

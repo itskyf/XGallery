@@ -35,7 +35,7 @@ class OnDeviceFragment : Fragment() {
 
         val pagingAdapter = AlbumAdapter {
             findNavController().navigate(
-                OnDeviceFragmentDirections.openFolderView(it.id as Int, it.name)
+                OnDeviceFragmentDirections.openDeviceAlbumView(it.id as Int, it.name)
             )
         }
         binding.folderGrid.adapter = pagingAdapter

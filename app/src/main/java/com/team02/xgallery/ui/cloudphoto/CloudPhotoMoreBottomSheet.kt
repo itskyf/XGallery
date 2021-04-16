@@ -1,4 +1,4 @@
-package com.team02.xgallery.ui.image
+package com.team02.xgallery.ui.cloudphoto
 
 import android.app.AlertDialog
 import android.app.WallpaperManager
@@ -14,8 +14,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.team02.xgallery.R
 
 
-
-class CustomModalBottomSheet(withAppendedId: Uri) : BottomSheetDialogFragment(), View.OnClickListener {
+class CloudPhotoMoreBottomSheet(withAppendedId: Uri) : BottomSheetDialogFragment(),
+    View.OnClickListener {
     companion object {
         const val Tag = "CustomBottomSheetDialogFragment"
 
@@ -28,7 +28,7 @@ class CustomModalBottomSheet(withAppendedId: Uri) : BottomSheetDialogFragment(),
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.photo_detail, container, false)
+        return inflater.inflate(R.layout.bottom_sheet_more_cloud_photo, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,7 +41,7 @@ class CustomModalBottomSheet(withAppendedId: Uri) : BottomSheetDialogFragment(),
     }
 
     override fun onClick(v: View?) {
-        if(v?.id == R.id.useAsBtn) {
+        if (v?.id == R.id.useAsBtn) {
             val bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, id)
             val myWallpaperManager = WallpaperManager.getInstance(requireContext())
             val modes = arrayOf("Home Screen", "Lock Screen", "Home Screen and Lock Screen")
@@ -49,16 +49,36 @@ class CustomModalBottomSheet(withAppendedId: Uri) : BottomSheetDialogFragment(),
             builder.setTitle("Set Wallpaper")
             builder.setItems(modes) { _, which ->
                 when (which) {
-                    0 -> myWallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_SYSTEM);
-                    1 -> myWallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_LOCK);
+                    0 -> myWallpaperManager.setBitmap(
+                        bitmap,
+                        null,
+                        true,
+                        WallpaperManager.FLAG_SYSTEM
+                    )
+                    1 -> myWallpaperManager.setBitmap(
+                        bitmap,
+                        null,
+                        true,
+                        WallpaperManager.FLAG_LOCK
+                    )
                     2 -> {
-                        myWallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_SYSTEM);
-                        myWallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_LOCK);
+                        myWallpaperManager.setBitmap(
+                            bitmap,
+                            null,
+                            true,
+                            WallpaperManager.FLAG_SYSTEM
+                        )
+                        myWallpaperManager.setBitmap(
+                            bitmap,
+                            null,
+                            true,
+                            WallpaperManager.FLAG_LOCK
+                        )
                     }
                 }
             }
             builder.show()
-        } else if (v?.id == R.id.addAlbumBtn){
+        } else if (v?.id == R.id.addAlbumBtn) {
         }
     }
 
