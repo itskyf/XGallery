@@ -17,15 +17,13 @@ class MainApplication : Application(), ImageLoaderFactory {
         }
     }
 
-    override fun newImageLoader(): ImageLoader {
-        return ImageLoader.Builder(applicationContext)
-            .availableMemoryPercentage(.35)
-            .crossfade(true)
-            .apply {
-                componentRegistry {
-                    add(StorageReferenceFetcher())
-                }
+    override fun newImageLoader() = ImageLoader.Builder(applicationContext)
+        .availableMemoryPercentage(.35)
+        .crossfade(true)
+        .apply {
+            componentRegistry {
+                add(StorageReferenceFetcher())
             }
-            .build()
-    }
+        }
+        .build()
 }

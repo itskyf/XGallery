@@ -9,7 +9,6 @@ import com.team02.xgallery.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 
@@ -23,11 +22,11 @@ class RegisterViewModel @Inject constructor(
     suspend fun register(displayName: String, email: String, password: String) {
         try {
             _uiState.value = RegisterState.LOADING
-            userRepository.createUserWithEmailAndPassword(email, password).await()
+            userRepository.createUserWithEmailAndPassword(email, password)
             val profileUpdates = UserProfileChangeRequest.Builder()
                 .setDisplayName(displayName).build()
-            userRepository.updateProfile(profileUpdates).await()
-            userRepository.sendEmailVerification().await()
+            userRepository.updateProfile(profileUpdates)
+            userRepository.sendEmailVerification()
             _uiState.value = RegisterState.SUCCESS
         } catch (e: FirebaseAuthWeakPasswordException) {
             _uiState.value = RegisterState.WEAK_PASSWORD

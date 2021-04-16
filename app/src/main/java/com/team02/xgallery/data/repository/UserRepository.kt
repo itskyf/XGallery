@@ -20,7 +20,6 @@ class UserRepository {
         auth.addAuthStateListener(listener)
         awaitClose { auth.removeAuthStateListener(listener) }
     }
-
     val isAvailableToLogIn
         get() = auth.currentUser?.isEmailVerified == true
 
@@ -28,27 +27,29 @@ class UserRepository {
         auth.signInWithEmailAndPassword(email, password).await()
     }
 
-    fun createUserWithEmailAndPassword(email: String, password: String) =
-        auth.createUserWithEmailAndPassword(email, password)
+    suspend fun createUserWithEmailAndPassword(email: String, password: String) {
+        auth.createUserWithEmailAndPassword(email, password).await()
+    }
 
-    fun updateProfile(profileUpdates: UserProfileChangeRequest) =
-        auth.currentUser!!.updateProfile(profileUpdates)
+    suspend fun updateProfile(profileUpdates: UserProfileChangeRequest) {
+        auth.currentUser!!.updateProfile(profileUpdates).await()
+    }
 
-    fun sendEmailVerification() =
-        auth.currentUser!!.sendEmailVerification()
+    suspend fun sendEmailVerification() {
+        auth.currentUser!!.sendEmailVerification().await()
+    }
 
-    fun sendPasswordResetEmail(email: String) =
-        auth.sendPasswordResetEmail(email)
+    suspend fun sendPasswordResetEmail(email: String) {
+        auth.sendPasswordResetEmail(email).await()
+    }
 
     val displayName
         get() = auth.currentUser?.displayName
-
     val email
         get() = auth.currentUser?.email
+    val userUID
+        get() = auth.currentUser?.uid
 
 
     fun signOut() = auth.signOut()
-
 }
-
-

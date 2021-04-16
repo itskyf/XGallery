@@ -32,7 +32,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-            displayName.text = viewModel.userName
+            userDisplayName.text = viewModel.userName
             email.text = viewModel.userEmail
             backBtn.setOnClickListener {
                 navController.popBackStack()

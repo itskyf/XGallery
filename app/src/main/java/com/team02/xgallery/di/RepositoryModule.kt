@@ -1,6 +1,7 @@
 package com.team02.xgallery.di
 
 import android.content.Context
+import androidx.work.WorkManager
 import com.team02.xgallery.data.repository.FolderRepository
 import com.team02.xgallery.data.repository.LocalMediaRepository
 import com.team02.xgallery.data.repository.UserRepository
@@ -29,4 +30,8 @@ object RepositoryModule {
     @ViewModelScoped
     fun provideLocalMediaRepository(@ApplicationContext context: Context, roomDb: AppDatabase) =
         LocalMediaRepository(context, roomDb, Dispatchers.IO)
+
+    @Provides
+    @ViewModelScoped
+    fun provideWorkManager(@ApplicationContext context: Context) = WorkManager.getInstance(context)
 }

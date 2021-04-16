@@ -1,38 +1,32 @@
 package com.team02.xgallery
 
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
-import android.net.Uri
+import android.Manifest
+import android.app.NotificationManager
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.app.NotificationCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import coil.load
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.snackbar.Snackbar
 import com.team02.xgallery.databinding.ActivityMainBinding
+import com.team02.xgallery.utils.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
-
-    // ----- Add photos -----
-    private val newMediaURIs: ArrayList<Uri> = ArrayList()
-    private val getContent =
-        registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { mediaURIs: List<Uri> ->
-            // Handle the returned Uris
-            newMediaURIs.clear()
-            for (uri in mediaURIs) {
-                newMediaURIs.add(uri)
-            }
-        }
+    private lateinit var notificationManager: NotificationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_XGallery)
@@ -40,12 +34,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNav.setupWithNavController(navController)
-
         // ----- Show/Hide top app bar & bottom nav -----
+        val param: CoordinatorLayout.LayoutParams =
+            binding.navHostFragment.layoutParams as CoordinatorLayout.LayoutParams
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.homeFragment,
@@ -53,60 +49,89 @@ class MainActivity : AppCompatActivity() {
                 R.id.collectionsFragment -> {
                     binding.topAppBar.visibility = View.VISIBLE
                     binding.bottomNav.visibility = View.VISIBLE
-                    val param: CoordinatorLayout.LayoutParams =
-                        binding.navHostFragment.layoutParams as CoordinatorLayout.LayoutParams
                     param.behavior = AppBarLayout.ScrollingViewBehavior()
                 }
                 else -> {
                     binding.topAppBar.visibility = View.GONE
                     binding.bottomNav.visibility = View.GONE
-                    val param: CoordinatorLayout.LayoutParams =
-                        binding.navHostFragment.layoutParams as CoordinatorLayout.LayoutParams
                     param.behavior = null
                 }
             }
         }
 
         // ----- Check Login State -----
-        lifecycleScope.launch {
+        val topMenu = binding.topAppBar.menu
+        lifecycleScope.launchWhenStarted {
             viewModel.authStateFlow.collectLatest {
                 if (!viewModel.isAvailableToLogIn) {
-                    navController.navigate(R.id.loginFragment)
+                    navController.popBackStack(R.id.homeFragment, true)
+                    navController.navigate(R.id.openLoginFragment)
+                } else {
+                    if (it?.photoUrl != null) {
+                        topMenu.findItem(R.id.topBarAvatar).actionView.findViewById<ShapeableImageView>(
+                            R.id.avatar
+                        ).load(it.photoUrl)
+                    }
                 }
             }
         }
 
-        // ----- External Storage Permission -----
+        lifecycleScope.launchWhenStarted {
+            val notification =
+                NotificationCompat.Builder(applicationContext, AppConstants.UPLOAD_CHANNEL_ID)
+                    .setContentTitle(getString(R.string.upload_photos))
+                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setGroup(AppConstants.UPLOAD_GROUP)
+                    .setGroupSummary(true).build()
+            viewModel.worksFlow.collectLatest { works ->
+                if (works.isNotEmpty()) {
+                    notificationManager.notify(0, notification)
+                    topMenu.findItem(R.id.topBarUpload).isVisible = false
+                    topMenu.findItem(R.id.topBarIndicator).isVisible = true
+                } else {
+                    topMenu.findItem(R.id.topBarUpload).isVisible = true
+                    topMenu.findItem(R.id.topBarIndicator).isVisible = false
+                }
+            }
+        }
+
+        // ----- Permission & Upload -----
+        val getMediaActivityResult =
+            registerForActivityResult(ActivityResultContracts.GetMultipleContents()) {
+                viewModel.uploadFiles(it)
+            }
         val requestPermissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { granted: Boolean ->
             if (granted) {
-                getContent.launch("image/*")
+                getMediaActivityResult.launch("image/*")
             } else {
                 Snackbar.make(
                     binding.root,
                     "Please accept to upload photos.",
                     Snackbar.LENGTH_SHORT
                 ).setAction("OK") {
-                    // TODO(): Navigate to the Setting Fragment
-                    // navController.navigate(R.id.setting_fragment)
+                    // TODO navigate to the Setting Fragment
                 }.show()
             }
         }
 
-        // ----- On Click -----
+        // TopAppBar
         binding.topAppBar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
-                R.id.ic_add_photo -> {
-                    requestPermissionLauncher.launch(READ_EXTERNAL_STORAGE)
-                    true
-                }
-                R.id.ic_account -> {
-                    navController.navigate(R.id.profileFragment)
+                R.id.topBarUpload -> {
+                    requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
                     true
                 }
                 else -> false
             }
+        }
+
+        // Note: Use this instead of setOnMenuItemClickListener
+        topMenu.findItem(R.id.topBarAvatar).actionView.findViewById<ShapeableImageView>(
+            R.id.avatar
+        ).setOnClickListener {
+            navController.navigate(R.id.openProfileFragment)
         }
     }
 }

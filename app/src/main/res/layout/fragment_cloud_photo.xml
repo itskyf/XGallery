@@ -11,8 +11,7 @@
         android:id="@+id/imgView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleX="1"
-        android:scaleY="1"
+        android:contentDescription="@string/photo_view"
         android:src="@drawable/ic_google" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +33,7 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="16dp"
                 android:background="@drawable/circle_button"
-                android:src="@drawable/ic_back_24"
+                android:src="@drawable/ic_back_ios_24"
                 android:tint="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
