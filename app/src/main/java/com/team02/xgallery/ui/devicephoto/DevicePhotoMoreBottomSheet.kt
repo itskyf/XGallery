@@ -1,15 +1,16 @@
-package com.team02.xgallery.ui.cloudphoto
+package com.team02.xgallery.ui.devicephoto
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.team02.xgallery.databinding.BottomSheetMoreCloudPhotoBinding
+import com.team02.xgallery.databinding.BottomSheetMoreDevicePhotoBinding
+import com.team02.xgallery.utils.Utils
 
-
-class CloudPhotoMoreBottomSheet : BottomSheetDialogFragment() {
-    private var _binding: BottomSheetMoreCloudPhotoBinding? = null
+class DevicePhotoMoreBottomSheet(private val mediaUri: Uri) : BottomSheetDialogFragment() {
+    private var _binding: BottomSheetMoreDevicePhotoBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -17,7 +18,7 @@ class CloudPhotoMoreBottomSheet : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = BottomSheetMoreCloudPhotoBinding.inflate(inflater, container, false)
+        _binding = BottomSheetMoreDevicePhotoBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -25,17 +26,11 @@ class CloudPhotoMoreBottomSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-            addToAlbumBtn.setOnClickListener {
-                // TODO: add this cloud photo to an album
-            }
-            moveToArchiveBtn.setOnClickListener {
-                // TODO: move this cloud photo to Archives
-            }
             slideshowBtn.setOnClickListener {
                 // TODO: slideshow
             }
             useAsBtn.setOnClickListener {
-                // TODO: set this cloud photo as home screen or lock screen
+                Utils.setDevicePhotoAs(requireContext(), mediaUri)
             }
         }
     }

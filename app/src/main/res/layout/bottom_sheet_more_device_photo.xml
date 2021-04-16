@@ -38,70 +38,6 @@
             app:layout_constraintRight_toLeftOf="@id/btnLayout2">
 
             <ImageButton
-                android:id="@+id/addToAlbumBtn"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_baseline_playlist_add_24"
-                android:tint="@color/black" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Add to" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="album" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/btnLayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toRightOf="@id/btnLayout1"
-            app:layout_constraintRight_toLeftOf="@id/btnLayout3">
-
-            <ImageButton
-                android:id="@+id/moveToArchiveBtn"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_move_to_archive"
-                android:tint="@color/black" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Move to" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Archive" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/btnLayout3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toRightOf="@id/btnLayout2"
-            app:layout_constraintRight_toLeftOf="@id/btnLayout4">
-
-            <ImageButton
                 android:id="@+id/slideshowBtn"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -123,6 +59,68 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/btnLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toRightOf="@id/btnLayout1"
+            app:layout_constraintRight_toLeftOf="@id/btnLayout3">
+
+            <ImageButton
+                android:id="@+id/useAsBtn"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_use_as"
+                android:tint="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Use as" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toRightOf="@id/btnLayout2"
+            app:layout_constraintRight_toLeftOf="@id/btnLayout4">
+
+            <ImageButton
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@android:color/transparent"
+                android:tint="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/btnLayout4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -135,11 +133,9 @@
             app:layout_constraintRight_toRightOf="parent">
 
             <ImageButton
-                android:id="@+id/useAsBtn"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:background="@android:color/transparent"
-                android:src="@drawable/ic_use_as"
                 android:tint="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_weight="1"
@@ -150,7 +146,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Use as" />
+                android:text="" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -179,15 +175,14 @@
             android:text="Thu, Apr 01, 2021  \u00b7  11:03 PM"
             android:textColor="@color/black"
             android:textSize="20sp"
-
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/imgDes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:hint="Add description..." />
+        <!--        <EditText-->
+        <!--            android:id="@+id/imgDes"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:focusable="false"-->
+        <!--            android:hint="Add description..." />-->
 
         <TextView
             android:layout_width="match_parent"

@@ -42,7 +42,7 @@ class ResetPasswordFragment : Fragment() {
                     ResetPasswordState.SUCCESS -> {
                         Snackbar.make(
                             binding.root,
-                            "The reset link has been sent to your email.\nCheck it out!",
+                            "The reset link has been sent to your email. Check it out!",
                             Snackbar.LENGTH_INDEFINITE
                         )
                             .setAction("OK") {
@@ -61,7 +61,7 @@ class ResetPasswordFragment : Fragment() {
                     ResetPasswordState.MALFORMED_EMAIL -> {
                         Snackbar.make(
                             binding.root,
-                            "Your email address is malformed.\nPlease try again!",
+                            "Your email address is malformed. Please try again!",
                             Snackbar.LENGTH_SHORT
                         )
                             .show()
@@ -70,7 +70,7 @@ class ResetPasswordFragment : Fragment() {
                     ResetPasswordState.NOT_EXISTING_EMAIL -> {
                         Snackbar.make(
                             binding.root,
-                            "Your email address does not exist.\nPlease try again!",
+                            "Your email address does not exist. Please try again!",
                             Snackbar.LENGTH_SHORT
                         )
                             .show()
@@ -79,7 +79,7 @@ class ResetPasswordFragment : Fragment() {
                     ResetPasswordState.ERROR -> {
                         Snackbar.make(
                             binding.root,
-                            "Unexpected error.\nPlease try again!",
+                            "Unexpected error. Please try again!",
                             Snackbar.LENGTH_SHORT
                         )
                             .show()

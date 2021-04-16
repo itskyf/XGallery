@@ -56,7 +56,7 @@ class LoginFragment : Fragment() {
                     LoginState.NOT_VERIFIED -> {
                         Snackbar.make(
                             binding.root,
-                            "Your email address has not been verified yet.\nPlease verify it first!",
+                            "Your email address has not been verified yet. Please verify it first!",
                             Snackbar.LENGTH_SHORT
                         ).show()
                         viewModel.tryAgain()
@@ -64,7 +64,7 @@ class LoginFragment : Fragment() {
                     LoginState.NOT_EXISTING_EMAIL -> {
                         Snackbar.make(
                             binding.root,
-                            "Your email address does not exist.\nPlease try again!",
+                            "Your email address does not exist. Please try again!",
                             Snackbar.LENGTH_SHORT
                         ).show()
                         viewModel.tryAgain()
@@ -72,7 +72,7 @@ class LoginFragment : Fragment() {
                     LoginState.WRONG_PASSWORD -> {
                         Snackbar.make(
                             binding.root,
-                            "Your password is not correct.\nPlease try again!",
+                            "Your password is not correct. Please try again!",
                             Snackbar.LENGTH_SHORT
                         ).show()
                         viewModel.tryAgain()
@@ -80,7 +80,7 @@ class LoginFragment : Fragment() {
                     LoginState.ERROR -> {
                         Snackbar.make(
                             binding.root,
-                            "Unexpected error.\nPlease try again!",
+                            "Unexpected error. Please try again!",
                             Snackbar.LENGTH_SHORT
                         )
                             .show()

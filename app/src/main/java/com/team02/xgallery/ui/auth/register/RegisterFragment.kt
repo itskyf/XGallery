@@ -42,7 +42,7 @@ class RegisterFragment : Fragment() {
                     RegisterState.SUCCESS -> {
                         Snackbar.make(
                             binding.root,
-                            "The verification link has been sent to your email.\nCheck it out!",
+                            "The verification link has been sent to your email. Check it out!",
                             Snackbar.LENGTH_INDEFINITE
                         )
                             .setAction("OK") {
@@ -61,7 +61,7 @@ class RegisterFragment : Fragment() {
                     RegisterState.MALFORMED_EMAIL -> {
                         Snackbar.make(
                             binding.root,
-                            "Your email address is malformed.\nPlease try again!",
+                            "Your email address is malformed. Please try again!",
                             Snackbar.LENGTH_SHORT
                         )
                             .show()
@@ -70,7 +70,7 @@ class RegisterFragment : Fragment() {
                     RegisterState.WEAK_PASSWORD -> {
                         Snackbar.make(
                             binding.root,
-                            "Your password must have at least 6 characters.\nPlease try again!",
+                            "Your password must have at least 6 characters. Please try again!",
                             Snackbar.LENGTH_SHORT
                         )
                             .show()
@@ -79,7 +79,7 @@ class RegisterFragment : Fragment() {
                     RegisterState.EXISTING_EMAIL -> {
                         Snackbar.make(
                             binding.root,
-                            "That email address has been taken already.\nPlease try another one!",
+                            "That email address has been taken already. Please try another one!",
                             Snackbar.LENGTH_SHORT
                         )
                             .show()
@@ -88,7 +88,7 @@ class RegisterFragment : Fragment() {
                     RegisterState.ERROR -> {
                         Snackbar.make(
                             binding.root,
-                            "Unexpected error.\nPlease try again!",
+                            "Unexpected error. Please try again!",
                             Snackbar.LENGTH_SHORT
                         )
                             .show()

@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
+import com.google.android.material.snackbar.Snackbar
 import com.team02.xgallery.databinding.FragmentDevicePhotoBinding
 import com.team02.xgallery.utils.AppConstants
 
@@ -32,6 +33,48 @@ class DevicePhotoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val args: DevicePhotoFragmentArgs by navArgs()
         binding.imgView.load(ContentUris.withAppendedId(AppConstants.COLLECTION, args.id))
+
+        with(binding) {
+            backBtn.setOnClickListener {
+                navController.popBackStack()
+            }
+            moreBtn.setOnClickListener {
+                val bottomSheetFragment =
+                    DevicePhotoMoreBottomSheet(
+                        ContentUris.withAppendedId(
+                            AppConstants.COLLECTION,
+                            args.id
+                        )
+                    )
+                bottomSheetFragment.show(
+                    requireActivity().supportFragmentManager,
+                    bottomSheetFragment.tag
+                )
+            }
+            shareBtn.setOnClickListener {
+                // TODO: share this device photo
+            }
+            editBtn.setOnClickListener {
+                // TODO: edit this device photo
+            }
+            uploadBtn.setOnClickListener {
+                // TODO: upload this device photo
+            }
+            deleteBtn.setOnClickListener {
+                Snackbar.make(
+                    binding.root,
+                    "Upcoming feature",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+            root.setOnClickListener {
+                if (appBarsLayout.visibility == View.GONE) {
+                    appBarsLayout.visibility = View.VISIBLE
+                } else {
+                    appBarsLayout.visibility = View.GONE
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

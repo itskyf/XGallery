@@ -16,12 +16,11 @@
         android:src="@drawable/ic_google" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/appBarsLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/topLayout"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:background="@drawable/bg_top_app_bar"
@@ -62,7 +61,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/bottomLayout"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:background="@drawable/bg_bottom_app_bar"
@@ -95,7 +93,7 @@
                 app:layout_constraintRight_toLeftOf="@id/uploadBtn" />
 
             <ImageButton
-                android:id="@+id/uploadBtn"
+                android:id="@+id/downloadBtn"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="@drawable/circle_button"
