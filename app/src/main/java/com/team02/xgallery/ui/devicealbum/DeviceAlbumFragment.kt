@@ -115,6 +115,17 @@ class DeviceAlbumFragment : Fragment() {
         ): Boolean {
             return when (item?.itemId) {
                 R.id.share -> {
+                    val arrayImage = viewModel.selectionManager.getItemKeyList()
+                    val imageUris: ArrayList<Uri> = ArrayList()
+                    for (i in arrayImage){
+                        imageUris.add(ContentUris.withAppendedId(AppConstants.COLLECTION, i as Long))
+                    }
+                    val shareIntent = Intent().apply {
+                        action = Intent.ACTION_SEND_MULTIPLE
+                        putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris)
+                        type = "image/*"
+                    }
+                    startActivity(Intent.createChooser(shareIntent, "Share images to.."))
                     true
                 }
                 R.id.delete -> {
