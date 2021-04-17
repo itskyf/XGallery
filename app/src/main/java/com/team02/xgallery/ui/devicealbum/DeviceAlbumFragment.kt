@@ -1,6 +1,10 @@
 package com.team02.xgallery.ui.devicealbum
 
+import android.content.ContentUris
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
@@ -14,6 +18,7 @@ import com.team02.xgallery.MainActivity
 import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentDeviceAlbumBinding
 import com.team02.xgallery.ui.adapter.LocalMediaAdapter
+import com.team02.xgallery.utils.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
