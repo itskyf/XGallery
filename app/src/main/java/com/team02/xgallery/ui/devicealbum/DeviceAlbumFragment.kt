@@ -4,7 +4,6 @@ import android.content.ContentUris
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
@@ -29,7 +28,7 @@ class DeviceAlbumFragment : Fragment() {
     private var _binding: FragmentDeviceAlbumBinding? = null
     private val binding get() = _binding!!
     private val args: DeviceAlbumFragmentArgs by navArgs()
-    private val viewModel: FolderViewModel by viewModels()
+    private val viewModel: DeviceAlbumViewModel by viewModels()
     private lateinit var navController: NavController
     private var selectionMode: ActionMode? = null
     private var onSelectionModeJob: Job? = null

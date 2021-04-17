@@ -29,7 +29,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = findNavController()
-        navController.navigate(R.id.story)
+        navController.navigate(R.id.storyFragment)
     }
 
     override fun onDestroyView() {

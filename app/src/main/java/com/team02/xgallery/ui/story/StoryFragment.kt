@@ -1,14 +1,11 @@
 package com.team02.xgallery.ui.story
 
 import android.annotation.SuppressLint
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -23,13 +20,19 @@ class StoryFragment : Fragment() {
     private var _binding: FragmentStoryBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
-    private var listImage = listOf(R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d, R.drawable.e)
+    private var listImage = listOf(
+        R.drawable.ic_google,
+        R.drawable.ic_launcher_foreground,
+        R.drawable.ic_google,
+        R.drawable.ic_launcher_foreground,
+        R.drawable.ic_google
+    )
     private var pos = 0
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentStoryBinding.inflate(inflater, container, false)
         return binding.root
@@ -41,16 +44,15 @@ class StoryFragment : Fragment() {
         binding.spb.segmentCount = 5
         binding.spb.start()
         binding.storyImg.load(listImage[pos])
-        binding.leftBtn.setOnClickListener{
-            if(pos == 0)
-            {
+        binding.leftBtn.setOnClickListener {
+            if (pos == 0) {
                 binding.spb.restartSegment()
-            }else {
+            } else {
                 binding.spb.previous()
 
             }
         }
-        binding.rightBtn.setOnClickListener{
+        binding.rightBtn.setOnClickListener {
             binding.spb.next()
         }
         binding.storyLayout.setOnTouchListener(View.OnTouchListener { _, event ->
@@ -68,6 +70,7 @@ class StoryFragment : Fragment() {
                 binding.storyImg.load(listImage[newPageIndex])
                 pos = newPageIndex
             }
+
             override fun onFinished() {
             }
         }

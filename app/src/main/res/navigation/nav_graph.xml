@@ -114,9 +114,8 @@
         tools:layout="@layout/fragment_reset_password" />
 
     <fragment
-        android:id="@+id/story"
+        android:id="@+id/storyFragment"
         android:name="com.team02.xgallery.ui.story.StoryFragment"
-        android:label="story"
+        android:label="StoryFragment"
         tools:layout="@layout/fragment_story" />
-
 </navigation>
