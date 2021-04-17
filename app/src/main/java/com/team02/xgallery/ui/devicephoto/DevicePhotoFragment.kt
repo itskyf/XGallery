@@ -1,7 +1,9 @@
 package com.team02.xgallery.ui.devicephoto
 
 import android.content.ContentUris
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.google.android.material.snackbar.Snackbar
+import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentDevicePhotoBinding
 import com.team02.xgallery.utils.AppConstants
 
@@ -52,7 +55,12 @@ class DevicePhotoFragment : Fragment() {
                 )
             }
             shareBtn.setOnClickListener {
-                // TODO: share this device photo
+                val shareIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_STREAM, ContentUris.withAppendedId(AppConstants.COLLECTION, args.id))
+                    type = "image/jpeg"
+                }
+                startActivity(Intent.createChooser(shareIntent, null))
             }
             editBtn.setOnClickListener {
                 // TODO: edit this device photo
