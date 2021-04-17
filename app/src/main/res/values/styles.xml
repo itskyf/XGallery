@@ -18,4 +18,13 @@
         <item name="subtitleTextStyle">?attr/textAppearanceSubtitle1</item>
         <item name="background">@color/material_grey_900</item>
     </style>
+
+    <style name="Widget.MaterialComponents.AppBarLayout.Secondary" parent="Widget.MaterialComponents.AppBarLayout.Primary">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="ThemeOverlay.MaterialComponents.Toolbar.Secondary" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="titleTextColor">@color/blue_900</item>
+    </style>
 </resources>

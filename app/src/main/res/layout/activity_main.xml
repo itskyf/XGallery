@@ -13,13 +13,14 @@
         android:layout_weight="1">
 
         <com.google.android.material.appbar.AppBarLayout
+            style="@style/Widget.MaterialComponents.AppBarLayout.Secondary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:liftOnScroll="true">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topAppBar"
-                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                style="@style/ThemeOverlay.MaterialComponents.Toolbar.Secondary"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:gravity="center"
