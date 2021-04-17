@@ -28,6 +28,7 @@ class UploadWorker(
             NotificationManager
     private val notificationBuilder =
         NotificationCompat.Builder(applicationContext, AppConstants.UPLOAD_CHANNEL_ID)
+            .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setGroup(AppConstants.UPLOAD_GROUP)
             .setOngoing(true)

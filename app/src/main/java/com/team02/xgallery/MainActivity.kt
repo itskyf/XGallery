@@ -80,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launchWhenStarted {
             val notification =
                 NotificationCompat.Builder(applicationContext, AppConstants.UPLOAD_CHANNEL_ID)
+                    .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN)
                     .setContentTitle(getString(R.string.upload_photos))
                     .setSmallIcon(R.drawable.ic_launcher_foreground)
                     .setGroup(AppConstants.UPLOAD_GROUP)
