@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
@@ -64,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launchWhenStarted {
             viewModel.authStateFlow.collectLatest {
                 if (!viewModel.isAvailableToLogIn) {
-                    navController.popBackStack(R.id.homeFragment, true)
+                    Timber.d("${supportFragmentManager.backStackEntryCount}")
                     navController.navigate(R.id.openLoginFragment)
                 } else {
                     if (it?.photoUrl != null) {
@@ -118,7 +119,6 @@ class MainActivity : AppCompatActivity() {
 
         // TopAppBar
         binding.topAppBar.setOnMenuItemClickListener { item ->
-            Timber.d("$item")
             when (item.itemId) {
                 R.id.topBarUpload -> {
                     requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
