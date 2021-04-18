@@ -44,7 +44,6 @@ class StoryFragment : Fragment() {
                 binding.spb.restartSegment()
             }else {
                 binding.spb.previous()
-
             }
         }
         binding.rightBtn.setOnClickListener{

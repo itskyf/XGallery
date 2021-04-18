@@ -8,9 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentHomeBinding
+import com.team02.xgallery.ui.adapter.StoryAdapter
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -18,11 +21,11 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var navController: NavController
     private val viewModel: HomeViewModel by viewModels()
-
+    private val listImg = listOf(R.drawable.a, R.drawable.b, R.drawable.a, R.drawable.b)
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         navController = findNavController()
@@ -34,6 +37,10 @@ class HomeFragment : Fragment() {
         if (!viewModel.isAvailableToLogIn) {
             navController.navigate(R.id.loginFragment)
         }
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val storyAdapter = StoryAdapter(listImg)
+        binding.storyList.adapter = storyAdapter
+        binding.storyList.layoutManager = layoutManager
     }
 
     override fun onDestroyView() {
