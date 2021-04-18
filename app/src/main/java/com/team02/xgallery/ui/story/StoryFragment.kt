@@ -20,19 +20,13 @@ class StoryFragment : Fragment() {
     private var _binding: FragmentStoryBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
-    private var listImage = listOf(
-        R.drawable.ic_google,
-        R.drawable.ic_launcher_foreground,
-        R.drawable.ic_google,
-        R.drawable.ic_launcher_foreground,
-        R.drawable.ic_google
-    )
+    private var listImage = listOf(R.drawable.ic_launcher_foreground, R.drawable.ic_google)
     private var pos = 0
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _binding = FragmentStoryBinding.inflate(inflater, container, false)
         return binding.root
@@ -41,18 +35,18 @@ class StoryFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.spb.segmentCount = 5
+        binding.spb.segmentCount = 2
         binding.spb.start()
         binding.storyImg.load(listImage[pos])
-        binding.leftBtn.setOnClickListener {
-            if (pos == 0) {
+        binding.leftBtn.setOnClickListener{
+            if(pos == 0)
+            {
                 binding.spb.restartSegment()
-            } else {
+            }else {
                 binding.spb.previous()
-
             }
         }
-        binding.rightBtn.setOnClickListener {
+        binding.rightBtn.setOnClickListener{
             binding.spb.next()
         }
         binding.storyLayout.setOnTouchListener(View.OnTouchListener { _, event ->
@@ -70,7 +64,6 @@ class StoryFragment : Fragment() {
                 binding.storyImg.load(listImage[newPageIndex])
                 pos = newPageIndex
             }
-
             override fun onFinished() {
             }
         }

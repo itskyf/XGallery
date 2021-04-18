@@ -13,37 +13,37 @@
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:layout_margin="8dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:segmentBackgroundColor="#333333"
+        app:segmentSelectedBackgroundColor="@color/white"
         app:segmentCornerRadius="@dimen/default_segment_margin"
         app:segmentMargins="2dp"
-        app:segmentSelectedBackgroundColor="@color/white"
-        app:timePerSegment="2000"
-        app:totalSegments="10" />
-
+        app:totalSegments="10"
+        app:timePerSegment="2000"/>
+  
     <Button
         android:id="@+id/leftBtn"
         android:layout_width="80dp"
         android:layout_height="match_parent"
-        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@android:color/transparent"/>
 
     <Button
         android:id="@+id/rightBtn"
         android:layout_width="80dp"
         android:layout_height="match_parent"
-        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        android:background="@android:color/transparent"/>
+  
     <ImageView
         android:id="@+id/storyImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
