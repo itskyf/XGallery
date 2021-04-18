@@ -7,7 +7,7 @@
     android:background="@color/black"
     tools:context=".ui.devicephoto.DevicePhotoFragment">
 
-    <ImageView
+    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
         android:id="@+id/imgView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
