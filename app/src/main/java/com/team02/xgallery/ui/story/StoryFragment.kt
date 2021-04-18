@@ -20,7 +20,7 @@ class StoryFragment : Fragment() {
     private var _binding: FragmentStoryBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
-    private var listImage = listOf(R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d, R.drawable.e)
+    private var listImage = listOf(R.drawable.a, R.drawable.b)
     private var pos = 0
 
     override fun onCreateView(
@@ -35,7 +35,7 @@ class StoryFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.spb.segmentCount = 5
+        binding.spb.segmentCount = 2
         binding.spb.start()
         binding.storyImg.load(listImage[pos])
         binding.leftBtn.setOnClickListener{
