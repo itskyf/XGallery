@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
+import com.davemorrissey.labs.subscaleview.ImageSource
 import com.google.android.material.snackbar.Snackbar
 import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentDevicePhotoBinding
@@ -35,7 +36,8 @@ class DevicePhotoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val args: DevicePhotoFragmentArgs by navArgs()
-        binding.imgView.load(ContentUris.withAppendedId(AppConstants.COLLECTION, args.id))
+        binding.imgView.setImage(
+            ImageSource.uri(ContentUris.withAppendedId(AppConstants.COLLECTION, args.id)))
 
         with(binding) {
             backBtn.setOnClickListener {
@@ -75,7 +77,7 @@ class DevicePhotoFragment : Fragment() {
                     Snackbar.LENGTH_SHORT
                 ).show()
             }
-            root.setOnClickListener {
+            imgView.setOnClickListener {
                 if (appBarsLayout.visibility == View.GONE) {
                     appBarsLayout.visibility = View.VISIBLE
                 } else {
