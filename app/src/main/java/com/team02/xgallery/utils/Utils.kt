@@ -1,5 +1,7 @@
 package com.team02.xgallery.utils
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.WallpaperManager
 import android.content.Context
@@ -8,10 +10,16 @@ import android.provider.MediaStore
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import coil.imageLoader
 import coil.request.Disposable
 import coil.request.ImageRequest
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
+
 
 object Utils {
     fun setViewAndChildrenEnabled(view: View, enabled: Boolean) {
@@ -28,36 +36,43 @@ object Utils {
         val bitmap =
             MediaStore.Images.Media.getBitmap(context.contentResolver, mediaUri)
         val myWallpaperManager = WallpaperManager.getInstance(context)
-        val modes = arrayOf("Home Screen", "Lock Screen", "Home Screen and Lock Screen")
+        val modes = arrayOf("Home Screen", "Lock Screen", "Home Screen and Lock Screen", "Avatar")
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         builder.setTitle("Set Wallpaper")
         builder.setItems(modes) { _, which ->
             when (which) {
                 0 -> myWallpaperManager.setBitmap(
-                    bitmap,
-                    null,
-                    true,
-                    WallpaperManager.FLAG_SYSTEM
-                )
-                1 -> myWallpaperManager.setBitmap(
-                    bitmap,
-                    null,
-                    true,
-                    WallpaperManager.FLAG_LOCK
-                )
-                2 -> {
-                    myWallpaperManager.setBitmap(
                         bitmap,
                         null,
                         true,
                         WallpaperManager.FLAG_SYSTEM
-                    )
-                    myWallpaperManager.setBitmap(
+                )
+                1 -> myWallpaperManager.setBitmap(
                         bitmap,
                         null,
                         true,
                         WallpaperManager.FLAG_LOCK
+                )
+                2 -> {
+                    myWallpaperManager.setBitmap(
+                            bitmap,
+                            null,
+                            true,
+                            WallpaperManager.FLAG_SYSTEM
                     )
+                    myWallpaperManager.setBitmap(
+                            bitmap,
+                            null,
+                            true,
+                            WallpaperManager.FLAG_LOCK
+                    )
+                }
+                3 -> {
+                    val user = Firebase.auth.currentUser
+                    val profileUpdates = userProfileChangeRequest {
+                        photoUri = mediaUri
+                    }
+                    user!!.updateProfile(profileUpdates)
                 }
             }
         }
@@ -66,8 +81,8 @@ object Utils {
 }
 
 inline fun ImageView.load(
-    data: StorageReference,
-    builder: ImageRequest.Builder.() -> Unit = {}
+        data: StorageReference,
+        builder: ImageRequest.Builder.() -> Unit = {}
 ): Disposable {
     val request = ImageRequest.Builder(context).data(data).target(this@load)
         .apply(builder).build()

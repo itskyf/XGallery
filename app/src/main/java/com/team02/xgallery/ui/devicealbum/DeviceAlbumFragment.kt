@@ -1,5 +1,8 @@
 package com.team02.xgallery.ui.devicealbum
 
+import android.content.ContentUris
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.view.ActionMode
@@ -14,6 +17,7 @@ import com.team02.xgallery.MainActivity
 import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentDeviceAlbumBinding
 import com.team02.xgallery.ui.adapter.LocalMediaAdapter
+import com.team02.xgallery.utils.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
@@ -24,7 +28,7 @@ class DeviceAlbumFragment : Fragment() {
     private var _binding: FragmentDeviceAlbumBinding? = null
     private val binding get() = _binding!!
     private val args: DeviceAlbumFragmentArgs by navArgs()
-    private val viewModel: FolderViewModel by viewModels()
+    private val viewModel: DeviceAlbumViewModel by viewModels()
     private lateinit var navController: NavController
     private var selectionMode: ActionMode? = null
     private var onSelectionModeJob: Job? = null
@@ -110,6 +114,22 @@ class DeviceAlbumFragment : Fragment() {
         ): Boolean {
             return when (item?.itemId) {
                 R.id.share -> {
+                    val arrayImage = viewModel.selectionManager.getItemKeyList()
+                    val imageUris: ArrayList<Uri> = ArrayList()
+                    for (i in arrayImage) {
+                        imageUris.add(
+                            ContentUris.withAppendedId(
+                                AppConstants.COLLECTION,
+                                i as Long
+                            )
+                        )
+                    }
+                    val shareIntent = Intent().apply {
+                        action = Intent.ACTION_SEND_MULTIPLE
+                        putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris)
+                        type = "image/*"
+                    }
+                    startActivity(Intent.createChooser(shareIntent, "Share images to.."))
                     true
                 }
                 R.id.delete -> {

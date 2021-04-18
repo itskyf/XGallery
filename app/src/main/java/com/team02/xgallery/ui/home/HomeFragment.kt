@@ -19,7 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var navController: NavController
     private val viewModel: HomeViewModel by viewModels()
     private val listImg = listOf(R.drawable.a, R.drawable.b, R.drawable.a, R.drawable.b)
     override fun onCreateView(
@@ -28,7 +27,6 @@ class HomeFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        navController = findNavController()
         return binding.root
     }
 

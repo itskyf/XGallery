@@ -7,7 +7,6 @@ import com.team02.xgallery.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,7 +19,7 @@ class ResetPasswordViewModel @Inject constructor(
     suspend fun resetPassword(email: String) {
         try {
             _uiState.value = ResetPasswordState.LOADING
-            userRepository.sendPasswordResetEmail(email).await()
+            userRepository.sendPasswordResetEmail(email)
             _uiState.value = ResetPasswordState.SUCCESS
         } catch (e: FirebaseAuthInvalidCredentialsException) {
             _uiState.value = ResetPasswordState.MALFORMED_EMAIL

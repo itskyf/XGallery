@@ -33,6 +33,7 @@ class SelectionManager {
         _selectedCount.value = selectedItemKeySet.size
     }
 
+
     fun clear() {
         selectedItemKeySet.clear()
         _selectedCount.value = selectedItemKeySet.size

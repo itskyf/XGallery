@@ -17,4 +17,8 @@
     <string name="share">Share</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="photo_view">Photo view</string>
+    <string name="upload_channel_name">Upload notification</string>
+    <string name="cancel">Cancel</string>
+    <string name="finished">Finished</string>
 </resources>

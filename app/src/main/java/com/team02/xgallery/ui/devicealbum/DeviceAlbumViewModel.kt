@@ -10,7 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class FolderViewModel @Inject constructor(
+class DeviceAlbumViewModel @Inject constructor(
     mediaRepository: LocalMediaRepository,
     state: SavedStateHandle
 ) : ViewModel() {

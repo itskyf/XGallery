@@ -2,6 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainNavGraph"
     app:startDestination="@id/homeFragment">
 
     <fragment
@@ -25,6 +26,16 @@
             android:id="@+id/actionLibraryFragmentToOnDeviceFragment"
             app:destination="@id/onDeviceFragment" />
     </fragment>
+
+    <action
+        android:id="@+id/openProfileFragment"
+        app:destination="@id/profileFragment" />
+
+    <action
+        android:id="@+id/openLoginFragment"
+        app:destination="@id/loginFragment"
+        app:popUpTo="@id/mainNavGraph"
+        app:popUpToInclusive="true" />
 
     <fragment
         android:id="@+id/profileFragment"
@@ -83,8 +94,8 @@
         android:label="Login"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/actionLoginFragmentToForgotFrament"
-            app:destination="@id/resetPasswordFrament" />
+            android:id="@+id/actionLoginFragmentToResetPasswordFragment"
+            app:destination="@id/resetPasswordFragment" />
         <action
             android:id="@+id/actionLoginFragmentToRegisterFragment"
             app:destination="@id/registerFragment" />
@@ -97,15 +108,14 @@
         tools:layout="@layout/fragment_register" />
 
     <fragment
-        android:id="@+id/resetPasswordFrament"
+        android:id="@+id/resetPasswordFragment"
         android:name="com.team02.xgallery.ui.auth.resetpassword.ResetPasswordFragment"
         android:label="ResetPassword"
         tools:layout="@layout/fragment_reset_password" />
 
     <fragment
-        android:id="@+id/story"
+        android:id="@+id/storyFragment"
         android:name="com.team02.xgallery.ui.story.StoryFragment"
-        android:label="story"
+        android:label="StoryFragment"
         tools:layout="@layout/fragment_story" />
-
 </navigation>

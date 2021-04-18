@@ -91,7 +91,7 @@ class LoginFragment : Fragment() {
         }
 
         binding.tvForgot.setOnClickListener {
-            navController.navigate(LoginFragmentDirections.actionLoginFragmentToForgotFrament())
+            navController.navigate(LoginFragmentDirections.actionLoginFragmentToResetPasswordFragment())
         }
         binding.tiPassword.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_UNSPECIFIED || actionId == EditorInfo.IME_ACTION_DONE) {
