@@ -49,7 +49,8 @@ class UserRepository {
         get() = auth.currentUser?.email
     val userUID
         get() = auth.currentUser?.uid
-
+    val photoUrl
+        get() = auth.currentUser?.photoUrl
 
     fun signOut() = auth.signOut()
 }

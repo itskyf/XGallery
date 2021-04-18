@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.team02.xgallery.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,6 +33,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
+            userAvatar.load(viewModel.userAvatar)
             userDisplayName.text = viewModel.userName
             email.text = viewModel.userEmail
             backBtn.setOnClickListener {

@@ -6,6 +6,8 @@
     android:layout_width="40dp"
     android:layout_height="40dp"
     android:paddingEnd="@dimen/default_padding"
+    android:paddingVertical="@dimen/half_default_padding"
+    android:scaleType="centerCrop"
     app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerSize50Percent"
     app:srcCompat="@drawable/ic_baseline_account_circle_24"
     tools:ignore="RtlSymmetry" />

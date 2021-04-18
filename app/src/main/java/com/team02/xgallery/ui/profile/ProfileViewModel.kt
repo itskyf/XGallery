@@ -17,6 +17,9 @@ class ProfileViewModel @Inject constructor(
     val userEmail
         get() = userRepository.email
 
+    val userAvatar
+        get() = userRepository.photoUrl
+
     fun signOut() {
         userRepository.signOut()
     }
