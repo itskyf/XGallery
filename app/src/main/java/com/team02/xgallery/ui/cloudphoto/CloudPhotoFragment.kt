@@ -10,6 +10,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
+import com.bumptech.glide.Glide
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.team02.xgallery.databinding.FragmentCloudPhotoBinding
 import com.team02.xgallery.utils.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +36,12 @@ class CloudPhotoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val args: CloudPhotoFragmentArgs by navArgs()
-        binding.imgView.load(ContentUris.withAppendedId(AppConstants.COLLECTION, args.id))
+        val mediaRef = Firebase.storage.getReference(args.id!!)
+        mediaRef.downloadUrl.addOnCompleteListener {
+            if (it.isSuccessful) {
+                Glide.with(binding.root).load(it.result).into(binding.imgView)
+            }
+        }
 
         with(binding) {
             backBtn.setOnClickListener {
