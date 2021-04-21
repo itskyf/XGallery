@@ -21,8 +21,8 @@ class CloudMediaAdapter(
     private val selectionManager: SelectionManager
 ) :
     PagingDataAdapter<CloudMedia, CloudMediaAdapter.CloudMediaViewHolder>(diffCallback) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CloudMediaAdapter.CloudMediaViewHolder {
-        return CloudMediaAdapter.CloudMediaViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CloudMediaViewHolder {
+        return CloudMediaViewHolder(
             ListItemMediaBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )

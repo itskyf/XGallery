@@ -2,6 +2,7 @@ package com.team02.xgallery.ui.collections
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -9,16 +10,27 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentCollectionsBinding
+import com.team02.xgallery.ui.adapter.CloudAlbumAdapter
+import com.team02.xgallery.ui.home.CollectionsViewModel
+import com.team02.xgallery.ui.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CollectionsFragment : Fragment() {
     private var _binding: FragmentCollectionsBinding? = null
     private val binding get() = _binding!!
+    private lateinit var navController: NavController
+    private val viewModel: CollectionsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,6 +75,15 @@ class CollectionsFragment : Fragment() {
                     true
                 }
                 popup.show()
+            }
+        }
+
+        val cloudAlbumPagingAdapter = CloudAlbumAdapter()
+        binding.gridAlbum.adapter = cloudAlbumPagingAdapter
+        binding.gridAlbum.layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
+        lifecycleScope.launch {
+            viewModel.albumPagingFlow.collectLatest { pagingData ->
+                cloudAlbumPagingAdapter.submitData(pagingData)
             }
         }
 
