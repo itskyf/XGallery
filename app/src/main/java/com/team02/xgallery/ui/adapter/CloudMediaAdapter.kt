@@ -19,8 +19,7 @@ import com.team02.xgallery.utils.AppConstants
 class CloudMediaAdapter(
     private val onClick: (CloudMedia) -> Unit,
     private val selectionManager: SelectionManager
-) :
-    PagingDataAdapter<CloudMedia, CloudMediaAdapter.CloudMediaViewHolder>(diffCallback) {
+) : PagingDataAdapter<CloudMedia, CloudMediaAdapter.CloudMediaViewHolder>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CloudMediaAdapter.CloudMediaViewHolder {
         return CloudMediaAdapter.CloudMediaViewHolder(
             ListItemMediaBinding.inflate(
