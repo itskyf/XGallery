@@ -8,7 +8,7 @@ import com.google.firebase.ktx.Firebase
 
 @Entity
 data class CloudMedia(
-        @PrimaryKey val id: String? = null,     // TODO: reference to an media in Firebase Storage
+        @PrimaryKey val id: String? = null,     // TODO: reference to a media in Firebase Storage
         val dateTaken: Timestamp? = Timestamp.now(),
         val fileName: String? = null,
         @field:JvmField

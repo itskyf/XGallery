@@ -10,12 +10,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import coil.load
 import com.bumptech.glide.Glide
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentCloudPhotoBinding
+import com.team02.xgallery.utils.SubsamplingScaleImageViewTarget
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
@@ -28,6 +29,7 @@ class CloudPhotoFragment : Fragment() {
     private val viewModel: CloudPhotoViewModel by viewModels()
     private lateinit var navController: NavController
     private var favoriteStateJob: Job? = null
+    private var deletedStateJob: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +52,7 @@ class CloudPhotoFragment : Fragment() {
         val mediaRef = Firebase.storage.getReference(mediaId)
         mediaRef.downloadUrl.addOnCompleteListener {
             if (it.isSuccessful) {
-                Glide.with(binding.root).load(it.result).into(binding.imgView)
+                Glide.with(view.context).download(it.result).into(SubsamplingScaleImageViewTarget(binding.imgView))
             }
         }
 
@@ -60,6 +62,14 @@ class CloudPhotoFragment : Fragment() {
                     binding.favoriteBtn.setImageResource(R.drawable.ic_full_star_24)
                 } else {
                     binding.favoriteBtn.setImageResource(R.drawable.ic_star_24)
+                }
+            }
+        }
+
+        deletedStateJob = lifecycleScope.launch {
+            viewModel.isDeleted.collect { isDeleted ->
+                if (isDeleted) {
+                    navController.popBackStack()
                 }
             }
         }
@@ -89,9 +99,18 @@ class CloudPhotoFragment : Fragment() {
                 // TODO: download this cloud photo
             }
             deleteBtn.setOnClickListener {
-                // TODO: move this cloud photo to Trash
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Move to trash?")
+                    .setNegativeButton("Cancel") { dialog, which ->
+                        dialog.cancel()
+                    }
+                    .setPositiveButton("Accept") { dialog, which ->
+                        viewModel.deleteMedia(mediaId)
+                        dialog.cancel()
+                    }
+                    .show()
             }
-            root.setOnClickListener {
+            imgView.setOnClickListener {
                 if (appBarsLayout.visibility == View.GONE) {
                     appBarsLayout.visibility = View.VISIBLE
                 } else {
@@ -104,5 +123,11 @@ class CloudPhotoFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onStop() {
+        favoriteStateJob?.cancel()
+        deletedStateJob?.cancel()
+        super.onStop()
     }
 }

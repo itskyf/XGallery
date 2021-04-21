@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".ui.trashphoto.TrashPhotoFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.AppBarLayout.Secondary">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/trashPhotoTopBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            style="@style/ThemeOverlay.MaterialComponents.Toolbar.Secondary"
+            app:navigationIcon="@drawable/ic_round_arrow_back_ios_24"
+            app:navigationIconTint="@color/white"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+        android:id="@+id/imgView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/photo_view" />
+
+    <LinearLayout
+        android:id="@+id/trashPhotoBottomBar"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/half_default_padding"
+        android:background="@drawable/bg_bottom_app_bar"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/deleteBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Delete"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_marginStart="@dimen/default_padding"/>
+
+        <Space
+            android:layout_width="@dimen/default_padding"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/restoreBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Restore"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_marginEnd="@dimen/default_padding"/>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -65,6 +65,12 @@ class CollectionsFragment : Fragment() {
                 requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
             }
 
+            trashButton.setOnClickListener {
+                navController.navigate(
+                    CollectionsFragmentDirections.actionLibraryFragmentToTrashFragment()
+                )
+            }
+
             sortButton.setOnClickListener {
                 val popup = PopupMenu(requireContext(), it)
                 popup.menuInflater.inflate(R.menu.album_sort, popup.menu)

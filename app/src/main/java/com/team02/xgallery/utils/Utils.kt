@@ -68,6 +68,7 @@ object Utils {
                 3 -> {
                     val user = Firebase.auth.currentUser
                     val profileUpdates = userProfileChangeRequest {
+                        displayName = "Kiều Công Hậu"
                         photoUri = mediaUri
                     }
                     user!!.updateProfile(profileUpdates)

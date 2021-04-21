@@ -86,12 +86,10 @@ class CloudMediaAdapter(
                 binding.checkBox.visibility = View.GONE
             }
 
-            if (binding.imageView.drawable == null) {
-                val mediaRef = Firebase.storage.getReference(media.id!!)
-                mediaRef.downloadUrl.addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        Glide.with(binding.root).load(it.result).into(binding.imageView)
-                    }
+            val mediaRef = Firebase.storage.getReference(media.id!!)
+            mediaRef.downloadUrl.addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Glide.with(binding.root).load(it.result).into(binding.imageView)
                 }
             }
         }

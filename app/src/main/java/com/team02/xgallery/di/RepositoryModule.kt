@@ -2,7 +2,7 @@ package com.team02.xgallery.di
 
 import android.content.Context
 import androidx.work.WorkManager
-import com.team02.xgallery.data.repository.CloudPhotoRepository
+import com.team02.xgallery.data.repository.CloudMediaRepository
 import com.team02.xgallery.data.repository.FolderRepository
 import com.team02.xgallery.data.repository.LocalMediaRepository
 import com.team02.xgallery.data.repository.UserRepository
@@ -38,5 +38,5 @@ object RepositoryModule {
 
     @Provides
     @ViewModelScoped
-    fun provideCloudPhotoRepository() = CloudPhotoRepository()
+    fun provideCloudPhotoRepository() = CloudMediaRepository()
 }
