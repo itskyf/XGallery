@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.MediaController
 import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.team02.xgallery.R
@@ -19,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class CollectionsFragment : Fragment() {
     private var _binding: FragmentCollectionsBinding? = null
     private val binding get() = _binding!!
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,6 +29,7 @@ class CollectionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCollectionsBinding.inflate(inflater, container, false)
+        navController = findNavController()
         return binding.root
     }
 
@@ -35,7 +39,7 @@ class CollectionsFragment : Fragment() {
             ActivityResultContracts.RequestPermission()
         ) { granted: Boolean ->
             if (granted) {
-                findNavController().navigate(
+                navController.navigate(
                     CollectionsFragmentDirections.actionLibraryFragmentToOnDeviceFragment()
                 )
             } else {
@@ -51,6 +55,12 @@ class CollectionsFragment : Fragment() {
         }
 
         with(binding) {
+            favoriteButton.setOnClickListener {
+                navController.navigate(
+                    CollectionsFragmentDirections.actionLibraryFragmentToFavoritesFragment()
+                )
+            }
+
             onDeviceButton.setOnClickListener {
                 requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
             }

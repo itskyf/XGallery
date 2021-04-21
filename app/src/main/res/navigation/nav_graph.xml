@@ -29,6 +29,9 @@
         <action
             android:id="@+id/actionLibraryFragmentToOnDeviceFragment"
             app:destination="@id/onDeviceFragment" />
+        <action
+            android:id="@+id/actionLibraryFragmentToFavoritesFragment"
+            app:destination="@id/favoritesFragment" />
     </fragment>
 
     <action
@@ -46,6 +49,16 @@
         android:name="com.team02.xgallery.ui.profile.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.team02.xgallery.ui.favorites.FavoritesFragment"
+        android:label="Favorites"
+        tools:layout="@layout/fragment_favorites">
+        <action
+            android:id="@+id/openFavoritePhotoView"
+            app:destination="@id/cloudPhotoFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/onDeviceFragment"

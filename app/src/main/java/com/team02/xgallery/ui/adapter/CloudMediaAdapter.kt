@@ -21,8 +21,8 @@ class CloudMediaAdapter(
     private val selectionManager: SelectionManager
 ) :
     PagingDataAdapter<CloudMedia, CloudMediaAdapter.CloudMediaViewHolder>(diffCallback) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CloudMediaAdapter.CloudMediaViewHolder {
-        return CloudMediaAdapter.CloudMediaViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CloudMediaViewHolder {
+        return CloudMediaViewHolder(
             ListItemMediaBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
@@ -86,10 +86,12 @@ class CloudMediaAdapter(
                 binding.checkBox.visibility = View.GONE
             }
 
-            val mediaRef = Firebase.storage.getReference(media.id!!)
-            mediaRef.downloadUrl.addOnCompleteListener {
-                if (it.isSuccessful) {
-                    Glide.with(binding.root).load(it.result).into(binding.imageView)
+            if (binding.imageView.drawable == null) {
+                val mediaRef = Firebase.storage.getReference(media.id!!)
+                mediaRef.downloadUrl.addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        Glide.with(binding.root).load(it.result).into(binding.imageView)
+                    }
                 }
             }
         }

@@ -1,7 +1,5 @@
 package com.team02.xgallery.utils
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.AlertDialog
 import android.app.WallpaperManager
 import android.content.Context
