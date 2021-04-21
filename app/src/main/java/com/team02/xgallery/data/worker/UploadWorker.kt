@@ -80,6 +80,7 @@ class UploadWorker(
                 inputData.getString(AppConstants.WORKER_UUID) ?: return@withContext Result.failure()
         Timber.d("workUUID: $id fileName: $fileName")
         Firebase.storage.reference.child("$userUID/media/$id$fileName")
+
                 .putFile(resourceUri)
                 .addOnProgressListener {
                     notificationManager.notify(
@@ -101,9 +102,9 @@ class UploadWorker(
                         val dateTaken: Timestamp = SimpleDateFormat("yyyy:MM:dd hh:mm:ss")
                                 .parse(exifInterface?.getAttribute(ExifInterface.TAG_DATETIME)
                                         .toString())?.let { it1 -> Timestamp(it1) } ?: throw Exception()
-                        db.document("media/$id").set(CloudMedia(dateTaken = dateTaken, fileName = fileName))
+                        db.document("media/$id").set(CloudMedia(id = "$userUID/media/$id$fileName", dateTaken = dateTaken, fileName = fileName))
                     } catch (e: Exception) {
-                        db.document("media/$id").set(CloudMedia(fileName = fileName))
+                        db.document("media/$id").set(CloudMedia(id = "$userUID/media/$id$fileName", fileName = fileName))
                     } finally {
                         if (inputStream != null) {
                             try {

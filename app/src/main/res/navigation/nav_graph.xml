@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.team02.xgallery.ui.home.HomeFragment"
         android:label="@string/home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/openCloudPhotoViewFromHome"
+            app:destination="@id/cloudPhotoFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/searchFragment"
@@ -85,7 +89,7 @@
         tools:layout="@layout/fragment_cloud_photo">
         <argument
             android:name="id"
-            app:argType="long" />
+            app:argType="string" />
     </fragment>
 
     <fragment
