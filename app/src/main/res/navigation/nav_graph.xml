@@ -29,6 +29,12 @@
         <action
             android:id="@+id/actionLibraryFragmentToOnDeviceFragment"
             app:destination="@id/onDeviceFragment" />
+        <action
+            android:id="@+id/actionLibraryFragmentToFavoritesFragment"
+            app:destination="@id/favoritesFragment" />
+        <action
+            android:id="@+id/actionLibraryFragmentToTrashFragment"
+            app:destination="@id/trashFragment" />
     </fragment>
 
     <action
@@ -46,6 +52,36 @@
         android:name="com.team02.xgallery.ui.profile.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.team02.xgallery.ui.favorites.FavoritesFragment"
+        android:label="Favorites"
+        tools:layout="@layout/fragment_favorites">
+        <action
+            android:id="@+id/openFavoritePhotoView"
+            app:destination="@id/cloudPhotoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/trashFragment"
+        android:name="com.team02.xgallery.ui.trash.TrashFragment"
+        android:label="Trash"
+        tools:layout="@layout/fragment_trash">
+        <action
+            android:id="@+id/openTrashPhotoView"
+            app:destination="@id/trashPhotoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/trashPhotoFragment"
+        android:name="com.team02.xgallery.ui.trashphoto.TrashPhotoFragment"
+        android:label="TrashPhoto"
+        tools:layout="@layout/fragment_trash_photo">
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/onDeviceFragment"

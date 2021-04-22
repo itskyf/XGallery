@@ -10,7 +10,7 @@ import com.team02.xgallery.data.entity.CloudMedia
 import com.team02.xgallery.utils.AppConstants
 import kotlinx.coroutines.tasks.await
 
-class CloudMediaPagingSource(
+class DeletedCloudMediaPagingSource(
     private val db: FirebaseFirestore,
     private val userUID: String
 ) : PagingSource<QuerySnapshot, CloudMedia>() {
@@ -19,20 +19,18 @@ class CloudMediaPagingSource(
         return try {
             val currentPage = params.key
                 ?: db.collection("media")
-                .whereEqualTo("owner", userUID)
-                .whereEqualTo("isDeleted", false)
-                .whereEqualTo("isArchived", false)
-                .orderBy("dateTaken", Query.Direction.DESCENDING)
-                .limit(AppConstants.GALLERY_PAGE_SIZE.toLong())
-                .get()
-                .await()
+                    .whereEqualTo("owner", userUID)
+                    .whereEqualTo("isDeleted", true)
+                    .orderBy("dateTaken", Query.Direction.DESCENDING)
+                    .limit(AppConstants.GALLERY_PAGE_SIZE.toLong())
+                    .get()
+                    .await()
 
             val lastDocumentSnapshot = currentPage.documents[currentPage.size() - 1]
 
             val nextPage = db.collection("media")
                 .whereEqualTo("owner", userUID)
-                .whereEqualTo("isDeleted", false)
-                .whereEqualTo("isArchived", false)
+                .whereEqualTo("isDeleted", true)
                 .orderBy("dateTaken", Query.Direction.DESCENDING)
                 .startAfter(lastDocumentSnapshot)
                 .limit(AppConstants.GALLERY_PAGE_SIZE.toLong())

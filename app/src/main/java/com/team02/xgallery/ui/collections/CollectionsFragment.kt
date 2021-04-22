@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.MediaController
 import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -40,6 +41,7 @@ class CollectionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCollectionsBinding.inflate(inflater, container, false)
+        navController = findNavController()
         return binding.root
     }
 
@@ -49,7 +51,7 @@ class CollectionsFragment : Fragment() {
             ActivityResultContracts.RequestPermission()
         ) { granted: Boolean ->
             if (granted) {
-                findNavController().navigate(
+                navController.navigate(
                     CollectionsFragmentDirections.actionLibraryFragmentToOnDeviceFragment()
                 )
             } else {
@@ -65,8 +67,20 @@ class CollectionsFragment : Fragment() {
         }
 
         with(binding) {
+            favoriteButton.setOnClickListener {
+                navController.navigate(
+                    CollectionsFragmentDirections.actionLibraryFragmentToFavoritesFragment()
+                )
+            }
+
             onDeviceButton.setOnClickListener {
                 requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
+
+            trashButton.setOnClickListener {
+                navController.navigate(
+                    CollectionsFragmentDirections.actionLibraryFragmentToTrashFragment()
+                )
             }
 
             sortButton.setOnClickListener {
