@@ -16,8 +16,8 @@ import com.team02.xgallery.utils.AppConstants
 
 class CloudAlbumAdapter(
 ) : PagingDataAdapter<CloudAlbum, CloudAlbumAdapter.CloudAlbumViewHolder>(diffCallback) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CloudAlbumViewHolder {
-        return CloudAlbumViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CloudAlbumAdapter.CloudAlbumViewHolder {
+        return CloudAlbumAdapter.CloudAlbumViewHolder(
             ListItemAlbumBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )

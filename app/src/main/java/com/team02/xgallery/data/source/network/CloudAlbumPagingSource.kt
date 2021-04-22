@@ -21,14 +21,15 @@ class CloudAlbumPagingSource(
     @SuppressLint("TimberArgCount")
     override suspend fun load(params: LoadParams<QuerySnapshot>): LoadResult<QuerySnapshot, CloudAlbum> {
         return try {
+
             val currentPage = params.key
                 ?: db.collection("albums")
-                    .whereEqualTo("roles.${userUID}", "owner".get(0))
+                    .whereEqualTo("name","Study")
                     .orderBy("dateTaken", Query.Direction.DESCENDING)
                     .limit(AppConstants.GALLERY_PAGE_SIZE.toLong())
                     .get()
                     .await()
-
+            Log.d("testing","hello")
             val lastDocumentSnapshot = currentPage.documents[currentPage.size() - 1]
 
             val nextPage = db.collection("albums")

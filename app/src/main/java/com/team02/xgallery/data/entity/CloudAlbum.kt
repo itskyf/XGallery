@@ -12,5 +12,6 @@ data class CloudAlbum(
     val Name: String? = null,
     val dateTaken: Timestamp? = Timestamp.now(),
     val roles: HashMap<String,String> = HashMap(),
+    val thumbnailid: String? = null,
     val owner: String? = Firebase.auth.currentUser?.uid
 )

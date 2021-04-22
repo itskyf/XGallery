@@ -17,6 +17,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.team02.xgallery.R
+import com.team02.xgallery.data.repository.CloudAlbumRepository
+import com.team02.xgallery.data.source.network.CloudAlbumPagingSource
 import com.team02.xgallery.databinding.FragmentCollectionsBinding
 import com.team02.xgallery.ui.adapter.CloudAlbumAdapter
 import com.team02.xgallery.ui.home.CollectionsViewModel
@@ -77,6 +79,7 @@ class CollectionsFragment : Fragment() {
                 popup.show()
             }
         }
+        CloudAlbumRepository().createAlbum()
 
         val cloudAlbumPagingAdapter = CloudAlbumAdapter()
         binding.gridAlbum.adapter = cloudAlbumPagingAdapter
