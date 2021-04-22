@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.team02.xgallery.MainActivity
 import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentDeviceAlbumBinding
+import com.team02.xgallery.ui.adapter.ItemDecoration
 import com.team02.xgallery.ui.adapter.LocalMediaAdapter
 import com.team02.xgallery.utils.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,9 +55,11 @@ class DeviceAlbumFragment : Fragment() {
         }, viewModel.selectionManager)
 
         binding.albumMediaGrid.adapter = pagingAdapter
-
         binding.albumMediaGrid.layoutManager =
             GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
+        binding.albumMediaGrid.addItemDecoration(
+            ItemDecoration(resources.getDimension(R.dimen.small_padding), 3)
+        )
 
         lifecycleScope.launch {
             viewModel.mediaPagingFlow.collectLatest { pagingData ->

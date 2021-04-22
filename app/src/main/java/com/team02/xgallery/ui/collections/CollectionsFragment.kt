@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.MediaController
 import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -19,11 +18,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.team02.xgallery.R
 import com.team02.xgallery.data.repository.CloudAlbumRepository
-import com.team02.xgallery.data.source.network.CloudAlbumPagingSource
 import com.team02.xgallery.databinding.FragmentCollectionsBinding
+import com.team02.xgallery.ui.adapter.ItemDecoration
 import com.team02.xgallery.ui.adapter.CloudAlbumAdapter
-import com.team02.xgallery.ui.home.CollectionsViewModel
-import com.team02.xgallery.ui.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -46,6 +43,8 @@ class CollectionsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         // ----- External Storage Permission -----
         val requestPermissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestPermission()
@@ -59,10 +58,7 @@ class CollectionsFragment : Fragment() {
                     binding.root,
                     "Please accept to upload photos.",
                     Snackbar.LENGTH_SHORT
-                ).setAction("OK") {
-                    // TODO Navigate to the Setting Fragment (ua vay con cai o MainActivity?)
-                    // navController.navigate(R.id.setting_fragment)
-                }.show()
+                ).show()
             }
         }
 
@@ -71,6 +67,11 @@ class CollectionsFragment : Fragment() {
                 navController.navigate(
                     CollectionsFragmentDirections.actionLibraryFragmentToFavoritesFragment()
                 )
+            }
+
+            archiveButton.setOnClickListener {
+                // TODO
+                CloudAlbumRepository().createAlbum()
             }
 
             onDeviceButton.setOnClickListener {
@@ -93,18 +94,21 @@ class CollectionsFragment : Fragment() {
                 popup.show()
             }
         }
-        CloudAlbumRepository().createAlbum()
 
-        val cloudAlbumPagingAdapter = CloudAlbumAdapter()
+        val cloudAlbumPagingAdapter = CloudAlbumAdapter {
+            Log.d("KCH", "${it.name}")
+        }
         binding.gridAlbum.adapter = cloudAlbumPagingAdapter
-        binding.gridAlbum.layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
+        binding.gridAlbum.layoutManager =
+            GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
+        binding.gridAlbum.addItemDecoration(
+            ItemDecoration(resources.getDimension(R.dimen.default_padding), 2)
+        )
         lifecycleScope.launch {
             viewModel.albumPagingFlow.collectLatest { pagingData ->
                 cloudAlbumPagingAdapter.submitData(pagingData)
             }
         }
-
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDestroyView() {

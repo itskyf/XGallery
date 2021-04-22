@@ -4,7 +4,6 @@ import android.content.ContentUris
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
@@ -14,16 +13,11 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import com.team02.xgallery.MainActivity
 import com.team02.xgallery.R
-import com.team02.xgallery.data.entity.CloudMedia
-import com.team02.xgallery.databinding.ActivityMainBinding
 import com.team02.xgallery.databinding.FragmentHomeBinding
 import com.team02.xgallery.ui.adapter.CloudMediaAdapter
-import com.team02.xgallery.ui.adapter.SelectionManager
+import com.team02.xgallery.ui.adapter.ItemDecoration
 import com.team02.xgallery.ui.adapter.StoryAdapter
 import com.team02.xgallery.utils.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,12 +35,17 @@ class HomeFragment : Fragment() {
     private var selectionMode: ActionMode? = null
     private var onSelectionModeJob: Job? = null
     private var selectedCountJob: Job? = null
-    private val listImg = listOf(R.drawable.ic_google, R.drawable.ic_launcher_foreground, R.drawable.ic_google, R.drawable.ic_launcher_foreground)
+    private val listImg = listOf(
+        R.drawable.ic_google,
+        R.drawable.ic_launcher_foreground,
+        R.drawable.ic_google,
+        R.drawable.ic_launcher_foreground
+    )
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         navController = findNavController()
@@ -56,16 +55,22 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val storyAdapter = StoryAdapter({
-                navController.navigate(R.id.storyFragment)
-            }, listImg)
+            navController.navigate(R.id.storyFragment)
+        }, listImg)
         binding.storyList.adapter = storyAdapter
-        binding.storyList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.storyList.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         val cloudMediaPagingAdapter = CloudMediaAdapter({
             navController.navigate(HomeFragmentDirections.openCloudPhotoViewFromHome(it.id!!))
         }, viewModel.selectionManager)
         binding.mediaGrid.adapter = cloudMediaPagingAdapter
-        binding.mediaGrid.layoutManager = GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
+        binding.mediaGrid.layoutManager =
+            GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
+        binding.mediaGrid.addItemDecoration(
+            ItemDecoration(resources.getDimension(R.dimen.small_padding), 3)
+        )
+
         lifecycleScope.launch {
             viewModel.mediaPagingFlow.collectLatest { pagingData ->
                 cloudMediaPagingAdapter.submitData(pagingData)
@@ -76,7 +81,7 @@ class HomeFragment : Fragment() {
             viewModel.selectionManager.onSelectionMode.collectLatest { onSelectionMode ->
                 if (onSelectionMode) {
                     selectionMode =
-                            (requireActivity() as MainActivity).startSupportActionMode(callback) as ActionMode
+                        (requireActivity() as MainActivity).startSupportActionMode(callback) as ActionMode
                 } else {
                     selectionMode?.finish()
                 }
@@ -113,8 +118,8 @@ class HomeFragment : Fragment() {
         }
 
         override fun onActionItemClicked(
-                mode: ActionMode?,
-                item: MenuItem?
+            mode: ActionMode?,
+            item: MenuItem?
         ): Boolean {
             return when (item?.itemId) {
                 R.id.share -> {
@@ -122,10 +127,10 @@ class HomeFragment : Fragment() {
                     val imageUris: ArrayList<Uri> = ArrayList()
                     for (i in arrayImage) {
                         imageUris.add(
-                                ContentUris.withAppendedId(
-                                        AppConstants.COLLECTION,
-                                        i as Long
-                                )
+                            ContentUris.withAppendedId(
+                                AppConstants.COLLECTION,
+                                i as Long
+                            )
                         )
                     }
                     val shareIntent = Intent().apply {

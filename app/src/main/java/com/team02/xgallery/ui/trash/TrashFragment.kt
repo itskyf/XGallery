@@ -10,9 +10,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentTrashBinding
 import com.team02.xgallery.ui.adapter.CloudMediaAdapter
-import com.team02.xgallery.ui.favorites.FavoritesFragmentDirections
+import com.team02.xgallery.ui.adapter.ItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -45,8 +46,13 @@ class TrashFragment : Fragment() {
         val pagingAdapter = CloudMediaAdapter({
             navController.navigate(TrashFragmentDirections.openTrashPhotoView(it.id!!))
         }, viewModel.selectionManager)
-        binding.trashMediaGrid .adapter = pagingAdapter
-        binding.trashMediaGrid.layoutManager = GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
+        binding.trashMediaGrid.adapter = pagingAdapter
+        binding.trashMediaGrid.layoutManager =
+            GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
+        binding.trashMediaGrid.addItemDecoration(
+            ItemDecoration(resources.getDimension(R.dimen.small_padding), 3)
+        )
+
         lifecycleScope.launch {
             viewModel.deletedMediaPagingFlow.collectLatest { pagingData ->
                 pagingAdapter.submitData(pagingData)

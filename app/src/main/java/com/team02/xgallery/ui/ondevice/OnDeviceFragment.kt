@@ -14,7 +14,7 @@ import com.team02.xgallery.R
 import com.team02.xgallery.data.entity.Album
 import com.team02.xgallery.databinding.FragmentOnDeviceBinding
 import com.team02.xgallery.ui.adapter.AlbumAdapter
-import com.team02.xgallery.ui.adapter.AlbumItemDecoration
+import com.team02.xgallery.ui.adapter.ItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterIsInstance
@@ -42,7 +42,7 @@ class OnDeviceFragment : Fragment() {
         binding.folderGrid.layoutManager =
             GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
         binding.folderGrid.addItemDecoration(
-            AlbumItemDecoration(resources.getDimension(R.dimen.default_padding))
+            ItemDecoration(resources.getDimension(R.dimen.default_padding), 2)
         )
         binding.folderTopBar.setNavigationOnClickListener {
             findNavController().navigateUp()

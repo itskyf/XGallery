@@ -2,10 +2,7 @@ package com.team02.xgallery.di
 
 import android.content.Context
 import androidx.work.WorkManager
-import com.team02.xgallery.data.repository.CloudMediaRepository
-import com.team02.xgallery.data.repository.FolderRepository
-import com.team02.xgallery.data.repository.LocalMediaRepository
-import com.team02.xgallery.data.repository.UserRepository
+import com.team02.xgallery.data.repository.*
 import com.team02.xgallery.data.source.local.AppDatabase
 import dagger.Module
 import dagger.Provides
@@ -39,4 +36,8 @@ object RepositoryModule {
     @Provides
     @ViewModelScoped
     fun provideCloudPhotoRepository() = CloudMediaRepository()
+
+    @Provides
+    @ViewModelScoped
+    fun provideCloudAlbumRepository() = CloudAlbumRepository()
 }

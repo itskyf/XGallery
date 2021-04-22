@@ -1,23 +1,24 @@
 package com.team02.xgallery.ui.adapter
 
-import android.content.ContentUris
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.team02.xgallery.data.entity.CloudAlbum
 import com.team02.xgallery.databinding.ListItemAlbumBinding
-import com.team02.xgallery.utils.AppConstants
 
 class CloudAlbumAdapter(
+    private val onClick: (CloudAlbum) -> Unit
 ) : PagingDataAdapter<CloudAlbum, CloudAlbumAdapter.CloudAlbumViewHolder>(diffCallback) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CloudAlbumAdapter.CloudAlbumViewHolder {
-        return CloudAlbumAdapter.CloudAlbumViewHolder(
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): CloudAlbumViewHolder {
+        return CloudAlbumViewHolder(
             ListItemAlbumBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
@@ -25,9 +26,8 @@ class CloudAlbumAdapter(
     }
 
     override fun onBindViewHolder(holder: CloudAlbumViewHolder, position: Int) {
-        Log.d("testing","hlellodas2")
         getItem(position)?.let {
-            holder.bind(it, this, position)
+            holder.bind(it, onClick)
         }
     }
 
@@ -48,33 +48,20 @@ class CloudAlbumAdapter(
         val binding: ListItemAlbumBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(
-            album: CloudAlbum,
-            adapter: CloudAlbumAdapter,
-            position: Int
+            album: CloudAlbum, onClick: (CloudAlbum) -> Unit
         ) {
-            Log.d("testing","hlellodas3")
-//            binding.root.setOnClickListener {
-//                if (adapter.selectionManager.onSelectionMode.value) {
-//                    adapter.selectionManager.select(media.id!!)
-//                    adapter.notifyItemChanged(position)
-//
-//                    if (!adapter.selectionManager.onSelectionMode.value) {
-//                        adapter.notifyDataSetChanged()
-//                    }
-//                } else {
-//                    onClick(media)
-//                }
-//            }
+            binding.root.setOnClickListener {
+                onClick(album)
+            }
 
-//
-//            val mediaRef = Firebase.storage.getReference(album.id!!)
-//            mediaRef.downloadUrl.addOnCompleteListener {
-//                if (it.isSuccessful) {
-//                    Glide.with(binding.root).load(it.result).into(binding.thumbnail)
-//                }
-//            }
-//            val albumRef = Firebase.storage.getReference(())
-            Log.d("testing", album.Name.toString())
+            binding.albumName.text = album.name
+
+            val thumbnailRef = Firebase.storage.getReference(album.thumbnailId!!)
+            thumbnailRef.downloadUrl.addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Glide.with(binding.root).load(it.result).into(binding.thumbnail)
+                }
+            }
         }
     }
 }
