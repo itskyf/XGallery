@@ -4,6 +4,7 @@
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="collections">Collections</string>
+    <string name="newalbum">New Album</string>
     <string name="favorites">Favorites</string>
     <string name="archive">Archive</string>
     <string name="trash">Trash</string>
