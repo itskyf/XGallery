@@ -93,6 +93,12 @@ class CollectionsFragment : Fragment() {
                 }
                 popup.show()
             }
+
+            buttonNewAlbum.setOnClickListener {
+                navController.navigate(
+                    CollectionsFragmentDirections.actionLibraryFragmentToNewAlbumFragment()
+                )
+            }
         }
 
         val cloudAlbumPagingAdapter = CloudAlbumAdapter {

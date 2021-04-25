@@ -35,6 +35,23 @@
         <action
             android:id="@+id/actionLibraryFragmentToTrashFragment"
             app:destination="@id/trashFragment" />
+        <action
+            android:id="@+id/actionLibraryFragmentToNewAlbumFragment"
+            app:destination="@id/newAlbumFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/newAlbumFragment"
+        android:name="com.team02.xgallery.ui.newalbum.NewAlbumFragment"
+        android:label="@string/newalbum"
+        tools:layout="@layout/fragment_new_album">
+        <action
+            android:id="@+id/actionNewAlbumFragmentLibraryFragment"
+            app:destination="@id/collectionsFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left" />
     </fragment>
 
     <action
