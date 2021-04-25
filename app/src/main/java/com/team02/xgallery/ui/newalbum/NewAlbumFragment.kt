@@ -6,11 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.storage.FirebaseStorage
 import com.team02.xgallery.R
+import com.team02.xgallery.data.repository.CloudAlbumRepository
 import com.team02.xgallery.databinding.FragmentNewAlbumBinding
 import javax.inject.Inject
 
@@ -37,6 +39,14 @@ class NewAlbumFragment: Fragment()  {
             navController.navigate(R.id.actionNewAlbumFragmentLibraryFragment)
         }
         binding.buttonDone.setOnClickListener {
+            val name = binding.titleAlbum.getText().toString()
+            if (name == "") {
+                Toast.makeText(context, "You didn't enter album's name. Cannot create new album",Toast.LENGTH_SHORT).show()
+            }
+            else {
+                Toast.makeText(context, "Create new album successfully",Toast.LENGTH_SHORT).show()
+                CloudAlbumRepository().createAlbum(name)
+            }
             navController.navigate(R.id.actionNewAlbumFragmentLibraryFragment)
         }
     }

@@ -71,7 +71,6 @@ class CollectionsFragment : Fragment() {
 
             archiveButton.setOnClickListener {
                 // TODO
-                CloudAlbumRepository().createAlbum()
             }
 
             onDeviceButton.setOnClickListener {

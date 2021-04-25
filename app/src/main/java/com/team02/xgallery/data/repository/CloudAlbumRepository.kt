@@ -20,9 +20,9 @@ class CloudAlbumRepository {
 
     private val db = Firebase.firestore
 
-    fun createAlbum() {
+    fun createAlbum(name: String) {
         val newCloudAlbum = CloudAlbum(
-            name = "City",
+            name = name,
             thumbnailId = "pxvXcgeCETcVGBKz1vIl1KMLEqB2/media/0b44d29c-904a-45a0-94ac-b859859dd5f420200722_160350.jpg"
         )
         db.document("albums/${Date().time}").set(newCloudAlbum)
