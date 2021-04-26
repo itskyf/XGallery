@@ -1,6 +1,10 @@
 package com.team02.xgallery.ui.cloudphoto
 
+import android.app.DownloadManager
+import android.content.Context
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment.DIRECTORY_DOWNLOADS
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -97,6 +101,11 @@ class CloudPhotoFragment : Fragment() {
             }
             downloadBtn.setOnClickListener {
                 // TODO: download this cloud photo
+                Firebase.storage.reference.child(mediaId.toString()).downloadUrl.addOnSuccessListener {
+                    downloadFile(requireContext(), "img", ".jpg", DIRECTORY_DOWNLOADS, it.toString())
+                }.addOnFailureListener {
+                    // Handle any errors
+                }
             }
             deleteBtn.setOnClickListener {
                 MaterialAlertDialogBuilder(requireContext())
@@ -129,5 +138,14 @@ class CloudPhotoFragment : Fragment() {
         favoriteStateJob?.cancel()
         deletedStateJob?.cancel()
         super.onStop()
+    }
+
+    private fun downloadFile(context : Context, fileName:String, fileExtension:String, destinationDirectory:String, url:String){
+        val downloadManager: DownloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val uri: Uri = Uri.parse(url)
+        val request: DownloadManager.Request = DownloadManager.Request(uri);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalPublicDir(destinationDirectory,fileName + fileExtension);
+        downloadManager.enqueue(request);
     }
 }
