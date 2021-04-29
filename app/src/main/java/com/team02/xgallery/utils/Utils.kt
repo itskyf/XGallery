@@ -31,59 +31,11 @@ object Utils {
         }
     }
 
-    fun setDevicePhotoAs(context: Context, mediaUri: Uri) {
-        val bitmap =
-            MediaStore.Images.Media.getBitmap(context.contentResolver, mediaUri)
+    fun setPhotoAs(context: Context, bitmap: Bitmap) {
         val myWallpaperManager = WallpaperManager.getInstance(context)
         val modes = arrayOf("Home Screen", "Lock Screen", "Home Screen and Lock Screen", "Avatar")
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-        builder.setTitle("Set Wallpaper")
-        builder.setItems(modes) { _, which ->
-            when (which) {
-                0 -> myWallpaperManager.setBitmap(
-                        bitmap,
-                        null,
-                        true,
-                        WallpaperManager.FLAG_SYSTEM
-                )
-                1 -> myWallpaperManager.setBitmap(
-                        bitmap,
-                        null,
-                        true,
-                        WallpaperManager.FLAG_LOCK
-                )
-                2 -> {
-                    myWallpaperManager.setBitmap(
-                            bitmap,
-                            null,
-                            true,
-                            WallpaperManager.FLAG_SYSTEM
-                    )
-                    myWallpaperManager.setBitmap(
-                            bitmap,
-                            null,
-                            true,
-                            WallpaperManager.FLAG_LOCK
-                    )
-                }
-                3 -> {
-                    val user = Firebase.auth.currentUser
-                    val profileUpdates = userProfileChangeRequest {
-                        displayName = "Kiều Công Hậu"
-                        photoUri = mediaUri
-                    }
-                    user!!.updateProfile(profileUpdates)
-                }
-            }
-        }
-        builder.show()
-    }
-
-    fun setCloudPhotoAs(context: Context, bitmap: Bitmap) {
-        val myWallpaperManager = WallpaperManager.getInstance(context)
-        val modes = arrayOf("Home Screen", "Lock Screen", "Home Screen and Lock Screen", "Avatar")
-        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-        builder.setTitle("Set Wallpaper")
+        builder.setTitle("Set photo as")
         builder.setItems(modes) { _, which ->
             when (which) {
                 0 -> myWallpaperManager.setBitmap(

@@ -2,6 +2,7 @@ package com.team02.xgallery.ui.devicephoto
 
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +31,8 @@ class DevicePhotoMoreBottomSheet(private val mediaUri: Uri) : BottomSheetDialogF
                 // TODO: slideshow
             }
             useAsBtn.setOnClickListener {
-                Utils.setDevicePhotoAs(requireContext(), mediaUri)
+                val bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, mediaUri)
+                Utils.setPhotoAs(requireContext(), bitmap)
             }
         }
     }

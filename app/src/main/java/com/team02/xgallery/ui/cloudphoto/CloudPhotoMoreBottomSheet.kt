@@ -1,12 +1,10 @@
 package com.team02.xgallery.ui.cloudphoto
 
 import android.app.DownloadManager
-import android.app.WallpaperManager
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,23 +43,14 @@ class CloudPhotoMoreBottomSheet(private val mediaUri: String) : BottomSheetDialo
             }
             useAsBtn.setOnClickListener {
                 // TODO: set this cloud photo as home screen or lock screen
-                Firebase.storage.reference.child(mediaUri).getBytes(1024*1024).addOnSuccessListener {
+                Firebase.storage.reference.child(mediaUri).getBytes(Long.MAX_VALUE).addOnSuccessListener {
                     val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
-                    Utils.setCloudPhotoAs(requireContext(), bitmap)
+                    Utils.setPhotoAs(requireContext(), bitmap)
                 }.addOnFailureListener {
                     // Handle any errors
                 }
 
             }
         }
-    }
-    @Synchronized
-    private fun downloadFile(context: Context, fileName: String, fileExtension: String, destinationDirectory: String, url: String) {
-        val downloadManager: DownloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        val uri: Uri = Uri.parse(url)
-        val request: DownloadManager.Request = DownloadManager.Request(uri);
-        request.setDestinationInExternalFilesDir(context, destinationDirectory, fileName + fileExtension);
-        downloadManager.enqueue(request)
-
     }
 }
