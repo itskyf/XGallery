@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment.DIRECTORY_DOWNLOADS
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.*
 
 @AndroidEntryPoint
 class CloudPhotoFragment : Fragment() {
@@ -87,7 +89,7 @@ class CloudPhotoFragment : Fragment() {
             }
             moreBtn.setOnClickListener {
                 val bottomSheetFragment =
-                    CloudPhotoMoreBottomSheet()
+                    CloudPhotoMoreBottomSheet(mediaId)
                 bottomSheetFragment.show(
                     requireActivity().supportFragmentManager,
                     bottomSheetFragment.tag
@@ -101,8 +103,9 @@ class CloudPhotoFragment : Fragment() {
             }
             downloadBtn.setOnClickListener {
                 // TODO: download this cloud photo
-                Firebase.storage.reference.child(mediaId.toString()).downloadUrl.addOnSuccessListener {
-                    downloadFile(requireContext(), "img", ".jpg", DIRECTORY_DOWNLOADS, it.toString())
+                Firebase.storage.reference.child(mediaId).downloadUrl.addOnSuccessListener {
+                    val id = UUID.randomUUID()
+                    downloadFile(requireContext(), id.toString(), ".jpg", DIRECTORY_DOWNLOADS, it.toString())
                 }.addOnFailureListener {
                     // Handle any errors
                 }
@@ -146,6 +149,6 @@ class CloudPhotoFragment : Fragment() {
         val request: DownloadManager.Request = DownloadManager.Request(uri);
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setDestinationInExternalPublicDir(destinationDirectory,fileName + fileExtension);
-        downloadManager.enqueue(request);
+        downloadManager.enqueue(request)
     }
 }
