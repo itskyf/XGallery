@@ -38,7 +38,16 @@
         <action
             android:id="@+id/actionLibraryFragmentToNewAlbumFragment"
             app:destination="@id/newAlbumFragment"/>
+        <action
+            android:id="@+id/actionLibraryFragmentToMediaInCloudAlbumFragment"
+            app:destination="@+id/mediaInCloudAlbumFragment"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/mediaInCloudAlbumFragment"
+        android:name="com.team02.xgallery.ui.mediaincloudalbum.MediaInCloudAlbumFragment"
+        android:label="Name of the album"
+        tools:layout="@layout/fragment_media_in_cloud_album"/>
 
     <fragment
         android:id="@+id/newAlbumFragment"

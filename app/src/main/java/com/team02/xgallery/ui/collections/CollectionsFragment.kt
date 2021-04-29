@@ -102,6 +102,9 @@ class CollectionsFragment : Fragment() {
 
         val cloudAlbumPagingAdapter = CloudAlbumAdapter {
             Log.d("KCH", "${it.name}")
+            navController.navigate(
+                CollectionsFragmentDirections.actionLibraryFragmentToMediaInCloudAlbumFragment()
+            )
         }
         binding.gridAlbum.adapter = cloudAlbumPagingAdapter
         binding.gridAlbum.layoutManager =
