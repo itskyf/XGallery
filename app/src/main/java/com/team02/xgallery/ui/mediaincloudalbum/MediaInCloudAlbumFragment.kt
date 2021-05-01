@@ -9,12 +9,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentFavoritesBinding
 import com.team02.xgallery.databinding.FragmentMediaInCloudAlbumBinding
 import com.team02.xgallery.ui.adapter.CloudMediaAdapter
 import com.team02.xgallery.ui.adapter.ItemDecoration
+import com.team02.xgallery.ui.collections.CollectionsFragmentDirections
 import com.team02.xgallery.ui.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -26,6 +28,7 @@ class MediaInCloudAlbumFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: MediaInCloudAlbumViewModel by viewModels()
     private lateinit var navController: NavController
+    val args: MediaInCloudAlbumFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,10 +43,12 @@ class MediaInCloudAlbumFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.favoriteTopBar.title = "Name of Album"
-//        binding.favoriteTopBar.setNavigationOnClickListener {
-//            navController.navigateUp()
-//        }
+        val nameAlbum = args.nameOfAlbum
+
+        binding.mediaInCloudAlbumTopBar.title = nameAlbum
+        binding.mediaInCloudAlbumTopBar.setNavigationOnClickListener {
+            navController.navigateUp()
+        }
 
         val pagingAdapter = CloudMediaAdapter({
             navController.navigate(HomeFragmentDirections.openCloudPhotoViewFromHome(it.id!!))
