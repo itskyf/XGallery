@@ -73,6 +73,7 @@
             android:text="ADD PHOTOS" />
 
         <Button
+            android:id="@+id/button_select"
             style="@style/Widget.MaterialComponents.Button.Icon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
