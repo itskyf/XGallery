@@ -49,6 +49,10 @@ class NewAlbumFragment: Fragment()  {
             }
             navController.navigate(R.id.actionNewAlbumFragmentLibraryFragment)
         }
+
+        binding.buttonSelect.setOnClickListener {
+            navController.navigate(R.id.actionNewAlbumFragmentToSelectPhotosFragment)
+        }
     }
 
     override fun onDestroyView() {

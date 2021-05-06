@@ -50,7 +50,6 @@
     <fragment
         android:id="@+id/mediaInCloudAlbumFragment"
         android:name="com.team02.xgallery.ui.mediaincloudalbum.MediaInCloudAlbumFragment"
-        android:label="Name of the album"
         tools:layout="@layout/fragment_media_in_cloud_album">
         <argument
             android:name="nameOfAlbum"
@@ -69,7 +68,18 @@
             app:exitAnim="@anim/to_right"
             app:popEnterAnim="@anim/from_right"
             app:popExitAnim="@anim/to_left" />
+        <action
+            android:id="@+id/actionNewAlbumFragmentToSelectPhotosFragment"
+            app:destination="@id/selectPhotosFragment"></action>
+
     </fragment>
+
+    <fragment
+        android:id="@+id/selectPhotosFragment"
+        android:name="com.team02.xgallery.ui.newalbum.SelectPhotosFragment"
+        tools:layout="@layout/fragment_select_photos">
+    </fragment>
+
 
     <action
         android:id="@+id/openProfileFragment"
