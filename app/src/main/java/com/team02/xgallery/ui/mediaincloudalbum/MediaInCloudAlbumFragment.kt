@@ -45,10 +45,11 @@ class MediaInCloudAlbumFragment : Fragment() {
 
         val idAlbum = args.IdOfAlbum
         val nameAlbum = args.nameOfAlbum
-        binding.mediaInCloudAlbumTopBar.title = nameAlbum
         binding.mediaInCloudAlbumTopBar.setNavigationOnClickListener {
             navController.navigateUp()
         }
+
+        binding.nameAlbum.setText(nameAlbum)
 
         val pagingAdapter = CloudMediaAdapter({
             navController.navigate(HomeFragmentDirections.openCloudPhotoViewFromHome(it.id!!))
