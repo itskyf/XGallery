@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.team02.xgallery.R
+import com.team02.xgallery.data.repository.CloudAlbumRepository
 import com.team02.xgallery.databinding.FragmentFavoritesBinding
 import com.team02.xgallery.databinding.FragmentMediaInCloudAlbumBinding
 import com.team02.xgallery.ui.adapter.CloudMediaAdapter
@@ -46,7 +47,28 @@ class MediaInCloudAlbumFragment : Fragment() {
         val idAlbum = args.IdOfAlbum
         val nameAlbum = args.nameOfAlbum
         binding.mediaInCloudAlbumTopBar.setNavigationOnClickListener {
-            navController.navigateUp()
+            navController.navigate(
+                MediaInCloudAlbumFragmentDirections.actionMediaInCloudAlbumFragmentToCollectionsFragment()
+            )
+        }
+
+        binding.mediaInCloudAlbumTopBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.select_photos -> {
+                    true
+                }
+                R.id.edit_album -> {
+                    true
+                }
+                R.id.delete_album -> {
+                    CloudAlbumRepository().deleteAlbum(args.IdOfAlbum)
+                    navController.navigate(
+                        MediaInCloudAlbumFragmentDirections.actionMediaInCloudAlbumFragmentToCollectionsFragment()
+                    )
+                    true
+                }
+                else -> false
+            }
         }
 
         binding.nameAlbum.setText(nameAlbum)

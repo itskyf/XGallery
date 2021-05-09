@@ -60,6 +60,9 @@
         <argument
             android:name="nameOfAlbum"
             app:argType="string" />
+        <action
+            android:id="@+id/actionMediaInCloudAlbumFragmentToCollectionsFragment"
+            app:destination="@id/collectionsFragment"/>
     </fragment>
 
     <fragment
