@@ -1,5 +1,6 @@
 package com.team02.xgallery.data.repository
 
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.google.firebase.Timestamp
@@ -30,8 +31,16 @@ class CloudAlbumRepository {
         val path = "albums/" + newCloudAlbum.id
         db.document(path).set(newCloudAlbum)
         for (item in listItem) {
-            var arr:List<String> = item.toString().split("/")
-            db.document(path).collection("media").document(arr.last()).set(hashMapOf("dateAdded" to Timestamp.now()))
+            var arr: List<String> = item.toString().split("/")
+            db.document(path).collection("media").document(arr.last())
+                .set(hashMapOf("dateAdded" to Timestamp.now()))
         }
+    }
+
+    fun deleteAlbum(id: String) {
+        db.document("albums/" + id)
+            .delete()
+            .addOnSuccessListener { Log.d("DeleteAlbum", "Deleting Successfully") }
+            .addOnFailureListener { e -> Log.w("DeleteAlbum", "Deleting Failed", e) }
     }
 }
