@@ -38,17 +38,6 @@ class NewAlbumFragment: Fragment()  {
         binding.buttonBack.setOnClickListener {
             navController.navigate(R.id.actionNewAlbumFragmentLibraryFragment)
         }
-        binding.buttonDone.setOnClickListener {
-            val name = binding.titleAlbum.getText().toString()
-            if (name == "") {
-                Toast.makeText(context, "You didn't enter album's name. Cannot create new album",Toast.LENGTH_SHORT).show()
-            }
-            else {
-                Toast.makeText(context, "Create new album successfully",Toast.LENGTH_SHORT).show()
-                CloudAlbumRepository().createAlbum(name)
-            }
-            navController.navigate(R.id.actionNewAlbumFragmentLibraryFragment)
-        }
 
         binding.buttonSelect.setOnClickListener {
             val name = binding.titleAlbum.getText().toString()

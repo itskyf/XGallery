@@ -26,11 +26,6 @@
             android:gravity="right"
             android:paddingTop="20dp"
             android:paddingRight="20dp">
-            <ImageView
-                android:id="@+id/button_done"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_check_24" />
         </RelativeLayout>
     </LinearLayout>
 
