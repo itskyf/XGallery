@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@drawable/ic_share_24"
+        android:title="Select photos" />
+    <item
+        android:icon="@drawable/ic_round_tune_24"
+        android:title="Edit album" />
+    <item
+        android:icon="@drawable/ic_black_delete_24"
+        android:title="Delete album" />
+</menu>
