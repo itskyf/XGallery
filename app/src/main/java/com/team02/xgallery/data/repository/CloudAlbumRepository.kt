@@ -34,7 +34,7 @@ class CloudAlbumRepository {
     fun createAlbum(name: String, listItem: List<Any>) {
         val newCloudAlbum = CloudAlbum(
             name = name,
-            thumbnailId = "pxvXcgeCETcVGBKz1vIl1KMLEqB2/media/0b44d29c-904a-45a0-94ac-b859859dd5f420200722_160350.jpg"
+            thumbnailId = listItem.first().toString()
         )
         val path = "albums/${Date().time}"
         db.document(path).set(newCloudAlbum)
