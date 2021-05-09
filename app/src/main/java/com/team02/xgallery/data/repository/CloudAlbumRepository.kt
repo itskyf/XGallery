@@ -33,10 +33,11 @@ class CloudAlbumRepository {
 
     fun createAlbum(name: String, listItem: List<Any>) {
         val newCloudAlbum = CloudAlbum(
+            id = Date().time.toString(),
             name = name,
             thumbnailId = listItem.first().toString()
         )
-        val path = "albums/${Date().time}"
+        val path = "albums/" + newCloudAlbum.id
         db.document(path).set(newCloudAlbum)
         for (item in listItem) {
             var arr:List<String> = item.toString().split("/")

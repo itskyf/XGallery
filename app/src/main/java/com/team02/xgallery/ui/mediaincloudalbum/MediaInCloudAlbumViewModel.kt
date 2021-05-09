@@ -21,7 +21,7 @@ class MediaInCloudAlbumViewModel @Inject constructor(
     val mediaPagingFlow = Pager(
         config = PagingConfig(pageSize = AppConstants.ALBUM_PAGE_SIZE),
         pagingSourceFactory = {
-            MediaInCloudAlbumPagingSource(Firebase.firestore, Firebase.auth.currentUser?.uid.toString())
+            MediaInCloudAlbumPagingSource(Firebase.firestore, Firebase.auth.currentUser?.uid.toString(),"1620551230024")
         }
     ).flow.cachedIn(viewModelScope)
     val selectionManager = SelectionManager()

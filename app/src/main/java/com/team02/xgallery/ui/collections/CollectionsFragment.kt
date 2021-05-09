@@ -102,7 +102,7 @@ class CollectionsFragment : Fragment() {
 
         val cloudAlbumPagingAdapter = CloudAlbumAdapter {
             navController.navigate(
-                CollectionsFragmentDirections.actionLibraryFragmentToMediaInCloudAlbumFragment(it.name.toString())
+                CollectionsFragmentDirections.actionLibraryFragmentToMediaInCloudAlbumFragment(it.id.toString(),it.name.toString())
             )
         }
         binding.gridAlbum.adapter = cloudAlbumPagingAdapter
