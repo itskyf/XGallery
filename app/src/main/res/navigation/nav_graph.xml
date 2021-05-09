@@ -70,7 +70,11 @@
             app:popExitAnim="@anim/to_left" />
         <action
             android:id="@+id/actionNewAlbumFragmentToSelectPhotosFragment"
-            app:destination="@id/selectPhotosFragment"></action>
+            app:destination="@id/selectPhotosFragment">
+            <argument
+                android:name="name"
+                app:argType="string"/>
+        </action>
 
     </fragment>
 
@@ -78,6 +82,12 @@
         android:id="@+id/selectPhotosFragment"
         android:name="com.team02.xgallery.ui.newalbum.SelectPhotosFragment"
         tools:layout="@layout/fragment_select_photos">
+        <action
+            android:id="@+id/actionSelectPhotosFragmentToCollectionsFragment"
+            app:destination="@id/collectionsFragment"/>
+        <argument
+            android:name="name"
+            app:argType="string"/>
     </fragment>
 
 

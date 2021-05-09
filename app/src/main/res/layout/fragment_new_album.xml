@@ -82,7 +82,7 @@
 
             android:backgroundTint="@color/white"
             android:text="Select photos"
-            android:textSize="35dp"
+            android:textSize="30dp"
             android:textColor="#292929"
 
             app:icon="@drawable/ic_baseline_add_24"
