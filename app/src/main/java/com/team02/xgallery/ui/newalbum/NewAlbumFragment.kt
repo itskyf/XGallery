@@ -51,7 +51,8 @@ class NewAlbumFragment: Fragment()  {
         }
 
         binding.buttonSelect.setOnClickListener {
-            navController.navigate(R.id.actionNewAlbumFragmentToSelectPhotosFragment)
+            val name = binding.titleAlbum.getText().toString()
+            navController.navigate(NewAlbumFragmentDirections.actionNewAlbumFragmentToSelectPhotosFragment(name))
         }
     }
 
