@@ -43,8 +43,8 @@ class MediaInCloudAlbumFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val idAlbum = args.IdOfAlbum
         val nameAlbum = args.nameOfAlbum
-
         binding.mediaInCloudAlbumTopBar.title = nameAlbum
         binding.mediaInCloudAlbumTopBar.setNavigationOnClickListener {
             navController.navigateUp()
