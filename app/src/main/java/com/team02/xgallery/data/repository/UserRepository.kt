@@ -1,9 +1,12 @@
 package com.team02.xgallery.data.repository
 
+import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
@@ -11,6 +14,7 @@ import kotlinx.coroutines.tasks.await
 
 class UserRepository {
     private val auth = Firebase.auth
+    private val storage = Firebase.storage
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val authStateFlow = callbackFlow {
@@ -51,6 +55,18 @@ class UserRepository {
         get() = auth.currentUser?.uid
     val photoUrl
         get() = auth.currentUser?.photoUrl
+
+    suspend fun setUserAvatarFromDevice(uri: Uri) {
+        val avatarPath = "$userUID/avatar/1"
+        val avatarRef = storage.reference.child(avatarPath)
+        avatarRef.putFile(uri).addOnSuccessListener {
+            auth.currentUser?.updateProfile(
+                    userProfileChangeRequest {
+                        photoUri = Uri.parse(avatarPath)
+                    }
+            )
+        }.await()
+    }
 
     fun signOut() = auth.signOut()
 }

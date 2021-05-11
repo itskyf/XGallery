@@ -1,5 +1,6 @@
 package com.team02.xgallery.ui.profile
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.team02.xgallery.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,5 +23,9 @@ class ProfileViewModel @Inject constructor(
 
     fun signOut() {
         userRepository.signOut()
+    }
+
+    suspend fun setUserAvatarFromDevice(uri: Uri) {
+        userRepository.setUserAvatarFromDevice(uri)
     }
 }

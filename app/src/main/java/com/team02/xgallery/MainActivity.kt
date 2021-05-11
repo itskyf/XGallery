@@ -17,6 +17,8 @@ import coil.load
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.team02.xgallery.databinding.ActivityMainBinding
 import com.team02.xgallery.utils.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
@@ -69,9 +71,12 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.openLoginFragment)
                 } else {
                     if (it?.photoUrl != null) {
-                        topMenu.findItem(R.id.topBarAvatar).actionView.findViewById<ShapeableImageView>(
-                            R.id.avatar
-                        ).load(it.photoUrl)
+                        Firebase.storage.reference.child(it.photoUrl?.path.toString())
+                                .downloadUrl.addOnSuccessListener { downloadedUrl ->
+                                    topMenu.findItem(R.id.topBarAvatar).actionView.findViewById<ShapeableImageView>(
+                                            R.id.avatar
+                                    ).load(downloadedUrl)
+                                }
                     }
                 }
             }

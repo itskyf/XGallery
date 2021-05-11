@@ -33,7 +33,7 @@ object Utils {
 
     fun setPhotoAs(context: Context, bitmap: Bitmap) {
         val myWallpaperManager = WallpaperManager.getInstance(context)
-        val modes = arrayOf("Home Screen", "Lock Screen", "Home Screen and Lock Screen", "Avatar")
+        val modes = arrayOf("Home Screen", "Lock Screen", "Home Screen and Lock Screen")
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         builder.setTitle("Set photo as")
         builder.setItems(modes) { _, which ->
@@ -64,14 +64,6 @@ object Utils {
                             WallpaperManager.FLAG_LOCK
                     )
                 }
-                /*3 -> {
-                    val user = Firebase.auth.currentUser
-                    val profileUpdates = userProfileChangeRequest {
-                        displayName = "Kiều Công Hậu"
-                        photoUri = mediaUri
-                    }
-                    user!!.updateProfile(profileUpdates)
-                }*/
             }
         }
         builder.show()
