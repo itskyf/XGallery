@@ -83,7 +83,6 @@ class MediaInCloudAlbumFragment : Fragment() {
                         .setNegativeButton(resources.getString(R.string.no)) { dialog, which ->
                         }
                         .show()
-
                     true
                 }
                 else -> false
