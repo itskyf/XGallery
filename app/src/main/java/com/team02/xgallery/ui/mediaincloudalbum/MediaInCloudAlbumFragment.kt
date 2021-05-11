@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.team02.xgallery.R
 import com.team02.xgallery.data.repository.CloudAlbumRepository
 import com.team02.xgallery.databinding.FragmentFavoritesBinding
@@ -61,10 +62,18 @@ class MediaInCloudAlbumFragment : Fragment() {
                     true
                 }
                 R.id.delete_album -> {
-                    CloudAlbumRepository().deleteAlbum(args.IdOfAlbum)
-                    navController.navigate(
-                        MediaInCloudAlbumFragmentDirections.actionMediaInCloudAlbumFragmentToCollectionsFragment()
-                    )
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setMessage(resources.getString(R.string.ask_delete_album))
+                        .setPositiveButton(resources.getString(R.string.yes)) { dialog, which ->
+                            CloudAlbumRepository().deleteAlbum(args.IdOfAlbum)
+                            navController.navigate(
+                                MediaInCloudAlbumFragmentDirections.actionMediaInCloudAlbumFragmentToCollectionsFragment()
+                            )
+                        }
+                        .setNegativeButton(resources.getString(R.string.no)) { dialog, which ->
+                        }
+                        .show()
+
                     true
                 }
                 else -> false
