@@ -43,4 +43,13 @@ class CloudAlbumRepository {
             .addOnSuccessListener { Log.d("DeleteAlbum", "Deleting Successfully") }
             .addOnFailureListener { e -> Log.w("DeleteAlbum", "Deleting Failed", e) }
     }
+
+    fun deletePhotos(id: String, listPhotos: List<Any>) {
+        val subCollectRef = db.document("albums/" + id)
+                                .collection("media")
+        for (onePhoto in listPhotos) {
+            var arr: List<String> = onePhoto.toString().split("/")
+            subCollectRef.document(arr.last()).delete()
+        }
+    }
 }

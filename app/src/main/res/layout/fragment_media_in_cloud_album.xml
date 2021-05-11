@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -72,14 +72,89 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mediaInCloudAlbumGrid"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:listitem="@layout/list_item_media"
-        tools:orientation="vertical"
-        tools:spanCount="3" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/mediaInCloudAlbumTopBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:menu="@menu/cloud_album_menu"
+                app:navigationIcon="@drawable/ic_round_arrow_back_ios_24"
+                android:background="@color/white"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
+        </com.google.android.material.appbar.AppBarLayout>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                <TextView
+                    android:id="@+id/nameAlbum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="30dp"
+                    android:textSize="35dp"
+                    android:textColor="@color/black"
+                    android:text="Hello world"/>
 
-</LinearLayout>
+                <androidx.legacy.widget.Space
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:orientation="horizontal">
+                    <Button
+                        style="@style/Widget.MaterialComponents.Button.Icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="52dp"
+                        android:layout_marginLeft="30dp"
+                        android:backgroundTint="@color/white"
+
+                        android:text="Add photos"
+                        app:icon="@drawable/ic_share_24"
+
+                        android:background="@drawable/round_corner_view"
+                        app:backgroundTint="@color/white"/>
+                    <Button
+                        style="@style/Widget.MaterialComponents.Button.Icon"
+                        android:layout_width="122dp"
+                        android:layout_height="52dp"
+                        android:layout_marginLeft="30dp"
+                        android:backgroundTint="@color/white"
+
+                        android:text="share"
+                        app:icon="@drawable/ic_share_24"
+
+                        android:background="@drawable/round_corner_view"
+                        app:backgroundTint="@color/white"/>
+                </LinearLayout>
+
+                <androidx.legacy.widget.Space
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mediaInCloudAlbumGrid"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    tools:listitem="@layout/list_item_media"
+                    tools:orientation="vertical"
+                    tools:spanCount="3" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

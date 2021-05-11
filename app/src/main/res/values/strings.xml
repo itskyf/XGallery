@@ -10,6 +10,7 @@
     <string name="trash">Trash</string>
     <string name="on_device">On Device</string>
     <string name="album">Album</string>
+    <string name="ask_delete_album">Are you sure to delete this album</string>
     <string name="title">Title</string>
     <string name="nothing_here">A friend to all is a friend to none</string>
     <string name="profile">Profile</string>
@@ -20,6 +21,8 @@
     <string name="delete">Delete</string>
     <string name="photo_view">Photo view</string>
     <string name="upload_channel_name">Upload notification</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <string name="cancel">Cancel</string>
     <string name="finished">Finished</string>
 </resources>
