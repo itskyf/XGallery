@@ -1,5 +1,6 @@
 package com.team02.xgallery.ui.mediaincloudalbum
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -17,12 +18,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MediaInCloudAlbumViewModel @Inject constructor(
+    private val state: SavedStateHandle
 ) : ViewModel() {
     val mediaPagingFlow = Pager(
         config = PagingConfig(pageSize = AppConstants.ALBUM_PAGE_SIZE),
         pagingSourceFactory = {
-            MediaInCloudAlbumPagingSource(Firebase.firestore, Firebase.auth.currentUser?.uid.toString(),"1620566443946")
+            MediaInCloudAlbumPagingSource(Firebase.firestore, Firebase.auth.currentUser?.uid.toString(),state.get<String>("albumID").toString())
         }
     ).flow.cachedIn(viewModelScope)
     val selectionManager = SelectionManager()
+    fun setAlbumId(albumId: String) {
+        state["albumID"] = albumId
+    }
 }

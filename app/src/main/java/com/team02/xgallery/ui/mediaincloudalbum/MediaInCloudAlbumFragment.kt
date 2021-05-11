@@ -55,6 +55,7 @@ class MediaInCloudAlbumFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val idAlbum = args.IdOfAlbum
+        viewModel.setAlbumId(idAlbum)
         val nameAlbum = args.nameOfAlbum
         binding.mediaInCloudAlbumTopBar.setNavigationOnClickListener {
             navController.navigate(
