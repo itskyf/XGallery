@@ -1,6 +1,7 @@
 package com.team02.xgallery.data.repository
 
 import android.util.Log
+import androidx.navigation.NavController
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.google.firebase.Timestamp
@@ -9,6 +10,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.team02.xgallery.data.entity.CloudAlbum
 import com.team02.xgallery.data.source.network.CloudAlbumPagingSource
+import com.team02.xgallery.ui.mediaincloudalbum.MediaInCloudAlbumFragmentDirections
 import com.team02.xgallery.utils.AppConstants
 import java.util.*
 
@@ -51,5 +53,19 @@ class CloudAlbumRepository {
             var arr: List<String> = onePhoto.toString().split("/")
             subCollectRef.document(arr.last()).delete()
         }
+        subCollectRef.get()
+                .addOnSuccessListener { result ->
+                    if (result.size() > 0 ) {
+                        val newThumbnailId = Firebase.auth.currentUser?.uid.toString() + "/media/" + result.first().id
+                        Log.d("Hieu",newThumbnailId)
+                        db.document("albums/" + id).update("thumbnailId", newThumbnailId)
+                    }
+                    else {
+                        deleteAlbum(id)
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("Fail", "Error getting documents: ", exception)
+                }
     }
 }
