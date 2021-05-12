@@ -126,12 +126,7 @@ class HomeFragment : Fragment() {
                     val arrayImage = viewModel.selectionManager.getItemKeyList()
                     val imageUris: ArrayList<Uri> = ArrayList()
                     for (i in arrayImage) {
-                        imageUris.add(
-                            ContentUris.withAppendedId(
-                                AppConstants.COLLECTION,
-                                i as Long
-                            )
-                        )
+                        Uri.parse(i.toString())
                     }
                     val shareIntent = Intent().apply {
                         action = Intent.ACTION_SEND_MULTIPLE
