@@ -63,6 +63,22 @@
         <action
             android:id="@+id/actionMediaInCloudAlbumFragmentToCollectionsFragment"
             app:destination="@id/collectionsFragment"/>
+        <action
+            android:id="@+id/actionMediaInCloudAlbumFragmentToAddPhotosAlbumFragment"
+            app:destination="@id/addPhotosAlbumFragment">
+            <argument
+                android:name="IdOfAlbum"
+                app:argType="string"/>
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/addPhotosAlbumFragment"
+        android:name="com.team02.xgallery.ui.mediaincloudalbum.AddPhotosAlbumFragment"
+        tools:layout="@layout/fragment_select_photos">
+        <argument
+            android:name="IdOfAlbum"
+            app:argType="string"/>
     </fragment>
 
     <fragment

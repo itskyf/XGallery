@@ -6,6 +6,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.team02.xgallery.data.entity.CloudAlbum
@@ -67,5 +68,13 @@ class CloudAlbumRepository {
                 .addOnFailureListener { exception ->
                     Log.d("Fail", "Error getting documents: ", exception)
                 }
+    }
+
+    fun existsPhoto(id: String, idPhoto: String) : Boolean{
+        val docRef = db.document("albums/" + id)
+            .collection("media").document(idPhoto)
+        val result = docRef.get()
+        Log.d("Hieu",result.toString())
+        return true
     }
 }
