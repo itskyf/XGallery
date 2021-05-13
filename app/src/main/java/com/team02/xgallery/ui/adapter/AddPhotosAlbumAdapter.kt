@@ -58,26 +58,25 @@ class AddPhotosAlbumAdapter(
             adapter: AddPhotosAlbumAdapter,
             position: Int
         ) {
-             var result = CloudAlbumRepository().existsPhoto(albumId,media.id.toString()) { existing ->
+            binding.checkBox.visibility = View.VISIBLE
+            CloudAlbumRepository().existsPhoto(albumId, media.id.toString()) { existing ->
                  if (existing) {
+                     binding.root.alpha = 0.5f
                      binding.checkBox.isChecked = true
-                     binding.checkBox.visibility = View.VISIBLE
                  } else {
+                     binding.root.alpha = 1.0f
                      binding.checkBox.isChecked =
                          adapter.selectionManager.isSelected(media.id!!)
-                     binding.checkBox.visibility = View.VISIBLE
-
-                     binding.root.setOnClickListener {
-                         adapter.selectionManager.select(media.id!!)
-                         adapter.notifyItemChanged(position)
-
-                         if (!adapter.selectionManager.onSelectionMode.value) {
-                             adapter.notifyDataSetChanged()
-                         }
-                     }
                  }
             }
-
+            binding.root.setOnClickListener {
+                CloudAlbumRepository().existsPhoto(albumId, media.id.toString()) { existing ->
+                    if (!existing) {
+                        adapter.selectionManager.select(media.id!!)
+                        adapter.notifyItemChanged(position)
+                    }
+                }
+            }
 
             val mediaRef = Firebase.storage.getReference(media.id!!)
             mediaRef.downloadUrl.addOnCompleteListener {

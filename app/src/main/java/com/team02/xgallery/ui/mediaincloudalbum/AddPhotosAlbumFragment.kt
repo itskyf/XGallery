@@ -28,6 +28,7 @@ import com.team02.xgallery.ui.newalbum.SelectPhotosFragmentArgs
 import com.team02.xgallery.utils.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -76,7 +77,7 @@ class AddPhotosAlbumFragment : Fragment() {
         }
 
         onSelectionModeJob = lifecycleScope.launch {
-            viewModel.selectionManager.onSelectionMode.collectLatest { onSelectionMode ->
+            viewModel.selectionManager.onSelectionMode.collect { onSelectionMode ->
                 if (onSelectionMode) {
                     selectionMode =
                         (requireActivity() as MainActivity).startSupportActionMode(callback) as ActionMode
