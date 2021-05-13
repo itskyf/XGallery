@@ -70,11 +70,17 @@ class CloudAlbumRepository {
                 }
     }
 
-    fun existsPhoto(id: String, idPhoto: String) : Boolean{
+    fun existsPhoto(id: String, idPhoto: String, myCallBack: (Boolean) -> Unit){
+        val IdPhoto = idPhoto.split("/").last()
         val docRef = db.document("albums/" + id)
-            .collection("media").document(idPhoto)
+            .collection("media").document(IdPhoto)
         val result = docRef.get()
-        Log.d("Hieu",result.toString())
-        return true
+            .addOnSuccessListener { docSnapShot ->
+                if (docSnapShot.exists()) {
+                    myCallBack(true)
+                    Log.d("Hieutest", "Hello world")
+                }
+                else myCallBack(false)
+            }
     }
 }

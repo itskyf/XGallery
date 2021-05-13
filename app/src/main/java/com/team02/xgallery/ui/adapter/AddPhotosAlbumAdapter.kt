@@ -23,8 +23,7 @@ class AddPhotosAlbumAdapter(
 ) :
     PagingDataAdapter<CloudMedia, AddPhotosAlbumAdapter.AddPhotosAlbumViewHolder>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddPhotosAlbumAdapter.AddPhotosAlbumViewHolder {
-
-        return AddPhotosAlbumAdapter.AddPhotosAlbumViewHolder(
+        return AddPhotosAlbumViewHolder(
             ListItemMediaBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
@@ -59,24 +58,26 @@ class AddPhotosAlbumAdapter(
             adapter: AddPhotosAlbumAdapter,
             position: Int
         ) {
-            if (true) {
-                binding.checkBox.isChecked = true
-                binding.checkBox.visibility = View.VISIBLE
+             var result = CloudAlbumRepository().existsPhoto(albumId,media.id.toString()) { existing ->
+                 if (existing) {
+                     binding.checkBox.isChecked = true
+                     binding.checkBox.visibility = View.VISIBLE
+                 } else {
+                     binding.checkBox.isChecked =
+                         adapter.selectionManager.isSelected(media.id!!)
+                     binding.checkBox.visibility = View.VISIBLE
 
-            } else {
-                binding.root.setOnClickListener {
-                    adapter.selectionManager.select(media.id!!)
-                    adapter.notifyItemChanged(position)
+                     binding.root.setOnClickListener {
+                         adapter.selectionManager.select(media.id!!)
+                         adapter.notifyItemChanged(position)
 
-                    if (!adapter.selectionManager.onSelectionMode.value) {
-                        adapter.notifyDataSetChanged()
-                    }
-                }
-
-                binding.checkBox.isChecked = adapter.selectionManager.isSelected(media.id!!)
-                binding.checkBox.visibility = View.VISIBLE
-
+                         if (!adapter.selectionManager.onSelectionMode.value) {
+                             adapter.notifyDataSetChanged()
+                         }
+                     }
+                 }
             }
+
 
             val mediaRef = Firebase.storage.getReference(media.id!!)
             mediaRef.downloadUrl.addOnCompleteListener {
@@ -84,6 +85,7 @@ class AddPhotosAlbumAdapter(
                     Glide.with(binding.root).load(it.result).into(binding.imageView)
                 }
             }
+
         }
     }
 }
