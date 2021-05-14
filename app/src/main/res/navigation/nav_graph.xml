@@ -13,6 +13,9 @@
         <action
             android:id="@+id/openCloudPhotoViewFromHome"
             app:destination="@id/cloudPhotoFragment" />
+        <action
+            android:id="@+id/openStory"
+            app:destination="@id/storyFragment" />
     </fragment>
 
     <fragment
@@ -255,6 +258,6 @@
         tools:layout="@layout/fragment_story">
         <argument
             android:name="year"
-            app:argType="string"/>
+            app:argType="integer" />
     </fragment>
 </navigation>

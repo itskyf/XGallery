@@ -4,6 +4,7 @@ import android.content.ContentUris
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
@@ -38,13 +39,8 @@ class HomeFragment : Fragment() {
     private var selectionMode: ActionMode? = null
     private var onSelectionModeJob: Job? = null
     private var selectedCountJob: Job? = null
-    private val listImg = listOf(
-        R.drawable.ic_google,
-        R.drawable.ic_launcher_foreground,
-        R.drawable.ic_google,
-        R.drawable.ic_launcher_foreground
-    )
-    private val listTitle = listOf("1","2","1","2")
+    private val listImg = arrayListOf<String>()
+    private val listTitle = arrayListOf<String>()
     private val userUid = Firebase.auth.currentUser?.uid.toString()
     private val db = Firebase.firestore
 
@@ -60,46 +56,79 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val storyAdapter = StoryAdapter({
-            navController.navigate(R.id.storyFragment)
-        }, listImg, listTitle)
-        binding.storyList.adapter = storyAdapter
-        binding.storyList.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
-        val cloudMediaPagingAdapter = CloudMediaAdapter({
-            navController.navigate(HomeFragmentDirections.openCloudPhotoViewFromHome(it.id!!))
-        }, viewModel.selectionManager)
-        binding.mediaGrid.adapter = cloudMediaPagingAdapter
-        binding.mediaGrid.layoutManager =
-            GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
-        binding.mediaGrid.addItemDecoration(
-            ItemDecoration(resources.getDimension(R.dimen.small_padding), 3)
-        )
-
-        lifecycleScope.launch {
-            viewModel.mediaPagingFlow.collectLatest { pagingData ->
-                cloudMediaPagingAdapter.submitData(pagingData)
+        db.collection("users").document(userUid).get().addOnSuccessListener{document->
+            val memories1 = document.data?.get("memories1") as ArrayList<String>
+            val memories2 = document.data?.get("memories2") as ArrayList<String>
+            val memories3 = document.data?.get("memories3") as ArrayList<String>
+            val memories4 = document.data?.get("memories4") as ArrayList<String>
+            val memories5 = document.data?.get("memories5") as ArrayList<String>
+            if(memories1.size!=0){
+                if(!("1 years ago" in listTitle && memories1[0] in listImg))
+                listTitle.add("1 years ago")
+                listImg.add(memories1[0])
             }
-        }
+            if(memories2.size!=0){
+                if(!("2 years ago" in listTitle && memories2[0] in listImg))
+                listTitle.add("2 years ago")
+                listImg.add(memories2[0])
+            }
+            if(memories3.size!=0){
+                if(!("3 years ago" in listTitle && memories3[0] in listImg))
+                listTitle.add("3 years ago")
+                listImg.add(memories3[0])
+            }
+            if(memories4.size!=0){
+                if(!("4 years ago" in listTitle && memories4[0] in listImg))
+                listTitle.add("4 years ago")
+                listImg.add(memories4[0])
+            }
+            if(memories5.size!=0){
+                if(!("5 years ago" in listTitle && memories5[0] in listImg))
+                listTitle.add("5 years ago")
+                listImg.add(memories5[0])
+            }
+            val storyAdapter = StoryAdapter({
+                navController.navigate(HomeFragmentDirections.openStory(it+1))
+            }, listImg, listTitle)
+            binding.storyList.adapter = storyAdapter
+            binding.storyList.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        onSelectionModeJob = lifecycleScope.launch {
-            viewModel.selectionManager.onSelectionMode.collectLatest { onSelectionMode ->
-                if (onSelectionMode) {
-                    selectionMode =
-                        (requireActivity() as MainActivity).startSupportActionMode(callback) as ActionMode
-                } else {
-                    selectionMode?.finish()
+            val cloudMediaPagingAdapter = CloudMediaAdapter({
+                navController.navigate(HomeFragmentDirections.openCloudPhotoViewFromHome(it.id!!))
+            }, viewModel.selectionManager)
+            binding.mediaGrid.adapter = cloudMediaPagingAdapter
+            binding.mediaGrid.layoutManager =
+                GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
+            binding.mediaGrid.addItemDecoration(
+                ItemDecoration(resources.getDimension(R.dimen.small_padding), 3)
+            )
+
+            lifecycleScope.launch {
+                viewModel.mediaPagingFlow.collectLatest { pagingData ->
+                    cloudMediaPagingAdapter.submitData(pagingData)
                 }
-                cloudMediaPagingAdapter.notifyDataSetChanged()
+            }
+
+            onSelectionModeJob = lifecycleScope.launch {
+                viewModel.selectionManager.onSelectionMode.collectLatest { onSelectionMode ->
+                    if (onSelectionMode) {
+                        selectionMode =
+                            (requireActivity() as MainActivity).startSupportActionMode(callback) as ActionMode
+                    } else {
+                        selectionMode?.finish()
+                    }
+                    cloudMediaPagingAdapter.notifyDataSetChanged()
+                }
+            }
+
+            selectedCountJob = lifecycleScope.launch {
+                viewModel.selectionManager.selectedCount.collectLatest { selectedCount ->
+                    selectionMode?.title = "$selectedCount"
+                }
             }
         }
 
-        selectedCountJob = lifecycleScope.launch {
-            viewModel.selectionManager.selectedCount.collectLatest { selectedCount ->
-                selectionMode?.title = "$selectedCount"
-            }
-        }
     }
 
     override fun onDestroyView() {
