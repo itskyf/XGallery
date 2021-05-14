@@ -13,7 +13,6 @@ import androidx.core.app.NotificationCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import coil.load
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.snackbar.Snackbar
@@ -21,6 +20,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.team02.xgallery.databinding.ActivityMainBinding
 import com.team02.xgallery.utils.AppConstants
+import com.team02.xgallery.utils.GlideApp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import timber.log.Timber
@@ -67,16 +67,15 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launchWhenStarted {
             viewModel.authStateFlow.collectLatest {
                 if (!viewModel.isAvailableToLogIn) {
-                    Timber.d("${supportFragmentManager.backStackEntryCount}")
                     navController.navigate(R.id.openLoginFragment)
                 } else {
                     if (it?.photoUrl != null) {
-                        Firebase.storage.reference.child(it.photoUrl?.path.toString())
-                                .downloadUrl.addOnSuccessListener { downloadedUrl ->
-                                    topMenu.findItem(R.id.topBarAvatar).actionView.findViewById<ShapeableImageView>(
-                                            R.id.avatar
-                                    ).load(downloadedUrl)
-                                }
+                        GlideApp.with(this@MainActivity)
+                            .load(Firebase.storage.getReference(it.photoUrl?.path.toString()))
+                            .into(
+                                topMenu.findItem(R.id.topBarAvatar).actionView
+                                    .findViewById<ShapeableImageView>(R.id.avatar)
+                            )
                     }
                     viewModel.memories()
                 }
