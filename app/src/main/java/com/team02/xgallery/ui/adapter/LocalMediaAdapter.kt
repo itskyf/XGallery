@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
+import com.bumptech.glide.Glide
 import com.team02.xgallery.data.entity.LocalMedia
 import com.team02.xgallery.databinding.ListItemMediaBinding
 import com.team02.xgallery.utils.AppConstants
@@ -81,10 +81,11 @@ class LocalMediaAdapter(
             } else {
                 binding.checkBox.visibility = View.GONE
             }
-
-            binding.imageView.load(
-                ContentUris.withAppendedId(AppConstants.COLLECTION, media.id)
-            )
+            Glide.with(binding.imageView)
+                .load(
+                    ContentUris.withAppendedId(AppConstants.COLLECTION, media.id)
+                )
+                .into(binding.imageView)
         }
     }
 }

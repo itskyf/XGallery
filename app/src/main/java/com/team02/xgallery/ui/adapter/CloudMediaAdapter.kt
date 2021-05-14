@@ -1,20 +1,16 @@
 package com.team02.xgallery.ui.adapter
 
-import android.content.ContentUris
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.team02.xgallery.data.entity.CloudMedia
 import com.team02.xgallery.databinding.ListItemMediaBinding
-import com.team02.xgallery.utils.AppConstants
+import com.team02.xgallery.utils.GlideApp
 
 class CloudMediaAdapter(
     private val onClick: (CloudMedia) -> Unit,
@@ -86,12 +82,9 @@ class CloudMediaAdapter(
                 binding.checkBox.visibility = View.GONE
             }
 
-            val mediaRef = Firebase.storage.getReference(media.id!!)
-            mediaRef.downloadUrl.addOnCompleteListener {
-                if (it.isSuccessful) {
-                    Glide.with(binding.root).load(it.result).into(binding.imageView)
-                }
-            }
+            GlideApp.with(binding.imageView)
+                .load(Firebase.storage.getReference(media.id!!))
+                .into(binding.imageView)
         }
     }
 }

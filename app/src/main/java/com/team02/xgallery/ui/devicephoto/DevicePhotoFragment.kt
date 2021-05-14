@@ -3,7 +3,6 @@ package com.team02.xgallery.ui.devicephoto
 import android.content.ContentUris
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import coil.load
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.google.android.material.snackbar.Snackbar
-import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentDevicePhotoBinding
 import com.team02.xgallery.utils.AppConstants
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DevicePhotoFragment : Fragment() {
     private var _binding: FragmentDevicePhotoBinding? = null
     private val binding get() = _binding!!
@@ -37,7 +36,8 @@ class DevicePhotoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val args: DevicePhotoFragmentArgs by navArgs()
         binding.imgView.setImage(
-            ImageSource.uri(ContentUris.withAppendedId(AppConstants.COLLECTION, args.id)))
+            ImageSource.uri(ContentUris.withAppendedId(AppConstants.COLLECTION, args.id))
+        )
 
         with(binding) {
             backBtn.setOnClickListener {
@@ -59,7 +59,10 @@ class DevicePhotoFragment : Fragment() {
             shareBtn.setOnClickListener {
                 val shareIntent: Intent = Intent().apply {
                     action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_STREAM, ContentUris.withAppendedId(AppConstants.COLLECTION, args.id))
+                    putExtra(
+                        Intent.EXTRA_STREAM,
+                        ContentUris.withAppendedId(AppConstants.COLLECTION, args.id)
+                    )
                     type = "image/jpeg"
                 }
                 startActivity(Intent.createChooser(shareIntent, null))

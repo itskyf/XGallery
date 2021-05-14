@@ -2,25 +2,18 @@ package com.team02.xgallery.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.navigation.NavController
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import com.team02.xgallery.R
-import com.team02.xgallery.data.entity.LocalMedia
 import com.team02.xgallery.databinding.ListItemStoryBinding
-import com.team02.xgallery.ui.story.StoryFragment
 
 
-class StoryAdapter(private val onClick: () -> Unit, private val dataSet: List<Int>) : RecyclerView.Adapter<StoryAdapter.ViewHolder>() {
+class StoryAdapter(private val onClick: () -> Unit, private val dataSet: List<Int>) :
+    RecyclerView.Adapter<StoryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-                ListItemStoryBinding.inflate(
-                        LayoutInflater.from(parent.context), parent, false
-                )
+            ListItemStoryBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
         )
     }
 
@@ -33,10 +26,10 @@ class StoryAdapter(private val onClick: () -> Unit, private val dataSet: List<In
 
     class ViewHolder(val binding: ListItemStoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(onClick: () -> Unit, img: Int) {
-            binding.storyThumbnail.load(img)
-            binding.storyThumbnail.setOnClickListener{
-                onClick()
-            }
+//            binding.storyThumbnail.load(img)
+//            binding.storyThumbnail.setOnClickListener {
+//                onClick()
+//            }
         }
     }
 }

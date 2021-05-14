@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import coil.load
+import com.bumptech.glide.Glide
 import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentStoryBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,9 +24,9 @@ class StoryFragment : Fragment() {
     private var pos = 0
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentStoryBinding.inflate(inflater, container, false)
         return binding.root
@@ -36,17 +36,15 @@ class StoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.spb.segmentCount = 2
-        binding.spb.start()
-        binding.storyImg.load(listImage[pos])
-        binding.leftBtn.setOnClickListener{
-            if(pos == 0)
-            {
+        Glide.with(binding.storyImg).load(listImage[pos]).into(binding.storyImg)
+        binding.leftBtn.setOnClickListener {
+            if (pos == 0) {
                 binding.spb.restartSegment()
-            }else {
+            } else {
                 binding.spb.previous()
             }
         }
-        binding.rightBtn.setOnClickListener{
+        binding.rightBtn.setOnClickListener {
             binding.spb.next()
         }
         binding.storyLayout.setOnTouchListener(View.OnTouchListener { _, event ->
@@ -61,13 +59,19 @@ class StoryFragment : Fragment() {
         })
         binding.spb.listener = object : SegmentedProgressBarListener {
             override fun onPage(oldPageIndex: Int, newPageIndex: Int) {
-                binding.storyImg.load(listImage[newPageIndex])
+//                binding.storyImg.load(listImage[newPageIndex])
                 pos = newPageIndex
             }
+
             override fun onFinished() {
             }
         }
         navController = findNavController()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.spb.start()
     }
 
     override fun onDestroyView() {

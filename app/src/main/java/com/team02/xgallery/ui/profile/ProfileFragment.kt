@@ -11,11 +11,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import coil.load
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.team02.xgallery.databinding.FragmentProfileBinding
+import com.team02.xgallery.utils.GlideApp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -41,36 +41,37 @@ class ProfileFragment : Fragment() {
 
         // ----- Permission & Upload -----
         val getMediaActivityResult =
-                registerForActivityResult(ActivityResultContracts.GetContent()) {
-                    lifecycleScope.launch {
-                        viewModel.setUserAvatarFromDevice(it)
-                        Firebase.storage.reference.child(viewModel.userAvatar?.path.toString())
-                            .downloadUrl.addOnSuccessListener { downloadedUrl ->
-                                binding.userAvatar.load(downloadedUrl)
-                            }
-                    }
+            registerForActivityResult(ActivityResultContracts.GetContent()) {
+                lifecycleScope.launch {
+                    viewModel.setUserAvatarFromDevice(it)
+                    GlideApp.with(binding.userAvatar)
+                        .load(
+                            Firebase.storage.getReference(viewModel.userAvatar?.path.toString())
+                        )
+                        .into(binding.userAvatar)
                 }
+            }
         val requestPermissionLauncher = registerForActivityResult(
-                ActivityResultContracts.RequestPermission()
+            ActivityResultContracts.RequestPermission()
         ) { granted: Boolean ->
             if (granted) {
                 getMediaActivityResult.launch("image/*")
             } else {
                 Snackbar.make(
-                        binding.root,
-                        "Please accept to set avatar.",
-                        Snackbar.LENGTH_SHORT
+                    binding.root,
+                    "Please accept to set avatar.",
+                    Snackbar.LENGTH_SHORT
                 ).setAction("OK") {
                     // TODO navigate to the Setting Fragment
                 }.show()
             }
         }
-
+        GlideApp.with(binding.userAvatar)
+            .load(
+                Firebase.storage.getReference(viewModel.userAvatar?.path.toString())
+            )
+            .into(binding.userAvatar)
         with(binding) {
-            Firebase.storage.reference.child(viewModel.userAvatar?.path.toString())
-                .downloadUrl.addOnSuccessListener { downloadedUrl ->
-                    binding.userAvatar.load(downloadedUrl)
-                }
             userDisplayName.text = viewModel.userName
             email.text = viewModel.userEmail
             userAvatar.setOnClickListener {

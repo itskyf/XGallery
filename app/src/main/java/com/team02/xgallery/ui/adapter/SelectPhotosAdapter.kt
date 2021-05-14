@@ -1,26 +1,25 @@
 package com.team02.xgallery.ui.adapter
 
-import android.content.ContentUris
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.team02.xgallery.data.entity.CloudMedia
 import com.team02.xgallery.databinding.ListItemMediaBinding
-import com.team02.xgallery.utils.AppConstants
+import com.team02.xgallery.utils.GlideApp
 
 class SelectPhotosAdapter(
     private val selectionManager: SelectionManager
 ) :
     PagingDataAdapter<CloudMedia, SelectPhotosAdapter.SelectPhotosViewHolder>(diffCallback) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectPhotosAdapter.SelectPhotosViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): SelectPhotosAdapter.SelectPhotosViewHolder {
         return SelectPhotosAdapter.SelectPhotosViewHolder(
             ListItemMediaBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
@@ -66,13 +65,9 @@ class SelectPhotosAdapter(
 
             binding.checkBox.isChecked = adapter.selectionManager.isSelected(media.id!!)
             binding.checkBox.visibility = View.VISIBLE
-
-            val mediaRef = Firebase.storage.getReference(media.id!!)
-            mediaRef.downloadUrl.addOnCompleteListener {
-                if (it.isSuccessful) {
-                    Glide.with(binding.root).load(it.result).into(binding.imageView)
-                }
-            }
+            GlideApp.with(binding.imageView)
+                .load(Firebase.storage.getReference(media.id))
+                .into(binding.imageView)
         }
     }
 }

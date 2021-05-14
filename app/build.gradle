@@ -15,9 +15,9 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    ndkVersion '22.1.7171670'
     buildFeatures.viewBinding true
     buildTypes {
         debug {
