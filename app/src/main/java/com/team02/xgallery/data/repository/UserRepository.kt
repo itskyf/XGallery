@@ -58,7 +58,8 @@ class UserRepository {
                     .build()
             auth.currentUser!!.updateProfile(profileUpdates).addOnSuccessListener {
                 auth.currentUser!!.sendEmailVerification().addOnSuccessListener {
-                    fireStore.document("users/${userUID}").set(User(email.toString()))
+                    fireStore.document("users/${userUID}")
+                            .set(User(displayName, email, photoUrl?.path.toString()))
                 }
             }
         }.await()
@@ -80,6 +81,8 @@ class UserRepository {
             auth.currentUser?.updateProfile(
                     userProfileChangeRequest {
                         photoUri = Uri.parse(avatarPath)
+                        fireStore.document("users/$userUID")
+                                .update("avatarPath", avatarPath)
                     }
             )
         }.await()
