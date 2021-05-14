@@ -22,11 +22,7 @@ class RegisterViewModel @Inject constructor(
     suspend fun register(displayName: String, email: String, password: String) {
         try {
             _uiState.value = RegisterState.LOADING
-            userRepository.createUserWithEmailAndPassword(email, password)
-            val profileUpdates = UserProfileChangeRequest.Builder()
-                .setDisplayName(displayName).build()
-            userRepository.updateProfile(profileUpdates)
-            userRepository.sendEmailVerification()
+            userRepository.signUp(displayName, email, password)
             _uiState.value = RegisterState.SUCCESS
         } catch (e: FirebaseAuthWeakPasswordException) {
             _uiState.value = RegisterState.WEAK_PASSWORD
