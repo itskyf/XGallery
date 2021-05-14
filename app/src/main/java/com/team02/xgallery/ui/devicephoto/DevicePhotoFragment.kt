@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import coil.load
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.google.android.material.snackbar.Snackbar
 import com.team02.xgallery.R

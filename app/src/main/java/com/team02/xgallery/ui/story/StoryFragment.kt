@@ -2,6 +2,7 @@ package com.team02.xgallery.ui.story
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -9,10 +10,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import coil.load
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.team02.xgallery.databinding.FragmentStoryBinding
 import dagger.hilt.android.AndroidEntryPoint
 import pt.tornelas.segmentedprogressbar.SegmentedProgressBarListener
@@ -24,6 +27,8 @@ class StoryFragment() : Fragment() {
     private lateinit var navController: NavController
     private var listImage = arrayListOf<String>()
     private var pos = 0
+    private val args: StoryFragmentArgs by navArgs()
+    private val year = args.year
     private val userUid = Firebase.auth.currentUser?.uid.toString()
     private val db = Firebase.firestore
     override fun onCreateView(
@@ -42,9 +47,12 @@ class StoryFragment() : Fragment() {
             for(memory in memories){
                 listImage.add(memory)
             }
+            Log.d("Sang", listImage.toString())
+            Log.d("Sang", userUid)
             binding.spb.segmentCount = listImage.size
             binding.spb.start()
-            binding.storyImg.load(listImage[pos])
+            //binding.storyImg.load(listImage[pos])
+            Glide.with(binding.storyImg).load(Firebase.storage.getReference(listImage[pos])).into(binding.storyImg)
             binding.leftBtn.setOnClickListener{
                 if(pos == 0)
                 {
@@ -68,7 +76,7 @@ class StoryFragment() : Fragment() {
             })
             binding.spb.listener = object : SegmentedProgressBarListener {
                 override fun onPage(oldPageIndex: Int, newPageIndex: Int) {
-                    binding.storyImg.load(listImage[newPageIndex])
+                    Glide.with(binding.storyImg).load(Firebase.storage.getReference(listImage[pos])).into(binding.storyImg)
                     pos = newPageIndex
                 }
                 override fun onFinished() {

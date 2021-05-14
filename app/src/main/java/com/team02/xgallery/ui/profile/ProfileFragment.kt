@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import coil.load
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -46,7 +46,7 @@ class ProfileFragment : Fragment() {
                         viewModel.setUserAvatarFromDevice(it)
                         Firebase.storage.reference.child(viewModel.userAvatar?.path.toString())
                             .downloadUrl.addOnSuccessListener { downloadedUrl ->
-                                binding.userAvatar.load(downloadedUrl)
+                                    Glide.with(binding.userAvatar).load(downloadedUrl).into(binding.userAvatar)
                             }
                     }
                 }
@@ -69,7 +69,7 @@ class ProfileFragment : Fragment() {
         with(binding) {
             Firebase.storage.reference.child(viewModel.userAvatar?.path.toString())
                 .downloadUrl.addOnSuccessListener { downloadedUrl ->
-                    binding.userAvatar.load(downloadedUrl)
+                        Glide.with(binding.userAvatar).load(downloadedUrl).into(binding.userAvatar)
                 }
             userDisplayName.text = viewModel.userName
             email.text = viewModel.userEmail

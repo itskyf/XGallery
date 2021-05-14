@@ -3,7 +3,6 @@ package com.team02.xgallery.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.team02.xgallery.databinding.ListItemStoryBinding
 
 
@@ -27,7 +26,7 @@ class StoryAdapter(private val onClick: () -> Unit, private val dataSet: List<In
 
     class ViewHolder(val binding: ListItemStoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(onClick: () -> Unit, img: Int, text: String) {
-            binding.storyThumbnail.load(img)
+            //binding.storyThumbnail.load(img)
             binding.storyName.text = text
             binding.storyThumbnail.setOnClickListener{
                 onClick()

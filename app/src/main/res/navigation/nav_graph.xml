@@ -252,5 +252,9 @@
         android:id="@+id/storyFragment"
         android:name="com.team02.xgallery.ui.story.StoryFragment"
         android:label="StoryFragment"
-        tools:layout="@layout/fragment_story" />
+        tools:layout="@layout/fragment_story">
+        <argument
+            android:name="year"
+            app:argType="string"/>
+    </fragment>
 </navigation>

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
+import com.bumptech.glide.Glide
 import com.team02.xgallery.data.entity.Album
 import com.team02.xgallery.databinding.ListItemAlbumBinding
 import com.team02.xgallery.utils.AppConstants
@@ -49,9 +49,9 @@ class AlbumAdapter(private val onClick: (Album) -> Unit) :
             }
             binding.albumName.text = album.name
             if (album.thumbnailId is Long) {
-                binding.thumbnail.load(
-                    ContentUris.withAppendedId(AppConstants.COLLECTION, album.thumbnailId as Long)
-                )
+                Glide.with(binding.thumbnail)
+                        .load(ContentUris.withAppendedId(AppConstants.COLLECTION, album.thumbnailId as Long))
+                .into(binding.thumbnail)
             }
         }
     }

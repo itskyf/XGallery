@@ -59,7 +59,8 @@ class MainViewModel @Inject constructor(
         val month: String = dateOnly.substring(3,6)
         val year: String = dateOnly.substring(7,11)
         val today = "$day $month $year"
-        val memoryDay = "$day $month"
+        //val memoryDay = "$day $month"
+        val memoryDay = "24 Oct"
         val memories = arrayListOf<String>()
         db.collection("users").document(userRepository.userUID.toString()).get().addOnSuccessListener {document->
             val date: Date? = document.getTimestamp("lastSeen")?.toDate()
