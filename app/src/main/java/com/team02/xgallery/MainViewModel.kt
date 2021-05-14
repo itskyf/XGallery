@@ -4,18 +4,14 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
-import androidx.work.Constraints
-import androidx.work.NetworkType
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
-import androidx.work.workDataOf
+import androidx.work.*
 import com.team02.xgallery.data.repository.UserRepository
 import com.team02.xgallery.data.worker.UploadWorker
 import com.team02.xgallery.utils.AppConstants
+import com.team02.xgallery.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,12 +32,6 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    // TODO remove LiveData when Android support
-    private val notificationId = AtomicInteger(1)
-    private val uploadConstraints = Constraints.Builder()
-        .setRequiredNetworkType(NetworkType.CONNECTED)
-        .build()
-
 
     fun uploadFiles(uris: List<Uri>) {
         if (uris.isNotEmpty()) {
@@ -51,10 +41,14 @@ class MainViewModel @Inject constructor(
                         workDataOf(
                             AppConstants.WORKER_URI to uri.toString(),
                             AppConstants.WORKER_UUID to userRepository.userUID,
-                            AppConstants.WORKER_NOTIFICATION_ID to notificationId.getAndAdd(2)
+                            AppConstants.WORKER_NOTIFICATION_ID to Utils.notificationCounter
                         )
                     )
-                    .setConstraints(uploadConstraints)
+                    .setConstraints(
+                        Constraints.Builder()
+                            .setRequiredNetworkType(NetworkType.CONNECTED)
+                            .build()
+                    )
                     .addTag(AppConstants.WORKER_UPLOAD_TAG)
                     .build()
             }).enqueue()

@@ -11,7 +11,7 @@ object AppConstants {
         MediaStore.Images.Media.EXTERNAL_CONTENT_URI
     }
     const val ALBUM_PAGE_SIZE = 10
-    const val GALLERY_PAGE_SIZE = 100
+    const val GALLERY_PAGE_SIZE = 50
 
     // Workers key & tag name
     const val WORKER_URI = "workerImageUri"

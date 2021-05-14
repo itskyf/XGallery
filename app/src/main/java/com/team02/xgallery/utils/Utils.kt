@@ -1,23 +1,15 @@
 package com.team02.xgallery.utils
 
+import android.animation.TimeInterpolator
 import android.app.AlertDialog
 import android.app.WallpaperManager
 import android.content.Context
 import android.graphics.Bitmap
-import android.net.Uri
-import android.provider.MediaStore
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
-import coil.imageLoader
-import coil.request.Disposable
-import coil.request.ImageRequest
-import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.StorageReference
+import androidx.core.view.animation.PathInterpolatorCompat
+import androidx.transition.TransitionSet
+import java.util.concurrent.atomic.AtomicInteger
 
 
 object Utils {
@@ -31,50 +23,56 @@ object Utils {
         }
     }
 
+    private val mNotificationCounter = AtomicInteger(1)
+    val notificationCounter
+        get() = mNotificationCounter.getAndAdd(2)
+
+    inline fun transitionTogether(crossinline body: TransitionSet.() -> Unit): TransitionSet {
+        return TransitionSet().apply {
+            ordering = TransitionSet.ORDERING_TOGETHER
+            body()
+        }
+    }
+
+    val FAST_OUT_SLOW_IN: TimeInterpolator by lazy(LazyThreadSafetyMode.NONE) {
+        PathInterpolatorCompat.create(0.4f, 0f, 0.2f, 1f)
+    }
+
     fun setPhotoAs(context: Context, bitmap: Bitmap) {
         val myWallpaperManager = WallpaperManager.getInstance(context)
         val modes = arrayOf("Home Screen", "Lock Screen", "Home Screen and Lock Screen")
-        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        val builder = AlertDialog.Builder(context)
         builder.setTitle("Set photo as")
         builder.setItems(modes) { _, which ->
             when (which) {
                 0 -> myWallpaperManager.setBitmap(
+                    bitmap,
+                    null,
+                    true,
+                    WallpaperManager.FLAG_SYSTEM
+                )
+                1 -> myWallpaperManager.setBitmap(
+                    bitmap,
+                    null,
+                    true,
+                    WallpaperManager.FLAG_LOCK
+                )
+                2 -> {
+                    myWallpaperManager.setBitmap(
                         bitmap,
                         null,
                         true,
                         WallpaperManager.FLAG_SYSTEM
-                )
-                1 -> myWallpaperManager.setBitmap(
+                    )
+                    myWallpaperManager.setBitmap(
                         bitmap,
                         null,
                         true,
                         WallpaperManager.FLAG_LOCK
-                )
-                2 -> {
-                    myWallpaperManager.setBitmap(
-                            bitmap,
-                            null,
-                            true,
-                            WallpaperManager.FLAG_SYSTEM
-                    )
-                    myWallpaperManager.setBitmap(
-                            bitmap,
-                            null,
-                            true,
-                            WallpaperManager.FLAG_LOCK
                     )
                 }
             }
         }
         builder.show()
     }
-}
-
-inline fun ImageView.load(
-        data: StorageReference,
-        builder: ImageRequest.Builder.() -> Unit = {}
-): Disposable {
-    val request = ImageRequest.Builder(context).data(data).target(this@load)
-        .apply(builder).build()
-    return context.imageLoader.enqueue(request)
 }
