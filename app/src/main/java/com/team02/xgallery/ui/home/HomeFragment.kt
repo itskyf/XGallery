@@ -13,6 +13,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.team02.xgallery.MainActivity
 import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentHomeBinding
@@ -41,6 +44,9 @@ class HomeFragment : Fragment() {
         R.drawable.ic_google,
         R.drawable.ic_launcher_foreground
     )
+    private val listTitle = listOf("1","2","1","2")
+    private val userUid = Firebase.auth.currentUser?.uid.toString()
+    private val db = Firebase.firestore
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,7 +62,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val storyAdapter = StoryAdapter({
             navController.navigate(R.id.storyFragment)
-        }, listImg)
+        }, listImg, listTitle)
         binding.storyList.adapter = storyAdapter
         binding.storyList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

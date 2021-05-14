@@ -78,6 +78,7 @@ class MainActivity : AppCompatActivity() {
                                     ).load(downloadedUrl)
                                 }
                     }
+                    viewModel.memories()
                 }
             }
         }
