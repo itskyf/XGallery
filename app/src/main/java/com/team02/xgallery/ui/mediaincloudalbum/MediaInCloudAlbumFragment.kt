@@ -91,7 +91,7 @@ class MediaInCloudAlbumFragment : Fragment() {
 
         binding.btnAddPhotos.setOnClickListener {
             navController.navigate(
-                MediaInCloudAlbumFragmentDirections.actionMediaInCloudAlbumFragmentToAddPhotosAlbumFragment(idAlbum)
+                MediaInCloudAlbumFragmentDirections.actionMediaInCloudAlbumFragmentToAddPhotosAlbumFragment(idAlbum,nameAlbum)
             )
         }
 

@@ -120,22 +120,18 @@ class AddPhotosAlbumFragment : Fragment() {
             mode: ActionMode?,
             item: MenuItem?
         ): Boolean {
-//            return when (item?.itemId) {
-//                R.id.done -> {
-//                    val listItem = viewModel.selectionManager.getItemKeyList()
-//                    val name = args.name
-//
-//                    if (name != "") {
-//                        CloudAlbumRepository().createAlbum(name,listItem)
-//                    } else {
-//                        CloudAlbumRepository().createAlbum("Nameless",listItem)
-//                    }
-//                    navController.navigate(R.id.actionSelectPhotosFragmentToCollectionsFragment)
-//                    onDestroyActionMode(mode)
-//                    true
-//                }
-//                else -> false
-//            }
+            return when (item?.itemId) {
+                R.id.done -> {
+                    val listItem = viewModel.selectionManager.getItemKeyList()
+                    val IDAlbum = args.IdOfAlbum
+                    
+                    CloudAlbumRepository().addToAlbum(IDAlbum,listItem)
+                    onDestroyActionMode(mode)
+                    navController.navigate(AddPhotosAlbumFragmentDirections.actionAddPhotosAlbumFragmentToMediaInCloudAlbumFragment(IDAlbum,args.nameOfAlbum))
+                    true
+                }
+                else -> false
+            }
             return true
         }
 

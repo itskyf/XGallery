@@ -58,7 +58,6 @@ class CloudAlbumRepository {
                 .addOnSuccessListener { result ->
                     if (result.size() > 0 ) {
                         val newThumbnailId = Firebase.auth.currentUser?.uid.toString() + "/media/" + result.first().id
-                        Log.d("Hieu",newThumbnailId)
                         db.document("albums/" + id).update("thumbnailId", newThumbnailId)
                     }
                     else {
@@ -74,13 +73,23 @@ class CloudAlbumRepository {
         val IdPhoto = idPhoto.split("/").last()
         val docRef = db.document("albums/" + id)
             .collection("media").document(IdPhoto)
-        val result = docRef.get()
+        docRef.get()
             .addOnSuccessListener { docSnapShot ->
                 if (docSnapShot.exists()) {
                     myCallBack(true)
-                    Log.d("Hieutest", "Hello world")
                 }
                 else myCallBack(false)
             }
+    }
+
+    fun addToAlbum(id: String, listPhotos: List<Any>) {
+        val subCollectRef = db.document("albums/" + id)
+            .collection("media")
+        for (onePhoto in listPhotos) {
+            var onePhotoRef: String = onePhoto.toString().split("/").last()
+            subCollectRef.document(onePhotoRef)
+                .set(hashMapOf("dateAdded" to Timestamp.now()))
+        }
+
     }
 }
