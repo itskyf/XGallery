@@ -1,9 +1,10 @@
-package com.team02.xgallery.ui.home
+package com.team02.xgallery.ui.mediaincloudalbum
 
 import android.content.ContentUris
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
@@ -11,63 +12,61 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.team02.xgallery.MainActivity
 import com.team02.xgallery.R
+import com.team02.xgallery.data.repository.CloudAlbumRepository
 import com.team02.xgallery.databinding.FragmentHomeBinding
-import com.team02.xgallery.ui.adapter.CloudMediaAdapter
-import com.team02.xgallery.ui.adapter.ItemDecoration
-import com.team02.xgallery.ui.adapter.StoryAdapter
+import com.team02.xgallery.databinding.FragmentSelectPhotosBinding
+import com.team02.xgallery.ui.adapter.*
+import com.team02.xgallery.ui.home.HomeFragmentDirections
+import com.team02.xgallery.ui.mediaincloudalbum.MediaInCloudAlbumFragmentArgs
+import com.team02.xgallery.ui.newalbum.AddPhotosAlbumViewModel
+import com.team02.xgallery.ui.newalbum.SelectPhotosFragmentArgs
 import com.team02.xgallery.utils.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
-    private var _binding: FragmentHomeBinding? = null
+class AddPhotosAlbumFragment : Fragment() {
+    private var _binding: FragmentSelectPhotosBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: AddPhotosAlbumViewModel by viewModels()
     private lateinit var navController: NavController
     private var selectionMode: ActionMode? = null
     private var onSelectionModeJob: Job? = null
     private var selectedCountJob: Job? = null
-    private val listImg = listOf(
-        R.drawable.ic_google,
-        R.drawable.ic_launcher_foreground,
-        R.drawable.ic_google,
-        R.drawable.ic_launcher_foreground
-    )
+    val args: AddPhotosAlbumFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentSelectPhotosBinding.inflate(inflater, container, false)
         navController = findNavController()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val storyAdapter = StoryAdapter({
-            navController.navigate(R.id.storyFragment)
-        }, listImg)
-        binding.storyList.adapter = storyAdapter
-        binding.storyList.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        val cloudMediaPagingAdapter = CloudMediaAdapter({
-            navController.navigate(HomeFragmentDirections.openCloudPhotoViewFromHome(it.id!!))
-        }, viewModel.selectionManager)
-        binding.mediaGrid.adapter = cloudMediaPagingAdapter
-        binding.mediaGrid.layoutManager =
+        binding.selectPhotosTopBar.title = "Add photos"
+        binding.selectPhotosTopBar.setNavigationOnClickListener {
+            navController.navigateUp()
+        }
+
+        val cloudMediaPagingAdapter = AddPhotosAlbumAdapter(viewModel.selectionManager, args.IdOfAlbum)
+        binding.selectPhotosMediaGrid.adapter = cloudMediaPagingAdapter
+        binding.selectPhotosMediaGrid.layoutManager =
             GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
-        binding.mediaGrid.addItemDecoration(
+        binding.selectPhotosMediaGrid.addItemDecoration(
             ItemDecoration(resources.getDimension(R.dimen.small_padding), 3)
         )
 
@@ -78,7 +77,7 @@ class HomeFragment : Fragment() {
         }
 
         onSelectionModeJob = lifecycleScope.launch {
-            viewModel.selectionManager.onSelectionMode.collectLatest { onSelectionMode ->
+            viewModel.selectionManager.onSelectionMode.collect { onSelectionMode ->
                 if (onSelectionMode) {
                     selectionMode =
                         (requireActivity() as MainActivity).startSupportActionMode(callback) as ActionMode
@@ -109,7 +108,7 @@ class HomeFragment : Fragment() {
 
     private val callback: ActionMode.Callback = object : ActionMode.Callback {
         override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-            mode?.menuInflater?.inflate(R.menu.device_album_contextual_top_app_bar, menu)
+            mode?.menuInflater?.inflate(R.menu.select_photos_top_bar, menu)
             return true
         }
 
@@ -122,28 +121,18 @@ class HomeFragment : Fragment() {
             item: MenuItem?
         ): Boolean {
             return when (item?.itemId) {
-                R.id.share -> {
-                    val arrayImage = viewModel.selectionManager.getItemKeyList()
-                    val imageUris: ArrayList<Uri> = ArrayList()
-                    for (i in arrayImage) {
-                        Uri.parse(i.toString())
-                    }
-                    val shareIntent = Intent().apply {
-                        action = Intent.ACTION_SEND_MULTIPLE
-                        putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris)
-                        type = "image/*"
-                    }
-                    startActivity(Intent.createChooser(shareIntent, "Share images to.."))
-                    true
-                }
-                R.id.delete -> {
-                    true
-                }
-                R.id.more -> {
+                R.id.done -> {
+                    val listItem = viewModel.selectionManager.getItemKeyList()
+                    val IDAlbum = args.IdOfAlbum
+                    
+                    CloudAlbumRepository().addToAlbum(IDAlbum,listItem)
+                    onDestroyActionMode(mode)
+                    navController.navigate(AddPhotosAlbumFragmentDirections.actionAddPhotosAlbumFragmentToMediaInCloudAlbumFragment(IDAlbum,args.nameOfAlbum))
                     true
                 }
                 else -> false
             }
+            return true
         }
 
         override fun onDestroyActionMode(mode: ActionMode?) {

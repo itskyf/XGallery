@@ -75,7 +75,7 @@ class MediaInCloudAlbumFragment : Fragment() {
                     MaterialAlertDialogBuilder(requireContext())
                         .setMessage(resources.getString(R.string.ask_delete_album))
                         .setPositiveButton(resources.getString(R.string.yes)) { dialog, which ->
-                            CloudAlbumRepositoryVar.deleteAlbum(args.IdOfAlbum)
+                            CloudAlbumRepositoryVar.deleteAlbum(idAlbum)
                             navController.navigate(
                                 MediaInCloudAlbumFragmentDirections.actionMediaInCloudAlbumFragmentToCollectionsFragment()
                             )
@@ -87,6 +87,12 @@ class MediaInCloudAlbumFragment : Fragment() {
                 }
                 else -> false
             }
+        }
+
+        binding.btnAddPhotos.setOnClickListener {
+            navController.navigate(
+                MediaInCloudAlbumFragmentDirections.actionMediaInCloudAlbumFragmentToAddPhotosAlbumFragment(idAlbum,nameAlbum)
+            )
         }
 
         binding.nameAlbum.setText(nameAlbum)
