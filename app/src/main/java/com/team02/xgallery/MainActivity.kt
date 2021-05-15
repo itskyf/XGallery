@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity() {
                                     .findViewById<ShapeableImageView>(R.id.avatar)
                             )
                     }
+                    viewModel.memories()
                 }
             }
         }

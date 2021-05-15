@@ -18,7 +18,7 @@
         android:alpha="0.9"/>
 
     <TextView
-        android:id="@+id/album_name"
+        android:id="@+id/story_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
@@ -32,17 +32,4 @@
         android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="12sp" />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:src="@drawable/ic_google"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:layout_constraintTop_toTopOf="@id/storyThumbnail"
-        app:layout_constraintStart_toStartOf="@id/storyThumbnail"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="8dp"
-        app:strokeWidth="3dp"
-        android:padding="3dp"
-        app:strokeColor="#6495ED"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerSize50Percent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

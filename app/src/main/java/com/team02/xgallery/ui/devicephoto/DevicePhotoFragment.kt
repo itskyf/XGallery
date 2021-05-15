@@ -11,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.material.transition.Hold
+import com.davemorrissey.labs.subscaleview.ImageSource
+import com.google.android.material.snackbar.Snackbar
 import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentDevicePhotoBinding
 import com.team02.xgallery.utils.AppConstants
