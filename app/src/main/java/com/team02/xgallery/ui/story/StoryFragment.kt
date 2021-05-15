@@ -74,7 +74,7 @@ class StoryFragment() : Fragment() {
             })
             binding.spb.listener = object : SegmentedProgressBarListener {
                 override fun onPage(oldPageIndex: Int, newPageIndex: Int) {
-                    GlideApp.with(binding.storyImg).load(Firebase.storage.getReference(listImage[pos])).into(binding.storyImg)
+                    GlideApp.with(binding.storyImg).load(Firebase.storage.getReference(listImage[newPageIndex])).into(binding.storyImg)
                     pos = newPageIndex
                 }
                 override fun onFinished() {
