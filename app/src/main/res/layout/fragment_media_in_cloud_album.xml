@@ -35,51 +35,49 @@
                     android:id="@+id/nameAlbum"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginLeft="30dp"
                     android:textSize="35dp"
                     android:textColor="@color/black"
-                    android:text="Hello world"/>
+                    android:text="Album Name"/>
 
                 <androidx.legacy.widget.Space
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"/>
+                    android:layout_height="30dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
                     android:orientation="horizontal">
+
                     <Button
                         android:id="@+id/btn_add_photos"
                         style="@style/Widget.MaterialComponents.Button.Icon"
                         android:layout_width="wrap_content"
-                        android:layout_height="52dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:backgroundTint="@color/white"
-
                         android:text="Add photos"
-                        app:icon="@drawable/ic_share_24"
-
+                        app:icon="@drawable/ic_add_to_album"
                         android:background="@drawable/round_corner_view"
                         app:backgroundTint="@color/white"/>
+
                     <Button
+                        android:id="@+id/btn_share"
                         style="@style/Widget.MaterialComponents.Button.Icon"
-                        android:layout_width="122dp"
-                        android:layout_height="52dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:backgroundTint="@color/white"
-
-                        android:text="share"
+                        android:text="Share"
                         app:icon="@drawable/ic_share_24"
-
                         android:background="@drawable/round_corner_view"
                         app:backgroundTint="@color/white"/>
                 </LinearLayout>
 
                 <androidx.legacy.widget.Space
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"/>
+                    android:layout_height="30dp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/mediaInCloudAlbumGrid"
