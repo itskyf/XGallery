@@ -7,6 +7,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.team02.xgallery.R
 import com.team02.xgallery.data.entity.Album
 import com.team02.xgallery.databinding.ListItemAlbumBinding
 import com.team02.xgallery.utils.AppConstants
@@ -55,6 +56,7 @@ class AlbumAdapter(private val onClick: (Album) -> Unit) :
                             AppConstants.COLLECTION, album.thumbnailId as Long
                         )
                     )
+                    .placeholder(R.drawable.ic_round_folder_open_24)
                     .into(binding.thumbnail)
             }
         }

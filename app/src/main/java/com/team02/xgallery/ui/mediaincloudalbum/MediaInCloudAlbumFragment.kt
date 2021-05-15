@@ -1,8 +1,5 @@
 package com.team02.xgallery.ui.mediaincloudalbum
 
-import android.content.ContentUris
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.view.ActionMode
@@ -17,13 +14,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.team02.xgallery.MainActivity
 import com.team02.xgallery.R
 import com.team02.xgallery.data.repository.CloudAlbumRepository
-import com.team02.xgallery.databinding.FragmentFavoritesBinding
 import com.team02.xgallery.databinding.FragmentMediaInCloudAlbumBinding
 import com.team02.xgallery.ui.adapter.CloudMediaAdapter
 import com.team02.xgallery.ui.adapter.ItemDecoration
-import com.team02.xgallery.ui.collections.CollectionsFragmentDirections
 import com.team02.xgallery.ui.home.HomeFragmentDirections
-import com.team02.xgallery.utils.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
@@ -38,7 +32,7 @@ class MediaInCloudAlbumFragment : Fragment() {
     private var selectionMode: ActionMode? = null
     private var onSelectionModeJob: Job? = null
     private var selectedCountJob: Job? = null
-    private var CloudAlbumRepositoryVar : CloudAlbumRepository = CloudAlbumRepository()
+    private var CloudAlbumRepositoryVar: CloudAlbumRepository = CloudAlbumRepository()
     val args: MediaInCloudAlbumFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -58,9 +52,7 @@ class MediaInCloudAlbumFragment : Fragment() {
         viewModel.setAlbumId(idAlbum)
         val nameAlbum = args.nameOfAlbum
         binding.mediaInCloudAlbumTopBar.setNavigationOnClickListener {
-            navController.navigate(
-                MediaInCloudAlbumFragmentDirections.actionMediaInCloudAlbumFragmentToCollectionsFragment()
-            )
+            navController.popBackStack()
         }
 
         binding.mediaInCloudAlbumTopBar.setOnMenuItemClickListener { menuItem ->
@@ -74,13 +66,11 @@ class MediaInCloudAlbumFragment : Fragment() {
                 R.id.delete_album -> {
                     MaterialAlertDialogBuilder(requireContext())
                         .setMessage(resources.getString(R.string.ask_delete_album))
-                        .setPositiveButton(resources.getString(R.string.yes)) { dialog, which ->
+                        .setPositiveButton(resources.getString(R.string.yes)) { _, _ ->
                             CloudAlbumRepositoryVar.deleteAlbum(idAlbum)
-                            navController.navigate(
-                                MediaInCloudAlbumFragmentDirections.actionMediaInCloudAlbumFragmentToCollectionsFragment()
-                            )
+                            navController.popBackStack()
                         }
-                        .setNegativeButton(resources.getString(R.string.no)) { dialog, which ->
+                        .setNegativeButton(resources.getString(R.string.no)) { _, _ ->
                         }
                         .show()
                     true
@@ -91,7 +81,10 @@ class MediaInCloudAlbumFragment : Fragment() {
 
         binding.btnAddPhotos.setOnClickListener {
             navController.navigate(
-                MediaInCloudAlbumFragmentDirections.actionMediaInCloudAlbumFragmentToAddPhotosAlbumFragment(idAlbum,nameAlbum)
+                MediaInCloudAlbumFragmentDirections.actionMediaInCloudAlbumFragmentToAddPhotosAlbumFragment(
+                    idAlbum,
+                    nameAlbum
+                )
             )
         }
 
@@ -165,7 +158,7 @@ class MediaInCloudAlbumFragment : Fragment() {
                     val listItem = viewModel.selectionManager.getItemKeyList()
                     val idAlbum = args.IdOfAlbum
 
-                    CloudAlbumRepositoryVar.deletePhotos(idAlbum,listItem)
+                    CloudAlbumRepositoryVar.deletePhotos(idAlbum, listItem)
 
                     onDestroyActionMode(mode)
                     true

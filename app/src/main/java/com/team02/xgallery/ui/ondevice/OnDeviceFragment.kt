@@ -45,7 +45,7 @@ class OnDeviceFragment : Fragment() {
             ItemDecoration(resources.getDimension(R.dimen.default_padding), 2)
         )
         binding.folderTopBar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+            findNavController().popBackStack()
         }
         lifecycleScope.launch {
             viewModel.folderPagingFlow.filterIsInstance<PagingData<Album>>()
@@ -60,5 +60,4 @@ class OnDeviceFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

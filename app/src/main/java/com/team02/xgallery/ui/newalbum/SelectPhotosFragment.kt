@@ -1,10 +1,6 @@
 package com.team02.xgallery.ui.newalbum
 
-import android.content.ContentUris
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
@@ -14,19 +10,12 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.team02.xgallery.MainActivity
 import com.team02.xgallery.R
 import com.team02.xgallery.data.repository.CloudAlbumRepository
-import com.team02.xgallery.databinding.FragmentHomeBinding
 import com.team02.xgallery.databinding.FragmentSelectPhotosBinding
-import com.team02.xgallery.ui.adapter.CloudMediaAdapter
 import com.team02.xgallery.ui.adapter.ItemDecoration
 import com.team02.xgallery.ui.adapter.SelectPhotosAdapter
-import com.team02.xgallery.ui.adapter.StoryAdapter
-import com.team02.xgallery.ui.home.HomeFragmentDirections
-import com.team02.xgallery.ui.mediaincloudalbum.MediaInCloudAlbumFragmentArgs
-import com.team02.xgallery.utils.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest

@@ -7,11 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.davemorrissey.labs.subscaleview.ImageSource
-import com.google.android.material.snackbar.Snackbar
+import com.bumptech.glide.Glide
+import com.google.android.material.transition.Hold
+import com.team02.xgallery.R
 import com.team02.xgallery.databinding.FragmentDevicePhotoBinding
 import com.team02.xgallery.utils.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +20,15 @@ import dagger.hilt.android.AndroidEntryPoint
 class DevicePhotoFragment : Fragment() {
     private var _binding: FragmentDevicePhotoBinding? = null
     private val binding get() = _binding!!
-    private lateinit var navController: NavController
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Fragment A’s exitTransition can be set any time before Fragment A is
+        // replaced with Fragment B. Ensure Hold's duration is set to the same
+        // duration as your MaterialContainerTransform.
+        exitTransition = Hold()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,66 +36,66 @@ class DevicePhotoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDevicePhotoBinding.inflate(inflater, container, false)
-        navController = findNavController()
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        // Load image
         val args: DevicePhotoFragmentArgs by navArgs()
-        binding.imgView.setImage(
-            ImageSource.uri(ContentUris.withAppendedId(AppConstants.COLLECTION, args.id))
-        )
+        val mediaUri = ContentUris.withAppendedId(AppConstants.COLLECTION, args.id)
+        val navController = findNavController()
+        Glide.with(this).load(mediaUri).into(binding.mediaView)
 
-        with(binding) {
-            backBtn.setOnClickListener {
-                navController.popBackStack()
-            }
-            moreBtn.setOnClickListener {
-                val bottomSheetFragment =
-                    DevicePhotoMoreBottomSheet(
-                        ContentUris.withAppendedId(
-                            AppConstants.COLLECTION,
-                            args.id
-                        )
-                    )
-                bottomSheetFragment.show(
-                    requireActivity().supportFragmentManager,
-                    bottomSheetFragment.tag
-                )
-            }
-            shareBtn.setOnClickListener {
-                val shareIntent: Intent = Intent().apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(
-                        Intent.EXTRA_STREAM,
-                        ContentUris.withAppendedId(AppConstants.COLLECTION, args.id)
-                    )
-                    type = "image/jpeg"
-                }
-                startActivity(Intent.createChooser(shareIntent, null))
-            }
-            editBtn.setOnClickListener {
-                // TODO: edit this device photo
-            }
-            uploadBtn.setOnClickListener {
-                // TODO: upload this device photo
-            }
-            deleteBtn.setOnClickListener {
-                Snackbar.make(
-                    binding.root,
-                    "Upcoming feature",
-                    Snackbar.LENGTH_SHORT
-                ).show()
-            }
-            imgView.setOnClickListener {
-                if (appBarsLayout.visibility == View.GONE) {
-                    appBarsLayout.visibility = View.VISIBLE
-                } else {
-                    appBarsLayout.visibility = View.GONE
-                }
+        // UI
+        binding.topBar.background.alpha = 200
+        binding.bottomNav.background.alpha = 200
+        binding.mediaView.setOnClickListener {
+            if (binding.topBar.visibility == View.VISIBLE) {
+                binding.topBar.visibility = View.GONE
+                binding.bottomNav.visibility = View.GONE
+            } else {
+                binding.topBar.visibility = View.VISIBLE
+                binding.bottomNav.visibility = View.VISIBLE
             }
         }
+        //Top bar
+        binding.topBar.setNavigationOnClickListener {
+            navController.popBackStack()
+        }
+        binding.topBar.setOnMenuItemClickListener {
+            val bottomSheetFragment = DevicePhotoBottomSheet(mediaUri)
+            bottomSheetFragment.show(
+                requireActivity().supportFragmentManager,
+                bottomSheetFragment.tag
+            )
+            true
+        }
+
+        // Bottom bar
+        binding.bottomNav.menu.setGroupCheckable(0, false, true)
+        binding.bottomNav.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.device_photo_share -> {
+                    val shareIntent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(
+                            Intent.EXTRA_STREAM,
+                            ContentUris.withAppendedId(AppConstants.COLLECTION, args.id)
+                        )
+                        type = "image/jpeg" // TODO image type ?
+                    }
+                    startActivity(Intent.createChooser(shareIntent, null))
+                    true
+                }
+                R.id.device_photo_edit -> {
+                    navController.navigate(
+                        DevicePhotoFragmentDirections.actionEditLocalMedia(mediaUri)
+                    )
+                    true
+                }
+                R.id.device_photo_delete -> {
+                    true
+                }
+                else -> false
+            }
+        }
+        return binding.root
     }
 
     override fun onDestroyView() {

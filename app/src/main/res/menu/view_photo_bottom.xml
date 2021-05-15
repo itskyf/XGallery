@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/device_photo_share"
         android:icon="@drawable/ic_share_24"
         android:title="@string/share" />
     <item
+        android:id="@+id/device_photo_edit"
         android:icon="@drawable/ic_round_tune_24"
         android:title="@string/edit" />
     <item
-        android:icon="@drawable/ic_black_delete_24"
+        android:id="@+id/device_photo_delete"
+        android:icon="@drawable/ic_round_delete_outline_24"
         android:title="@string/delete" />
 </menu>

@@ -8,6 +8,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.team02.xgallery.R
 import com.team02.xgallery.data.entity.LocalMedia
 import com.team02.xgallery.databinding.ListItemMediaBinding
 import com.team02.xgallery.utils.AppConstants
@@ -85,6 +86,7 @@ class LocalMediaAdapter(
                 .load(
                     ContentUris.withAppendedId(AppConstants.COLLECTION, media.id)
                 )
+                .placeholder(R.drawable.ic_launcher_foreground)
                 .into(binding.imageView)
         }
     }

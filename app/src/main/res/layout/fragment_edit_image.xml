@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="scrollable" />
+
+        <jp.co.cyberagent.android.gpuimage.GPUImageView
+            android:id="@+id/mediaView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:gpuimage_show_loading="true"
+            app:gpuimage_surface_type="texture_view" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="144dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <FrameLayout
+            android:id="@+id/functionalGrp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/default_padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/cancelBtn"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel" />
+
+            <Button
+                android:id="@+id/saveBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/save" />
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/brightnessReset"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_padding"
+            android:text="Brightness"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/functionalGrp" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/brightnessSlider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:value="0"
+            android:valueFrom="-1"
+            android:valueTo="1"
+            app:layout_constraintBottom_toBottomOf="@id/brightnessReset"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/brightnessReset"
+            app:layout_constraintTop_toTopOf="@id/brightnessReset" />
+
+        <Button
+            android:id="@+id/contrastReset"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contrast"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/brightnessReset" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/contrastSlider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:value="1"
+            android:valueFrom="0"
+            android:valueTo="4"
+            app:layout_constraintBottom_toBottomOf="@id/contrastReset"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/brightnessReset"
+            app:layout_constraintTop_toTopOf="@id/contrastReset" />
+
+        <Button
+            android:id="@+id/hlReset"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Highlight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/contrastReset" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/hlSlider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:value="1"
+            android:valueFrom="0"
+            android:valueTo="1"
+            app:layout_constraintBottom_toBottomOf="@id/hlReset"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/brightnessReset"
+            app:layout_constraintTop_toTopOf="@id/hlReset" />
+
+        <Button
+            android:id="@+id/shadowReset"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shadow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hlReset" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/shadowSlider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:value="0"
+            android:valueFrom="0"
+            android:valueTo="1"
+            app:layout_constraintBottom_toBottomOf="@id/shadowReset"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/brightnessReset"
+            app:layout_constraintTop_toTopOf="@id/shadowReset" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
