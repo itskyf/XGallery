@@ -73,6 +73,9 @@
                 android:name="nameOfAlbum"
                 app:argType="string" />
         </action>
+        <action
+            android:id="@+id/actionMediaInCloudAlbumFragmentToCloudPhotoView"
+            app:destination="@id/cloudPhotoFragment"/>
     </fragment>
 
     <fragment
