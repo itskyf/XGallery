@@ -64,8 +64,8 @@ class MainViewModel @Inject constructor(
         val year: String = dateOnly.substring(7,11)
         val today = "$day $month $year"
         val yearInt: Int = Integer.parseInt(year)
-        //val memoryDay = "$day $month"
-        val memoryDay = "24 Oct"
+        val memoryDay = "$day $month"
+        //val memoryDay = "24 Oct"
         val memories1 = arrayListOf<String>()
         val memories2 = arrayListOf<String>()
         val memories3 = arrayListOf<String>()

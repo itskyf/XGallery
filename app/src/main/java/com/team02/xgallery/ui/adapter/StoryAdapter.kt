@@ -1,5 +1,6 @@
 package com.team02.xgallery.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +23,13 @@ class StoryAdapter(private val onClick: (Int) -> Unit, private val dataSet: Arra
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val img = dataSet[position]
         val text = title[position]
-        holder.bind(onClick, img, text, position+1)
+        var pos = 0
+        if(text == "1 years ago") pos = 1
+        if(text == "2 years ago") pos = 2
+        if(text == "3 years ago") pos = 3
+        if(text == "4 years ago") pos = 4
+        if(text == "5 years ago") pos = 5
+        holder.bind(onClick, img, text, pos)
     }
 
     override fun getItemCount() = title.size

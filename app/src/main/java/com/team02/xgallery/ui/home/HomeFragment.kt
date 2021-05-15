@@ -88,7 +88,7 @@ class HomeFragment : Fragment() {
                 listImg.add(memories5[0])
             }
             val storyAdapter = StoryAdapter({
-                navController.navigate(HomeFragmentDirections.openStory(it+1))
+                navController.navigate(HomeFragmentDirections.openStory(it))
             }, listImg, listTitle)
             binding.storyList.adapter = storyAdapter
             binding.storyList.layoutManager =
