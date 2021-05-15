@@ -113,6 +113,11 @@
     </fragment>
 
     <fragment
+        android:id="@+id/cloudAlbumMembersFragment"
+        android:name="com.team02.xgallery.ui.cloudalbummembers.CloudAlbumMembersFragment"
+        tools:layout="@layout/fragment_cloud_album_members" />
+
+    <fragment
         android:id="@+id/selectPhotosFragment"
         android:name="com.team02.xgallery.ui.newalbum.SelectPhotosFragment"
         tools:layout="@layout/fragment_select_photos">
@@ -123,7 +128,6 @@
             android:name="name"
             app:argType="string" />
     </fragment>
-
 
     <action
         android:id="@+id/openProfileFragment"
