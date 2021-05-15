@@ -3,17 +3,21 @@ package com.team02.xgallery.data.source.network
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.firestore.v1.Value
 import com.team02.xgallery.data.entity.CloudMedia
 import com.team02.xgallery.utils.AppConstants
 import kotlinx.coroutines.tasks.await
+import kotlin.reflect.typeOf
 
-class MediaInCloudAlbumPagingSource (
-private val db: FirebaseFirestore,
-private val userUID: String,
-private val albumUID: String
+
+class MediaInCloudAlbumPagingSource(
+    private val db: FirebaseFirestore,
+    private val userUID: String,
+    private val albumUID: String,
 ) : PagingSource<QuerySnapshot, CloudMedia>() {
 
     override suspend fun load(params: PagingSource.LoadParams<QuerySnapshot>): PagingSource.LoadResult<QuerySnapshot, CloudMedia> {
@@ -26,26 +30,39 @@ private val albumUID: String
                     }
                 }.await()
 
-            val currentPage = params.key
-                ?: db.collection("media")
-                    .whereIn("id", listID)
-                    .limit(AppConstants.GALLERY_PAGE_SIZE.toLong())
-                    .get()
-                    .await()
+            val chunkedID = listID.chunked(9)
 
-            val lastDocumentSnapshot = currentPage.documents[currentPage.size() - 1]
-
-            val nextPage = db.collection("media")
-                .whereIn("id", listID)
-                .startAfter(lastDocumentSnapshot)
+            var snapshotvar: QuerySnapshot = db.collection("media")
                 .limit(AppConstants.GALLERY_PAGE_SIZE.toLong())
                 .get()
                 .await()
 
+            var Data: MutableList<CloudMedia> = arrayListOf()
+            for (oneList in chunkedID) {
+                var tempPage = db.collection("media")
+                    .whereIn("id", oneList)
+                    .limit(AppConstants.GALLERY_PAGE_SIZE.toLong())
+                    .get()
+                    .await()
+                Data = (Data + (tempPage.toObjects(CloudMedia::class.java))) as MutableList<CloudMedia>
+                snapshotvar = tempPage
+            }
+
+            val currentPage = params.key
+                ?:snapshotvar
+            val lastDocumentSnapshot = currentPage.documents[currentPage.size() - 1]
+
+//            val nextPage = db.collection("media")
+//                .whereIn("id", listID)
+//                .startAfter(lastDocumentSnapshot)
+//                .limit(AppConstants.GALLERY_PAGE_SIZE.toLong())
+//                .get()
+//                .await()
+
             PagingSource.LoadResult.Page(
-                data = currentPage.toObjects(CloudMedia::class.java),
+                data = Data,
                 prevKey = null,
-                nextKey = nextPage
+                nextKey = null
             )
         } catch (e: Exception) {
             Log.d("NDH", "$e")

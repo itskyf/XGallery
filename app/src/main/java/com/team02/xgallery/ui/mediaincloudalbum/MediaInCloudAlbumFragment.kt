@@ -91,7 +91,7 @@ class MediaInCloudAlbumFragment : Fragment() {
         binding.nameAlbum.setText(nameAlbum)
 
         val pagingAdapter = CloudMediaAdapter({
-            navController.navigate(HomeFragmentDirections.openCloudPhotoViewFromHome(it.id!!))
+            navController.navigate(MediaInCloudAlbumFragmentDirections.actionMediaInCloudAlbumFragmentToCloudPhotoView(it.id!!))
         }, viewModel.selectionManager)
         binding.mediaInCloudAlbumGrid.adapter = pagingAdapter
         binding.mediaInCloudAlbumGrid.layoutManager =

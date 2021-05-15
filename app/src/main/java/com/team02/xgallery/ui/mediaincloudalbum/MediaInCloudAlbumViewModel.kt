@@ -21,7 +21,7 @@ class MediaInCloudAlbumViewModel @Inject constructor(
     private val state: SavedStateHandle
 ) : ViewModel() {
     val mediaPagingFlow = Pager(
-        config = PagingConfig(pageSize = AppConstants.ALBUM_PAGE_SIZE),
+        config = PagingConfig(pageSize = AppConstants.GALLERY_PAGE_SIZE),
         pagingSourceFactory = {
             MediaInCloudAlbumPagingSource(Firebase.firestore, Firebase.auth.currentUser?.uid.toString(),state.get<String>("albumID").toString())
         }
